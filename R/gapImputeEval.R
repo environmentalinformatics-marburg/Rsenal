@@ -1,6 +1,7 @@
-gapImputeEval <- function(x, n, size, seed = 123, funs, ...) {
+gapImputeEval <- function(x, n, size, seed = 123, 
+                          fixed.size = TRUE, funs, ...) {
 
-  gappy <- gapCreate(x, n, size, seed)
+  gappy <- gapCreate(x, n, size, seed, fixed.size)
   
   imptd <- lapply(seq(funs), function(i) {
     gapImpute(gappy, funs[[i]])
@@ -12,9 +13,9 @@ gapImputeEval <- function(x, n, size, seed = 123, funs, ...) {
     return(c(rsq, ioa))
   })
   
-  out <- eval
-  rownames(out) <- c("rsq", "IOA")
+  out <- as.data.frame(eval)
   colnames(out) <- paste("fun", sprintf("%02.f", seq(funs)), sep = ".")
+  out$stat <- c("rsq", "IOA")
   
   return(out)
 }
