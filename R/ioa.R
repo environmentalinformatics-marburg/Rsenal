@@ -1,4 +1,4 @@
-IOA <- function(x, y) {
+ioa <- function(x, y) {
 
   ## DEFINE FUNCTION TO CONVERT VECTOR TO BINARY: 
   ## 1 FOR POSITIVE STEP, -1 FOR NEGATIVE

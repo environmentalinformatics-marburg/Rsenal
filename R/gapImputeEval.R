@@ -9,7 +9,7 @@ gapImputeEval <- function(x, n, size, seed = 123,
   
   eval <- sapply(seq(imptd), function(i) {
     rsq <- summary(lm(x ~ imptd[[i]]))$r.squared
-    ioa <- IOA(x, imptd[[i]])
+    ioa <- ioa(x, imptd[[i]])
     return(c(rsq, ioa))
   })
   
