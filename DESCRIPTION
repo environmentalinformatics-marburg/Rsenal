@@ -6,5 +6,5 @@ Date: 2013-08-25
 Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kühnlein, Spaska Forteva, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: a compilation of R functions we find useful for our day-to-day business
-License: GNU GPL (>=3)
+License: GNU lGPL (>=3)
 Depends: 
