@@ -1,8 +1,9 @@
 kstat=function(a,b,mask="",perCategory=TRUE) {
-  library(raster)
+  require(raster)
   ##################################################################################################
   #Function: Calculate contingency table
   ctab=function(a,b){
+    require(raster)
     va=values(a)
     vb=values(b)
     name=sort(union(unique(a),unique(b)))

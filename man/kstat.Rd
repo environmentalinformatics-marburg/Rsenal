@@ -48,6 +48,7 @@ Hanna Meyer
 }
 \examples{
 ## Example calculating the indices from two rasters with 4 categories of interest
+library(raster)
 r <- raster(nc=5, nr=5)
 s <- raster(nc=5, nr=5)
 r[]=sample(0:4, 25,replace=T)
