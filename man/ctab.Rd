@@ -34,7 +34,7 @@
 \code{\link{kstat}}
 }
 \examples{
-  ## Example calculating the indices from two rasters with 4 categories of interest
+  ## Example calculating contingency table from 2 rasters.
   library(raster)
   r <- raster(nc=5, nr=5)
   s <- raster(nc=5, nr=5)
