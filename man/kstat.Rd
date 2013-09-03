@@ -46,6 +46,9 @@ Disagreement and Allocation Disagreement for Accuracy Assessment. International 
 \author{
 Hanna Meyer
 }
+\seealso{
+\code{\link{ctab}}
+}
 \examples{
 ## Example calculating the indices from two rasters with 4 categories of interest
 library(raster)

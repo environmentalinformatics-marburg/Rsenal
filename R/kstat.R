@@ -1,23 +1,6 @@
 kstat=function(a,b,mask="",perCategory=TRUE) {
   require(raster)
   ##################################################################################################
-  #Function: Calculate contingency table
-  ctab=function(a,b){
-    require(raster)
-    va=values(a)
-    vb=values(b)
-    name=sort(union(unique(a),unique(b)))
-    result=matrix(0,ncol=length(name),nrow=length(name))
-    colnames(result)=name
-    row.names(result)=name
-    for (i in 1:nrow(result)){
-      for (k in 1:ncol(result)){
-        result[i,k]=sum(va==row.names(result)[i]&vb==colnames(result)[k])
-      }
-    }
-    return(result)
-  }
-  ##################################################################################################
   #Function: Calculate kappa indices and disagreements
 	calculateKappa=function(ct){
 		KappaResult=matrix()
@@ -60,21 +43,10 @@ kstat=function(a,b,mask="",perCategory=TRUE) {
   ##################################################################################################
   #Initialise
   if (any(dim(a)!=dim(b))){
-    stop ("Dimensions of a and b does not match!")
+    stop ("Dimensions of a and b do not match!")
   }
-  ct=ctab(a,b)
+  ct=ctab(a,b,mask=mask)
 	result=list()
-  #mask and make sure that at least two classes are still available
-	for (i in 1:length(mask)){
-		ct=ct[row.names(ct)!=mask[i],]
-		if (ncol(as.matrix(ct))==1||nrow(as.matrix(ct))==1){
-			stop ("Calculation of Kappa requires at least two categories")
-		}
-		ct=ct[,colnames(ct)!=mask[i]] 
-	}
-	if (ncol(as.matrix(ct))==1||nrow(as.matrix(ct))==1){
-		stop ("Calculation of Kappa requires at least two categories")
-	}	
   #reclass to calculate kappa per category
 	cttmp=ct
 	if (ncol(cttmp)<=2||perCategory==FALSE){
