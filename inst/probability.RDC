@@ -1,0 +1,26 @@
+file format : IDRISI Raster A.1
+file title  : 
+data type   : real
+file type   : binary
+columns     : 154
+rows        : 99
+ref. system : utm-32n
+ref. units  : m
+unit dist.  : 1.0000000
+min. X      : 477954.5575595
+max. X      : 493354.5575595
+min. Y      : 5622904.9366879
+max. Y      : 5632804.9366879
+pos'n error : unknown
+resolution  : unknown
+min. value  : 0.0000000
+max. value  : 1.0000000
+display min : 0.0000000
+display max : 1.0000000
+value units : unspecified
+value error : unknown
+flag value  : none
+flag def'n  : none
+legend cats : 0
+lineage     : This file was created by SCALAR with the command line: 
+lineage     : C:\USERS\HANNA\DOCUMENTS\TMP\READY\TMP013.rst*C:\USERS\HANNA\DOCUMENTS\TMP\READY\TMP-1.rst*1*1

@@ -1,0 +1,26 @@
+file format : IDRISI Raster A.1
+file title  : 
+data type   : byte
+file type   : binary
+columns     : 154
+rows        : 99
+ref. system : utm-32n
+ref. units  : m
+unit dist.  : 1.0000000
+min. X      : 477954.5575595
+max. X      : 493354.5575595
+min. Y      : 5622904.9366879
+max. Y      : 5632804.9366879
+pos'n error : unknown
+resolution  : unknown
+min. value  : 0
+max. value  : 3
+display min : 0
+display max : 3
+value units : unspecified
+value error : unknown
+flag value  : none
+flag def'n  : none
+legend cats : 0
+lineage     : This file was created by the POLYRAS module with the command line: 
+lineage     : C:\Users\Hanna\Documents\tmp\ready\training.vct*C:\Users\Hanna\Documents\tmp\ready\training.rst*1

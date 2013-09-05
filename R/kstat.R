@@ -25,7 +25,7 @@ kstat=function(a,b,mask="",perCategory=TRUE) {
 		K=(PA-PE)/(1-PE)
 		#Kappa of location:
 		Kloc=(PA-PE)/(PMax-PE)
-		#Kappa of quantity:
+		#Kappa of histogram:
 		Khisto=(PMax-PE)/(1-PE)
 		#chance agreement:
 		CA=100*min((1/cmax),PA,PE)

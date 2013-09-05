@@ -31,14 +31,17 @@
   Hanna Meyer
 }
 \seealso{
-\code{\link{kstat}}
+For calculation of kappa indices see \code{\link{kstat}}
 }
 \examples{
-  ## Example calculating contingency table from 2 rasters.
-  library(raster)
-  r <- raster(nc=5, nr=5)
-  s <- raster(nc=5, nr=5)
-  r[]=sample(0:4, 25,replace=T)
-  s[]=sample(0:4, 25,replace=T)
-  ctab(r,s,mask="0")
+#### Calculate the contingency table from two Land cover maps
+library(raster)
+LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
+LUC2006=raster(system.file("LUC2006.rst", package="Rsenal"))
+ctab(LUC1990,LUC2006)
+#### Calculate the contingency table from a land cover map and a map of ground truth sites
+LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
+trainingSites=raster(system.file("training.rst", package="Rsenal"))
+#consider to mask the background since ground truth sites don't cover the whole area
+ctab(LUC1990,trainingSites,mask="0")
 }
