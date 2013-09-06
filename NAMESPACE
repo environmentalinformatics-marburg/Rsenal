@@ -1,4 +1,5 @@
 exportPattern("^[[:alpha:]]+")
 import (
-  raster
+  raster,
+  rgdal
 )

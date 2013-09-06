@@ -50,16 +50,37 @@ Hanna Meyer
 For returning only the contingency table see \code{\link{ctab}}.
 }
 \examples{
-#### Calculate the indices to compare two Land cover maps
+#### Example 1: Calculate the indices to compare two Land cover maps
+#load data
 library(raster)
 LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
 LUC2006=raster(system.file("LUC2006.rst", package="Rsenal"))
+
+#plot to get an impression:
+par(mfrow=c(1,2))
+plot(LUC1990,main="LUC Marburg 1990")
+plot(LUC2006,main="LUC Marburg 2006")
+
+#calculate indices:
 kstat(LUC1990,LUC2006)
-#### Calculate the indices to compare a land cover map with a map of ground truth sites
+
+
+#### Example 2: Calculate the indices to compare a land cover map with a map of ground truth sites
+#load data:
 LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
 trainingSites=raster(system.file("training.rst", package="Rsenal"))
-#consider to mask the background since ground truth sites don't cover the whole area
+
+#plot to get an impression:
+par(mfrow=c(1,2))
+plot(LUC1990,main="LUC Marburg 1990")
+plot(trainingSites,main="Training sites (Ground truth)")
+
+#calculate indices
+#(consider to mask the background since ground truth sites don't cover the whole area)
 kstat(LUC1990,trainingSites,mask="0")
+
+
+
 
 #For an example of an other field of application of these indices see 
 #http://giswerk.org/doku.php?id=people:c:creudenbach:alpenwerk:achtunglawine
