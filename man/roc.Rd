@@ -8,7 +8,7 @@
   Calculation of receiver operating characteristics (ROC) and the corresponding area under the ROC-curve (AUC) from a probability map and a classified map.
 }
 \usage{
-  roc(pred, obs, mask=NA, th=50, plot=TRUE)
+  roc(pred, obs, mask=NA, plot=TRUE, th=100)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
