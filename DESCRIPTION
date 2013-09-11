@@ -3,8 +3,8 @@ Type: Package
 Title: magic R functions for things various
 Version: 0.1.1
 Date: 2013-08-25
-Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kühnlein, Spaska Forteva, Thomas Nauss
+Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer, Spaska Forteva, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
 Description: a compilation of R functions we find useful for our day-to-day business
 License: GNU lGPL (>=3)
-Depends: 
+Depends: raster, colorspace
