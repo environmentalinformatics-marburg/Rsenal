@@ -62,8 +62,8 @@ From theses statistics, the \strong{kappa indices} are calculated as:
 \itemize{
          \item Chance agreement: \eqn{CA=100*min((1/cmax),P(A),P(E))}
          \item Quantity agreement: \eqn{QA=ifelse(min((1/cmax),P(E),P(A)==(1/cmax),100*min((P(E)-1/cmax),P(A)-1/cmax),0)}
-         \item Allocation disagreement: \eqn{AD=100*(P(Max)-P(A)}
-         \item Quantity disagreement: \eqn{QD=100*(1-P(Max)}
+         \item Allocation disagreement: \eqn{AD=100*(P(Max)-P(A))}
+         \item Quantity disagreement: \eqn{QD=100*(1-P(Max))}
          }
 with \eqn{cmax} is the number of categories.
 
