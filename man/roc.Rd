@@ -30,7 +30,7 @@
 }
 \details{
 The probability map is ranked decendingly. For each threshold, the corresponding percentage of pixels in the ranked probability map is then classified as 1, the pixels with lower probability are classified as 0. This classification is then compared to the observed classification and the false positives and true positives are calculated.
-The AUC is the resulting sum of true positives at each threshold divided by the number of thresholds. An AUC of 0.5 indicates a ROC-curve asssociated with a random classification.
+The AUC is the integral of a natural spline interpolation. An AUC of 0.5 indicates a ROC-curve asssociated with a random classification.
 
 This function might be used to compare the performance of different models, assess the threshold-independent performance of a model or to find the best threshold for your model.
 }

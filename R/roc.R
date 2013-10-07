@@ -26,13 +26,13 @@ roc=function(pred,obs,mask=NA,plot=TRUE,th=100) {
     result[which(c(0,seq(round(pixel/th,0),pixel,by=round(pixel/th,0)),pixel)==i),3]= A/(A+C)
     result[which(c(0,seq(round(pixel/th,0),pixel,by=round(pixel/th,0)),pixel)==i),2]=B/(B+D)
   }
-  AUC=sum(result[,3])/nrow(result)
+  AUC=integrate(splinefun(result[,2],result[,3],method="natural"),0,1)$value
   if (plot==TRUE){
     plot(result[,2],result[,3],type="l",xlab="False positive rate",ylab="True positive rate",xlim=c(0,1),ylim=c(0,1))
     lines(c(0,1),c(0,1),col="grey50")
     legend("topleft",legend=paste("AUC = ",round(AUC,3)),bty="n")
   }
-  colnames(result)=c("TH","FP","TP")
+  colnames(result)=c("threshold","falsePositives","truePositives")
   result2=list()
   result2[[1]]=AUC
   result2[[2]]=result
