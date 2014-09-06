@@ -1,3 +1,20 @@
+#' bump package 'Version:' and 'Date:' in DESCRIPTION file
+#' 
+#' @description
+#' this function let's you bump the version number and creation date of 
+#' your package's DESCRIPTION file. 
+#' Supported versioning system is major.minor.patch 
+#' 
+#' @param major major versioning number (numeric)
+#' @param minor minor versioning number (numeric)
+#' @param patch patch versioning number (numeric)
+#' @param pkg.repo path to package repository folder. Default is current 
+#' working directory
+#' 
+#' @author
+#' Tim Appelhans
+#' 
+#' 
 bumpVersion <- function(major, minor, patch, pkg.repo= ".") {
   
   new.ver <- paste(major, minor, patch, sep = ".")
