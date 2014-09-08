@@ -53,6 +53,8 @@
 #' #(consider to mask the background since ground truth sites don't cover the whole area)
 #' ctab(LUC1990,trainingSites,mask="0")
 #' 
+#' @export ctab
+#' 
 ctab=function(a,b,mask=""){
   require(raster)
   va=values(a)

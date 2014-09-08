@@ -32,6 +32,8 @@
 #' 
 #' f4 <- funN(81, quantile, na.rm = TRUE)
 #' f4(vec)
+#' 
+#' @export funN
 
 funN <- function(n, fun, ...) {
   function(x) {

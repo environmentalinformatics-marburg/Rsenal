@@ -8,7 +8,7 @@
 #' @author
 #' Tim Appelhans
 #' 
-#' 
+#' @export hclPalette
 
 hclPalette <- function(n, c = 60, l = 50, ...) {
   

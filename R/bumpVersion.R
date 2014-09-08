@@ -14,6 +14,7 @@
 #' @author
 #' Tim Appelhans
 #' 
+#' @export bumpVersion
 #' 
 bumpVersion <- function(major, minor, patch, pkg.repo= ".") {
   
