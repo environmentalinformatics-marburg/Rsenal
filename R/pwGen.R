@@ -1,4 +1,8 @@
-pw <- function(ndigits, seed = 123) {
+#' generate passwords
+#' 
+#' @export pwGen
+
+pwGen <- function(ndigits, seed = 123) {
   
   set.seed(seed)
   
