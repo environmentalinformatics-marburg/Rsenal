@@ -3,6 +3,7 @@
 export(bumpVersion)
 export(createTimeSeries)
 export(ctab)
+export(downloadGimms)
 export(funN)
 export(hclPalette)
 export(installEIPkgs)
