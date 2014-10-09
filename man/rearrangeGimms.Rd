@@ -3,7 +3,8 @@
 \alias{rearrangeGimms}
 \title{Rearrange GIMMS 3G binary files}
 \usage{
-rearrangeGimms(fls = NULL, dsn = ".", pattern = "^geo", ...)
+rearrangeGimms(fls = NULL, dsn = ".", pattern = "^geo",
+  rename_yearmon = FALSE, ...)
 }
 \arguments{
 \item{fls}{Character. Vector of filepaths. If \code{NULL}, folder \code{dsn}
@@ -14,6 +15,10 @@ will be searched for available GIMMS data to rearrange.}
 
 \item{pattern}{Character. A regular expression passed on to
 \code{\link{list.files}}.}
+
+\item{rename_yearmon}{Logical. If TRUE, date information in GIMMS filenames
+is replaced by a more intuitive format that facilitates file sorting (e.g.,
+"81jul" is replaced by "198107").}
 
 \item{...}{Further arguments passed on to \code{\link{list.files}}.}
 }

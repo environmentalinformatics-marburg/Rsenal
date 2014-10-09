@@ -10,6 +10,9 @@
 #' \code{is.null(fls)}, this argument defaults to the current working directory.
 #' @param pattern Character. A regular expression passed on to 
 #' \code{\link{list.files}}.
+#' @param rename_yearmon Logical. If TRUE, date information in GIMMS filenames 
+#' is replaced by a more intuitive format that facilitates file sorting (e.g.,
+#' "81jul" is replaced by "198107").
 #' @param ... Further arguments passed on to \code{\link{list.files}}. 
 #' 
 #' @return
@@ -34,6 +37,7 @@
 rearrangeGimms <- function(fls = NULL, 
                            dsn = ".", 
                            pattern = "^geo", 
+                           rename_yearmon = FALSE,
                            ...) {
   
   # Required package
@@ -64,5 +68,15 @@ rearrangeGimms <- function(fls = NULL,
   
   # Return rearranged files
   gimms_fls <- gimms_df$file
+  
+  # Replace initial date information with more intuitive `%Y%m` format
+  if (rename_yearmon) {
+    gimms_fls_yearmon <- sapply(seq(gimms_fls), function(i) {
+      gsub(substr(basename(gimms_fls[i]), 4, 8), gimms_df$yearmon[i], gimms_fls[i])
+    })
+    
+    file.rename(gimms_fls, gimms_fls_yearmon)
+  }
+    
   return(gimms_fls)
 }
