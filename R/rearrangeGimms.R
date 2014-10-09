@@ -76,7 +76,8 @@ rearrangeGimms <- function(fls = NULL,
     })
     
     file.rename(gimms_fls, gimms_fls_yearmon)
+    return(gimms_fls_yearmon)
+  } else {    
+    return(gimms_fls)
   }
-    
-  return(gimms_fls)
 }
