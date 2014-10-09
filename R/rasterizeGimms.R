@@ -13,7 +13,9 @@
 #' are set to NA.
 #' @param scaling Logical. If TRUE, initial values are multiplied by scaling
 #' factor (1/10000). 
-#' @param ... Further arguments. Currently not in use. 
+#' @param file_out Character. If supplied, \code{\link{writeRaster}} is invoked
+#' to save the rasterized GIMMS data.
+#' @param ... Further arguments passed on to \code{\link{writeRaster}}. 
 #' 
 #' @return
 #' A \code{RasterLayer} object.
@@ -45,6 +47,7 @@ rasterizeGimms <- function(file,
                            water2na = TRUE, 
                            nodata2na = TRUE,
                            scaling = TRUE,
+                           file_out = '', 
                            ...) {
   
   # Required packages
@@ -77,6 +80,10 @@ rasterizeGimms <- function(file,
   if (scaling)
     rst <- rst / 10000
 
+  # Output storage (optional)
+  if (nchar(file_out) > 0)
+    writeRaster(rst, ...)
+  
   # Return raster
   return(rst)
 }

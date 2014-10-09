@@ -4,13 +4,13 @@
 \title{Rasterize GIMMS 3G binary data}
 \usage{
 rasterizeGimms(file, headerfile, water2na = TRUE, nodata2na = TRUE,
-  scaling = TRUE, ...)
+  scaling = TRUE, file_out = "", ...)
 }
 \arguments{
 \item{file}{Character. GIMMS binary file to rasterize.}
 
 \item{headerfile}{Character. Companion header file passed on to
-\code{link{read.ENVI}}, usually created from \code{\link{createHdr}}.}
+\code{\link{read.ENVI}}. Usually created from \code{\link{createHdr}}.}
 
 \item{water2na}{Logical. If TRUE, pixels holding 'water-mask' value (-10000)
 are set to NA.}
@@ -19,9 +19,12 @@ are set to NA.}
 are set to NA.}
 
 \item{scaling}{Logical. If TRUE, initial values are multiplied by scaling
-factor (10^(-4)).}
+factor (1/10000).}
 
-\item{...}{Further arguments. Currently not in use.}
+\item{file_out}{Character. If supplied, \code{\link{writeRaster}} is invoked
+to save the rasterized GIMMS data.}
+
+\item{...}{Further arguments passed on to \code{\link{writeRaster}}.}
 }
 \value{
 A \code{RasterLayer} object.
