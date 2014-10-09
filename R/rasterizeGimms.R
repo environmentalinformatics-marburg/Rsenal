@@ -82,7 +82,7 @@ rasterizeGimms <- function(file,
 
   # Output storage (optional)
   if (nchar(file_out) > 0)
-    writeRaster(rst, filename = file_out, ...)
+    rst <- writeRaster(rst, filename = file_out, ...)
   
   # Return raster
   return(rst)
