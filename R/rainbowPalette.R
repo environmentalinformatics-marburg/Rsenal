@@ -22,8 +22,10 @@
 #' 
 rainbowPalette <- function(n) {
 
-colorRampPalette(c("#413B93", "#4065B1", "#488BC2", "#55A1B1", "#63AD99", 
-                   "#7FB972", "#B5BD4C", "#D9AD3C", "#E68E34", "#E6642C", 
-                   "#D92120"))
+  rnbw <- colorRampPalette(c("#413b93", "#524ab7", "#4065B1", "#488BC2", "#55A1B1", 
+                             "#63AD99", "#7FB972", "#B5BD4C", "#D9AD3C", 
+                             "#E68E34", "#E6642C", "#d94020", "#d92120"))
+  
+  rnbw(n)
 
 }
