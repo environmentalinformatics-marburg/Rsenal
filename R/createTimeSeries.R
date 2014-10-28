@@ -23,22 +23,26 @@
 #' 
 #' @export createTimeSeries
 
-createTimeSeries <- function(start, end, step) {
+createTimeSeries <- function(start, end, step, type = c("POSIX", "char")) {
+  
+  type <- type[1]
   
   ## set system locale time zone to "UTC" for time handling w/out
   ## daylight saving
   Sys.setenv(TZ = "UTC")
+  op <- options(digits.secs = 4)
   
   ## create series 
-  date.from <- as.POSIXct(start)
-  date.to <- as.POSIXct(end)
+  date.from <- as.POSIXct(start, format = '%Y-%m-%d %H:%M:%OS')
+  date.to <- as.POSIXct(end, format = '%Y-%m-%d %H:%M:%OS')
   
   ## create regular time series
   tseries <- seq(from = date.from, to = date.to, by = step)
   
   ## convert to character and write
-  tseries <- format(tseries, usetz = F)
+  if (type == "char")  tseries <- format(tseries, usetz = F)
   
+  options(op)
   return(tseries)
   
 }
