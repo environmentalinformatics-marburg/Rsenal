@@ -59,11 +59,12 @@
 
 latticeCombineGrid <- function(trellis.list,
                                between = list(y = 0.3, x = 0.3),
+                               as.table = TRUE,
                                ...) {
   
   outLayout <- function(x, y) {
     update(c(x, y, ...), 
-           between = between, ...)
+           between = between, as.table = as.table)
   }
   
   out <- Reduce(outLayout, trellis.list)
