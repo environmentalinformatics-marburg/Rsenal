@@ -3,12 +3,15 @@
 \alias{latticeCombineGrid}
 \title{combine multiple lattice plots in a facetted grid (panels)}
 \usage{
-latticeCombineGrid(trellis.list, between = list(y = 0.3, x = 0.3), ...)
+latticeCombineGrid(trellis.list, between = list(y = 0.3, x = 0.3),
+  as.table = TRUE, ...)
 }
 \arguments{
 \item{trellis.list}{a list containing lattice plot objects}
 
 \item{between}{space between panels}
+
+\item{as.table}{if TRUE (default) drawing is top left to bottom right}
 
 \item{...}{additional arguments passed to \code{\link{c.trellis}}}
 }
@@ -53,7 +56,7 @@ p <- latticeCombineGrid(plist)
 print(p)
 
 #change layout
-p2 <- latticeCombineGrid(plist, layout = c(3, 1))
+p2 <- latticeCombineGrid(plist, layout = c(1, 3))
 print(p2)
 }
 \author{

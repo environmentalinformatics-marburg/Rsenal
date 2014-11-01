@@ -10,6 +10,7 @@
 #' 
 #' @param trellis.list a list containing lattice plot objects
 #' @param between space between panels
+#' @param as.table if TRUE (default) drawing is top left to bottom right
 #' @param ... additional arguments passed to \code{\link{c.trellis}}
 #' 
 #' @return
@@ -51,7 +52,7 @@
 #' print(p)
 #' 
 #' #change layout
-#' p2 <- latticeCombineGrid(plist, layout = c(3, 1))
+#' p2 <- latticeCombineGrid(plist, layout = c(1, 3))
 #' print(p2)
 #' 
 #' @export latticeCombineGrid
