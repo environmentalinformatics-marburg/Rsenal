@@ -21,7 +21,7 @@
 #' @aliases significantMannKendall
 significantMannKendall <- function(x, p = .001) {
   
-  stopifnot(require(MannKendall))
+  stopifnot(require(Kendall))
   
   mk <- MannKendall(x)
   
