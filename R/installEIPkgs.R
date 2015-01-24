@@ -30,7 +30,8 @@ installEIPkgs <- function(cran.pkgs = NULL,
   
   ## environmental informatics package list if no pkgs supplied
   if (is.null(cran.pkgs)) {
-    cran.pkgs <- c("caret", "kernlab", "ROCR", "raster", "latticeExtra", 
+    cran.pkgs <- c("BradleyTerry2",
+                   "caret", "kernlab", "ROCR", "raster", "latticeExtra", 
                    "fields", "reshape2", "gridExtra", "maps", "maptools", 
                    "mapdata", "sp", "rgdal", "RColorBrewer", "lattice", 
                    "doParallel", "hydroGOF", "corrplot", "sp", "plotKML", 
@@ -41,7 +42,7 @@ installEIPkgs <- function(cran.pkgs = NULL,
                    "ncdf4", "OpenStreetMap", "party", "randomForest",
                    "rasterVis", "RColorBrewer", "Rcpp", "remote", "rgl", 
                    "spacetime", "spatial.tools", "stargazer", "stringr", 
-                   "TSA", "vcd", "xts", "zoo") 
+                   "TSA", "vcd", "xts", "zoo", "bfast", "httpuv", "shiny") 
   }
   
   if (check) {
