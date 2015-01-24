@@ -25,7 +25,7 @@
 #' p1 <- spplot(rst)
 #' p1
 #' 
-#' p2 <- envinmrRasterPlot(p)
+#' p2 <- envinmrRasterPlot(p1)
 #' p2
 #' 
 #' ## change the colors as you like
