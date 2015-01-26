@@ -37,7 +37,10 @@ splitRaster <- function(file, s = 2, ...) {
   ls_split <- lapply(0:t, function(i) {
     lapply(0:t, function(j) {
       # output file
-      dst_dataset <- paste(file, i, j, sep = "_")
+      dst_dataset_prf <- substr(file, 1, nchar(file)-4)
+      dst_dataset_prf <- paste(dst_dataset_prf, i, j, sep = "_")
+      dst_dataset_sff <- substr(file, nchar(file)-3, nchar(file))
+      dst_dataset <- paste0(dst_dataset_prf, dst_dataset_sff)
       # location of subwindow
       srcwin <- c(i * x/s, j * y/s, x/s, y/s)
       
