@@ -17,8 +17,7 @@ a single lattice plot object
 \description{
 this function updates existing \code{\link{spplot}} objects so that
 i) the axes are drawn at all four sites (as these usually represent
-coordinates), ii) the default colorpalette from envinmr.theme() is used
-and ii) the colorkey is plotted on top of the graph so
+coordinates) and ii) the colorkey is plotted on top of the graph so
 that the main = ... argument can be used to describe the colorkey.
 }
 \examples{
@@ -27,7 +26,7 @@ rst <- raster::raster(volcano)
 p1 <- spplot(rst)
 p1
 
-p2 <- envinmrRasterPlot(p1)
+p2 <- envinmrRasterPlot(p1, col.regions = envinmrPalette(100))
 p2
 
 ## change the colors as you like

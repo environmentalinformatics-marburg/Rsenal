@@ -3,8 +3,7 @@
 #' @description
 #' this function updates existing \code{\link{spplot}} objects so that
 #' i) the axes are drawn at all four sites (as these usually represent
-#' coordinates), ii) the default colorpalette from envinmr.theme() is used
-#' and ii) the colorkey is plotted on top of the graph so
+#' coordinates) and ii) the colorkey is plotted on top of the graph so
 #' that the main = ... argument can be used to describe the colorkey.
 #' 
 #' @param spplot.obj the \code{\link{spplot}} object to be modified
@@ -25,7 +24,7 @@
 #' p1 <- spplot(rst)
 #' p1
 #' 
-#' p2 <- envinmrRasterPlot(p1)
+#' p2 <- envinmrRasterPlot(p1, col.regions = envinmrPalette(100))
 #' p2
 #' 
 #' ## change the colors as you like
@@ -42,12 +41,10 @@
 
 envinmrRasterPlot <- function(spplot.obj, ...) {
   library(latticeExtra)
-  th <- envinmr.theme()
   tmp <- update(spplot.obj,
-                col.regions = th$regions$col,
                 scales = list(draw = TRUE, y = list(rot = c(90)), 
-                              alternating = 3))
-  tmp <- update(tmp, ...)
+                              alternating = 3), 
+                ...)
   
   tmp$legend <- 
     list(top = 
