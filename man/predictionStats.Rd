@@ -30,12 +30,21 @@ mean error (ME), mean absolute error (MAE). Users may also create
 a dotplot visualising the results.
 }
 \examples{
-pred_vals <- rnorm(1000, 200, 10)
-obs_vals <- rnorm(1000, 200, 10)
+## create predictions with high accuracy (identical mean),
+## but low precision (sd double that of observations). Hence,
+## ME should be close to zero and RMSE close to ten.
+pred_vals <- sort(rnorm(1000, 200, 20)) # sorting ensures high Rsq
+obs_vals <- sort(rnorm(1000, 200, 10))
 
-result <- predictionStats(sort(pred_vals), sort(obs_vals), plot = TRUE)
+## with plot = TRUE
+result <- predictionStats(pred_vals, obs_vals, plot = TRUE)
 result$stats
 result$plot
+
+## with plot = FALSE
+result <- predictionStats(pred_vals, obs_vals,
+                          plot = FALSE, adj.rsq = FALSE)
+result
 }
 \author{
 Tim Appelhans
