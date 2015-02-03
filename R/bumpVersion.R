@@ -5,9 +5,8 @@
 #' your package's DESCRIPTION file. 
 #' Supported versioning system is major.minor.patch 
 #' 
-#' @param major major versioning number (numeric)
-#' @param minor minor versioning number (numeric)
-#' @param patch patch versioning number (numeric)
+#' @param element character - one of "major", "minor", "patch" to be bumped.
+#' Defaults to "patch"
 #' @param pkg.repo path to package repository folder. Default is current 
 #' working directory
 #' 

@@ -4,14 +4,11 @@
 \alias{bumpVersion}
 \title{bump package 'Version:' and 'Date:' in DESCRIPTION file}
 \usage{
-bumpVersion(major, minor, patch, pkg.repo = ".")
+bumpVersion(element = "patch", pkg.repo = ".")
 }
 \arguments{
-\item{major}{major versioning number (numeric)}
-
-\item{minor}{minor versioning number (numeric)}
-
-\item{patch}{patch versioning number (numeric)}
+\item{element}{character - one of "major", "minor", "patch" to be bumped.
+Defaults to "patch"}
 
 \item{pkg.repo}{path to package repository folder. Default is current
 working directory}
