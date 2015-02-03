@@ -30,19 +30,19 @@
 #' obs_vals <- sort(rnorm(1000, 200, 10))
 #' 
 #' ## with plot = TRUE
-#' result <- predictionStats(pred_vals, obs_vals, plot = TRUE)
+#' result <- regressionStats(pred_vals, obs_vals, plot = TRUE)
 #' result$stats
 #' result$plot
 #' 
 #' ## with plot = FALSE
-#' result <- predictionStats(pred_vals, obs_vals, 
+#' result <- regressionStats(pred_vals, obs_vals, 
 #'                           plot = FALSE, adj.rsq = FALSE)
 #' result
 #' 
-#' @export predictionStats
-#' @aliases predictionStats
+#' @export regressionStats
+#' @aliases regressionStats
 
-predictionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE) {
+regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE) {
   
   mod <- lm(prd ~ obs)
   if(adj.rsq) rsq <- summary(mod)$adj.r.squared else
