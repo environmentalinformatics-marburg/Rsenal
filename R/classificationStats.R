@@ -21,8 +21,8 @@
 #' Hanna Meyer and Tim Appelhans
 #' 
 #' @examples
-#' create two random vectors with classes "yes" and "no" to simulate a model
-#' with random performance. Expected POD and PFD  
+#' #create two random vectors with classes "yes" and "no" to simulate a model
+#' #with random performance. Expected POD and PFD  
 #' pred_vals <- factor(sample(c("Yes","No"), 50, replace = TRUE),levels=c("Yes","No"))
 #' obs_vals <- factor(sample(c("Yes","No"), 50, replace = TRUE),levels=c("Yes","No"))
 #' 
