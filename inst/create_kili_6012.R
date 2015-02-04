@@ -14,6 +14,8 @@ plts <- readOGR(shp, lyr)
 proj4string(plts) <- "+init=epsg:21037"
 plts_amp <- subset(plts, PoleType == "AMP")
 
+
+#### plots ----------------------------------------------------------------
 the60 <- data.frame(PlotID =
                       c(paste(rep("cof", 5), 1:5, sep = ""),
                         paste(rep("fer", 5), 0:4, sep = ""),
@@ -37,7 +39,15 @@ the60_amp <- merge(the60, plts_amp_df,
 kili60 <- data.frame(PlotID = the60_amp$PlotID,
                      Elevation = the60_amp$Z_DEM_HMP)
 
+kili60 <- kili60[order(kili60$Elevation), ]
+kili60$PlotID <- factor(kili60$PlotID,
+                        levels = as.character(kili60$PlotID))
+kili60 <- kili60[order(as.character(kili60$PlotID)), ]
 
+save(kili60, file = "kili60.rda")
+
+
+##### habitats ------------------------------------------------------------
 the12 <- data.frame(Habitat =
                       c("cof", "fer", "flm", "foc", "fod", "fpd",
                         "fpo", "gra", "hel", "hom", "mai", "sav"))

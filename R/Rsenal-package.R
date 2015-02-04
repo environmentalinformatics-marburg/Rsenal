@@ -21,3 +21,27 @@
 #' @keywords package
 #' 
 NULL
+#' 
+#' @docType data 
+#' @name kili12
+#' @title KiLi FOR1246 Habitats
+#' @description data frame of KiLi FOR1246 Habitats and respective elevations
+#' @details Note, the Habitats are ordered according to their mean elevation
+#' @format a data frame with the following columns\cr
+#' \cr
+#' Habitat    : factor with levels ordered according to their mean elevation\cr
+#' Elevation  : numeric\cr
+#' 
+NULL
+#' 
+#' @docType data 
+#' @name kili60
+#' @title KiLi FOR1246 PlotIDs
+#' @description data frame of KiLi FOR1246 PlotIDs and respective elevations
+#' @details Note, the PlotIDs are ordered according to their mean elevation
+#' @format a data frame with the following columns\cr
+#' \cr
+#' PlotID    : factor with levels ordered according to their mean elevation\cr
+#' Elevation  : numeric\cr
+#' 
+NULL
