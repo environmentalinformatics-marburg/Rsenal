@@ -21,7 +21,7 @@
 #' plotRGB(b)
 #' 
 #' ## convert brick to list
-#' lout <- rgb2sp(b)
+#' lout <- rgb2spLayout(b)
 #' 
 #' ## create random spatial points for plotting
 #' df <- data.frame(dat = rnorm(100, 2, 1),
@@ -32,10 +32,10 @@
 #' ## plot spatial points with rgb background
 #' spplot(df, sp.layout = lout)
 #' 
-#' @export rgb2sp
-#' @aliases rgb2sp
+#' @export rgb2spLayout
+#' @aliases rgb2spLayout
 
-rgb2sp <- function(x) {
+rgb2spLayout <- function(x) {
   
   library(raster)
   
