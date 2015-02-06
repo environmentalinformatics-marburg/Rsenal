@@ -39,7 +39,7 @@
 #' 
 #' 
 #' #### Example 2: Calculate the contingency table from a land cover map 
-#' and a map of ground truth sites
+#' #and a map of ground truth sites
 #' #load data
 #' LUC1990 <- raster(system.file("LUC1990.rst", package="Rsenal"))
 #' trainingSites <- raster(system.file("training.rst", package="Rsenal"))
@@ -55,25 +55,25 @@
 #' 
 #' @export ctab
 #' 
-ctab=function(a,b,mask=""){
+ctab<-function(a,b,mask=""){
   require(raster)
-  va=values(a)
-  vb=values(b)
-  name=sort(union(unique(a),unique(b)))
-  result=matrix(0,ncol=length(name),nrow=length(name))
-  colnames(result)=name
-  row.names(result)=name
+  va<-values(a)
+  vb<-values(b)
+  name<-sort(union(unique(a),unique(b)))
+  result<-matrix(0,ncol=length(name),nrow=length(name))
+  colnames(result)<-name
+  row.names(result)<-name
   for (i in 1:nrow(result)){
     for (k in 1:ncol(result)){
-      result[i,k]=sum(va==row.names(result)[i]&vb==colnames(result)[k])
+      result[i,k]<-sum(va==row.names(result)[i]&vb==colnames(result)[k])
     }
   }
   for (i in 1:length(mask)){
-    result=result[row.names(result)!=mask[i],]
+    result<-result[row.names(result)!=mask[i],]
     if (ncol(as.matrix(result))==1||nrow(as.matrix(result))==1){
       stop ("Calculation of contingency table requires at least two categories")
     }
-    result=result[,colnames(result)!=mask[i]] 
+    result<-result[,colnames(result)!=mask[i]] 
   }
   if (ncol(as.matrix(result))==1||nrow(as.matrix(result))==1){
     stop ("Calculation of contingency table requires at least two categories")

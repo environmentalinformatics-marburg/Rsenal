@@ -41,15 +41,15 @@
 #' @seealso \code{SDMTools},  \code{clump}, \code{borg_indices}
 #' @examples
 #' RasterLayer<-raster("inst/training.rst")
-#' shape<-geometry.variables(RasterLayer)
+#' shape<-geometryVariables(RasterLayer)
 #' plot(shape)
 #' 
 
-geometry_variables <- function(x){
+geometryVariables <- function(x){
      require(SDMTools)
      require(raster)
      Patches<-clump(x)
-     Stats=PatchStat(Patches)
+     Stats<-PatchStat(Patches)
      # patch area:
      Area <- reclassify(Patches, cbind(Stats$patchID,Stats$area))
      #shape index:
@@ -65,36 +65,36 @@ geometry_variables <- function(x){
      #distance to edge:
      edges<-boundaries(Patches, type='inner')
      distEdges<- gridDistance(edges,origin=1) 
-     values(distEdges)[is.na(values(Patches))]=NA
+     values(distEdges)[is.na(values(Patches))]<-NA
      #innerCircle (largest circle)= maximum distance from edge
-     tmp=zonal(distEdges,Patches,fun="max")
-     innerCircle=Patches
-     innerCircle=reclassify(innerCircle,tmp)
+     tmp<-zonal(distEdges,Patches,fun="max")
+     innerCircle<-Patches
+     innerCircle<-reclassify(innerCircle,tmp)
      ##### outer circle
-     oci=c()
+     oci<-c()
   
      for (i in 1:max(values(Patches),na.rm=TRUE)){
-      cp=Patches
-      cp[cp!=i]=NA
-      cpp=rasterToPolygons(cp,dissolve=TRUE)
-      centroid=gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
+      cp<-Patches
+      cp[cp!=i]<-NA
+      cpp<-rasterToPolygons(cp,dissolve=TRUE)
+      centroid<-gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
       
       dist<- distanceFromPoints(Patches, centroid)
-      dist[is.na(cp)]=NA
-      oci[i]=max(values(dist),na.rm=TRUE)
+      dist[is.na(cp)]<-NA
+      oci[i]<-max(values(dist),na.rm=TRUE)
      }
      outerCircle <- reclassify(Patches, cbind(Stats$patchID,oci))
      outerInnerCircle <- outerCircle-innerCircle
 
   ### Indices listed and/or developed by Borg 98
-    borg<-borg_indices(Ar=Area,Ur=perimeter,De=innerCircle*2,Du=outerCircle*2)
+    borg<-borgIndices(Ar=Area,Ur=perimeter,De=innerCircle*2,Du=outerCircle*2)
     
   
   ##############################################################################  
      result<-stack(Patches,Area,shapeIndex,coreArea,perimeter,
                    coreAreaIndex, perimAreaRatio,innerCircle,distEdges,outerCircle,
                    outerInnerCircle,borg)
-     names(result)=c("Patches","Ar","SI","CA",
+     names(result)<-c("Patches","Ar","SI","CA",
                      "Up", "CAI","PAR",
                      "Re","distEdges","Ru","OIC",names(borg))
      return(result)  
