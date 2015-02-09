@@ -8,26 +8,26 @@
 #' @param Du Diameter of the outer circle
 #' @return A RasterStack
 #' @author Hanna Meyer
-#' @seealso \code{?geometry_variables}
+#' @seealso \code{?geometryVariables}
 
 
-borg_indices=function(Ar,Ur,De,Du){
+borgIndices<-function(Ar,Ur,De,Du){
 
-  Dk=sqrt((Ar/pi))*2 # Diameter of the circle of area Ar
+  Dk<-sqrt((Ar/pi))*2 # Diameter of the circle of area Ar
   
-  Uk=Dk*pi # perimeter of the circle of area Ar
-  Ue=De*pi #perimeter of the inner circle
-  Uu=Du*pi #perimeter of the outer circle
+  Uk<-Dk*pi # perimeter of the circle of area Ar
+  Ue<-De*pi #perimeter of the inner circle
+  Uu<-Du*pi #perimeter of the outer circle
 
   Au<-pi*((Du/2)^2) #area of outer circle
-  Ae=pi*((De/2)^2) #area of the inner circle
+  Ae<-pi*((De/2)^2) #area of the inner circle
 
   CI1<-Ue/Uk
   CO1<-Uk/Uu
   CI2<-(Uk-Ue)/Uk
   CO2<-(Uu-Uk)/Uu
-  CCI1=(CI1+CO1)/2
-  CCI2=1-sqrt(CI2*CO2)
+  CCI1<-(CI1+CO1)/2
+  CCI2<-1-sqrt(CI2*CO2)
   ### orientation at re circle of same area
   CO<-(2*sqrt(pi*Ar))/Ur
   SHD<-Ur/(2*sqrt(pi*Ar))
@@ -47,9 +47,9 @@ borg_indices=function(Ar,Ur,De,Du){
   C3<-sqrt(De/Du)
   SF3<-(Au-Ae)/Ar
   
-  result=stack(CI1,CO1,CI2,CO2,CCI1,CCI2,CO,SHD,C1,E,TR,CR,
+  result<-stack(CI1,CO1,CI2,CO2,CCI1,CCI2,CO,SHD,C1,E,TR,CR,
                C2,FR,EI,SF1,GSI,SF2,C3,SF3)
-  names(result)=c("CI1","CO1","CI2","CO2","CCI1","CCI2","CO","SHD","C1","E",
+  names(result)<-c("CI1","CO1","CI2","CO2","CCI1","CCI2","CO","SHD","C1","E",
                   "TR","CR","C2","FR","EI","SF1","GSI","SF2","C3","SF3")
   return(result)
 }

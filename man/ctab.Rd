@@ -39,7 +39,7 @@ ctab(LUC1990,LUC2006)
 
 
 #### Example 2: Calculate the contingency table from a land cover map
-and a map of ground truth sites
+#and a map of ground truth sites
 #load data
 LUC1990 <- raster(system.file("LUC1990.rst", package="Rsenal"))
 trainingSites <- raster(system.file("training.rst", package="Rsenal"))
