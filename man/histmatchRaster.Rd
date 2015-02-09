@@ -36,6 +36,7 @@ this function is a wrapper around \code{\link{histmatch}} for
 RasterLayers.
 }
 \examples{
+library(latticeExtra)
 tofix <- raster(matrix(rnorm(10000, 100, 3), nrow = 100, ncol = 100))
 master <- raster(matrix(rnorm(10000, 130, 7), nrow = 100, ncol = 100))
 
