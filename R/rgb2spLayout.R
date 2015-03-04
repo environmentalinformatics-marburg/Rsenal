@@ -22,6 +22,7 @@
 #' 
 #' ## convert brick to list
 #' lout <- rgb2spLayout(b)
+#' lout_alph <- rgb2spLayout(b, alpha = 0.5)
 #' 
 #' ## create random spatial points for plotting
 #' df <- data.frame(dat = rnorm(100, 2, 1),
@@ -31,11 +32,12 @@
 #' 
 #' ## plot spatial points with rgb background
 #' spplot(df, sp.layout = lout)
+#' spplot(df, sp.layout = lout_alph)
 #' 
 #' @export rgb2spLayout
 #' @aliases rgb2spLayout
 
-rgb2spLayout <- function(x) {
+rgb2spLayout <- function(x, alpha) {
   
   library(raster)
   
@@ -49,7 +51,8 @@ rgb2spLayout <- function(x) {
   ### use downloaded map for sp raster layout definition
   cols <- rgb(colim.recl[[1]][] / 255, 
               colim.recl[[2]][] / 255, 
-              colim.recl[[3]][] / 255)
+              colim.recl[[3]][] / 255,
+              alpha = alpha)
   
   map.cols <- matrix(cols,
                      nrow = colim.recl@nrows,

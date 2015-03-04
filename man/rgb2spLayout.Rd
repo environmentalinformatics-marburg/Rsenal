@@ -4,7 +4,7 @@
 \alias{rgb2spLayout}
 \title{Convert an RGB RasterBrick/Stack to use with spplot}
 \usage{
-rgb2spLayout(x)
+rgb2spLayout(x, alpha)
 }
 \arguments{
 \item{x}{a RasterBrick or RasterStack}
@@ -24,6 +24,7 @@ plotRGB(b)
 
 ## convert brick to list
 lout <- rgb2spLayout(b)
+lout_alph <- rgb2spLayout(b, alpha = 0.5)
 
 ## create random spatial points for plotting
 df <- data.frame(dat = rnorm(100, 2, 1),
@@ -33,6 +34,7 @@ coordinates(df) <- ~x+y
 
 ## plot spatial points with rgb background
 spplot(df, sp.layout = lout)
+spplot(df, sp.layout = lout_alph)
 }
 \author{
 Tim Appelhans
