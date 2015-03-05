@@ -51,7 +51,7 @@
 #' projection(df) <- "+init=epsg:21037"
 #' 
 #' # offset point locations
-#' loc_lbl <- calcOffsetGridText(x = coordinates(df), offset = .01)
+#' loc_lbl <- calcOffsetGridText(x = coordinates(df), offset = .015)
 #' 
 #' # vis
 #' spplot(df, col.regions = "black", auto.key = FALSE)
@@ -63,7 +63,7 @@
 #'               
 #' @export calcOffsetGridText
 #' @aliases calcOffsetGridText
-calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL,
+calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL, 
                                xlim = NULL, ylim = NULL, ...) {
   
   stopifnot(require(plotrix))
@@ -75,13 +75,13 @@ calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL,
   }
   
   # relative ("npc") pointcoordinates
-  num_xmin <- ifelse(is.null(xlim), min(x), xlim[1])
-  num_xmax <- ifelse(is.null(xlim), max(x), xlim[2])
+  num_xmin <- if (is.null(xlim)) min(x) - .04 * (max(x) - min(x)) else xlim[1]
+  num_xmax <- if (is.null(xlim)) max(x) + .04 * (max(x) - min(x)) else xlim[2]
   num_xrng <- num_xmax - num_xmin
   num_x_rel <- (x-num_xmin) / num_xrng
   
-  num_ymin <- ifelse(is.null(ylim), min(y), ylim[1])
-  num_ymax <- ifelse(is.null(ylim), max(y), ylim[2])
+  num_ymin <- if (is.null(ylim)) min(y) - .04 * (max(y) - min(y)) else ylim[1]
+  num_ymax <- if (is.null(ylim)) max(y) + .04 * (max(y) - min(y)) else ylim[2]
   num_yrng <- num_ymax - num_ymin
   num_y_rel <- (y-num_ymin) / num_yrng
     

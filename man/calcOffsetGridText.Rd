@@ -59,7 +59,7 @@ coordinates(df) <- ~ x + y
 projection(df) <- "+init=epsg:21037"
 
 # offset point locations
-loc_lbl <- calcOffsetGridText(x = coordinates(df), offset = .01)
+loc_lbl <- calcOffsetGridText(x = coordinates(df), offset = .015)
 
 # vis
 spplot(df, col.regions = "black", auto.key = FALSE)
