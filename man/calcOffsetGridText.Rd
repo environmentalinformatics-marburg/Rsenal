@@ -8,10 +8,10 @@ calcOffsetGridText(x, y = NULL, offset = 0.02, pos = NULL, xlim = NULL,
   ylim = NULL, ...)
 }
 \arguments{
-\item{x}{Numeric. A numeric vector containing x coordinates, or a 2-column
-numeric matrix containing x and y coordinates.}
+\item{x}{Numeric. A vector containing x coordinates, or a 2-column
+matrix containing x and y coordinates.}
 
-\item{y}{Numeric. A numeric vector containing y coordinates, or \code{NULL}
+\item{y}{Numeric. A vector containing y coordinates, or \code{NULL}
 if x is a two-column matrix.}
 
 \item{offset}{Numeric. The desired offset in normalized parent coordinates
