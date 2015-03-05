@@ -22,7 +22,7 @@ Convert integer position specifiers as supported by
 \strong{grid}-based text drawing functions (e.g. \code{\link{grid.text}}).
 }
 \examples{
-set.seed(111)
+set.seed(100)
 pos <- sample(1:4, 5, replace = TRUE)
 
 pos2just(pos)
