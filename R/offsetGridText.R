@@ -76,9 +76,6 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
   stopifnot(require(plotrix))
   stopifnot(require(gridExtra))
   
-  source("R/calcOffsetGridText.R")
-  source("R/pos2just.R")
-  
   if (is.matrix(x)) {
     y <- x[, 2]
     x <- x[, 1]
