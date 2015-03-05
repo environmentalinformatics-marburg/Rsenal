@@ -28,7 +28,7 @@ meuse_rst <- raster(meuse.grid, layer = "dist")
 spplot(meuse_rst)
 
 ## spFilledContour plot
-#plot.new() # needed when using package 'gridBase' (used in panel.filledcontour)
+plot.new() # needed when using package 'gridBase' (used in panel.filledcontour)
 spFilledContour(x = meuse_rst)
 }
 \author{
