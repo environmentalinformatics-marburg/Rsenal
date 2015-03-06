@@ -37,7 +37,7 @@ spFilledContour <- function(x, xlab = "", ylab = "", ...) {
   
   mat <- raster::as.matrix(flip(x, 2))
 
-  plot.new()
+  #plot.new()
   levelplot(t(mat), panel = Rsenal:::panel.filledcontour,
             row.values = as.numeric(unique(coordinates(x)[, 1])),
             column.values = as.numeric(unique(coordinates(x)[, 2])),
