@@ -42,6 +42,7 @@ functions, e.g. \code{\link{grid.text}}.
 # required packages
 library(grid)
 library(plotrix)
+library(lattice)
 
 # sample point data
 x_cntr <- 330000
