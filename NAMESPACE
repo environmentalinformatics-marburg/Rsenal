@@ -3,6 +3,7 @@
 export(bumpVersion)
 export(calcOffsetGridText)
 export(classificationStats)
+export(compareDistributions)
 export(createHdr)
 export(createTimeSeries)
 export(ctab)
