@@ -18,10 +18,10 @@
 #' Tim Appelhans
 #' 
 #' @examples
-#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1))
-#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1), 
+#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1))
+#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1), 
 #'                      add.spread = FALSE)
-#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1), 
+#' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1), 
 #'                      add.spread = TRUE, clrs = c("red", "brown"))
 #' 
 #' @export compareDistributions
@@ -30,6 +30,7 @@
 compareDistributions <- function(left, 
                                  right,
                                  add.spread = TRUE,
+                                 print.stats = TRUE,
                                  clrs = c("purple", "lightblue"),
                                  xlab = "density",
                                  ylab = "value",
@@ -50,6 +51,21 @@ compareDistributions <- function(left,
              sort(abs(c(range(left_x), range(right_x))), 
                   decreasing = TRUE)[1] * 1.1)
   
+  mean_left <- mean(left_x, na.rm = TRUE)
+  mean_right <- mean(right_x, na.rm = TRUE)
+  sd_left <- sd(left_x, na.rm = TRUE)
+  sd_right <- sd(right_x, na.rm = TRUE)
+  med_left <- median(left_x, na.rm = TRUE)
+  med_right <- median(right_x, na.rm = TRUE)
+  q25_left <- quantile(left_x, 0.25)
+  q25_right <- quantile(right_x, 0.25)
+  q75_left <- quantile(left_x, 0.75)
+  q75_right <- quantile(right_x, 0.75)
+  min_left <- min(left_x, na.rm = TRUE)
+  min_right <- min(right_x, na.rm = TRUE)
+  max_left <- max(left_x, na.rm = TRUE)
+  max_right <- max(right_x, na.rm = TRUE)
+  
   
   p <- xyplot(left_x ~ left_y, xlim = x_lim, ylim = y_lim, type = "l",
               panel = panel.polygon, col = clrs[1], xlab = xlab,
@@ -58,15 +74,6 @@ compareDistributions <- function(left,
                     panel = panel.polygon, col = clrs[2])) 
   
   if (add.spread) {
-    
-    mean_left <- mean(left_x, na.rm = TRUE)
-    mean_right <- mean(right_x, na.rm = TRUE)
-    med_left <- median(left_x, na.rm = TRUE)
-    med_right <- median(right_x, na.rm = TRUE)
-    q25_left <- quantile(left_x, 0.25)
-    q25_right <- quantile(right_x, 0.25)
-    q75_left <- quantile(left_x, 0.75)
-    q75_right <- quantile(right_x, 0.75)
     
     pol_left <- list(x = c(0.04 * x_lim[1], 0, 0, 0.04 * x_lim[1]),
                      y = c(q25_left, q25_left, q75_left, q75_left))
@@ -83,6 +90,47 @@ compareDistributions <- function(left,
                      fill = "white", col = "black")) +
       as.layer(xyplot(med_right ~ 0.02 * x_lim[2], pch = 22, 
                       fill = "white", col = "black"))
+  }
+  
+  if (print.stats) {
+    
+    txt_left <- paste("Mean: ", round(mean_left, 2), "\n",
+                      "StdDev: ", round(sd_left, 2), "\n",
+                      "Median: ", round(med_left, 2), "\n",
+                      "Min: ", round(min_left, 2), "\n",
+                      "Max: ", round(max_left, 2), "\n",
+                      "Q25: ", round(q25_left, 2), "\n",
+                      "Q75: ", round(q75_left, 2), "\n",
+                      sep = "")
+    
+    txt_right <- paste("Mean: ", round(mean_right, 2), "\n",
+                      "StdDev: ", round(sd_right, 2), "\n",
+                      "Median: ", round(med_right, 2), "\n",
+                      "Min: ", round(min_right, 2), "\n",
+                      "Max: ", round(max_right, 2), "\n",
+                      "Q25: ", round(q25_right, 2), "\n",
+                      "Q75: ", round(q75_right, 2), "\n",
+                      sep = "")
+    
+    txtp_right <- xyplot(right_x ~ right_y, xlim = x_lim, ylim = y_lim, 
+                        type = "n", panel = function(...) {
+                          panel.xyplot(...)
+                          panel.text(x = x_lim[2] * 0.95,
+                                     y = y_lim[2] * 0.95,
+                                     labels = txt_right,
+                                     adj = c(1, 1))
+                        })
+    
+    txtp_left <- xyplot(left_x ~ left_y, xlim = x_lim, ylim = y_lim, 
+                        type = "n", panel = function(...) {
+                          panel.xyplot(...)
+                          panel.text(x = x_lim[1] * 0.95,
+                                     y = y_lim[2] * 0.95,
+                                     labels = txt_left,
+                                     adj = c(0, 1))
+                        })
+    
+    p <- p + as.layer(txtp_left) + as.layer(txtp_right)
   }
   
   return(p)

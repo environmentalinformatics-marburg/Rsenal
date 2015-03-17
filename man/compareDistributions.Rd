@@ -4,8 +4,8 @@
 \alias{compareDistributions}
 \title{compare two density distributions side by side}
 \usage{
-compareDistributions(left, right, add.spread = TRUE, clrs = c("purple",
-  "lightblue"), xlab = "density", ylab = "value", ...)
+compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
+  clrs = c("purple", "lightblue"), xlab = "density", ylab = "value", ...)
 }
 \arguments{
 \item{left}{numeric vector}
@@ -27,10 +27,10 @@ this function will produce a plot of two density functions displayed
 side by side
 }
 \examples{
-compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1))
-compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1),
+compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1))
+compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1),
                      add.spread = FALSE)
-compareDistributions(rnorm(1000, 2, 3), rnorm(1000, 8, 1),
+compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1),
                      add.spread = TRUE, clrs = c("red", "brown"))
 }
 \author{
