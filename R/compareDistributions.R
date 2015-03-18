@@ -23,6 +23,22 @@
 #'                      add.spread = FALSE)
 #' compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1), 
 #'                      add.spread = TRUE, clrs = c("red", "brown"))
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = FALSE, add.spread = FALSE)
+#'                      
+#' ## pass additional parameters to density() 
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = FALSE, add.spread = FALSE, bw = 5)
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = FALSE, add.spread = FALSE, bw = 8,
+#'                      kernel = "rectangular")
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = FALSE, add.spread = TRUE, bw = 8,
+#'                      n = 3)
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = TRUE, add.spread = TRUE, bw = 0.1)
+#' compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4), 
+#'                      print.stats = TRUE, add.spread = TRUE, bw = 0.5)                    
 #' 
 #' @export compareDistributions
 #' @aliases compareDistributions
@@ -93,9 +109,9 @@ compareDistributions <- function(left,
                              panel = panel.polygon, col = "grey60")) +
       as.layer(xyplot(pol_right$y ~ pol_right$x, type = "l",
                       panel = panel.polygon, col = "grey60")) +
-      as.layer(xyplot(med_left ~ 0.02 * x_lim[1], pch = 22, cex = 1.5, 
+      as.layer(xyplot(med_left ~ 0.02 * x_lim[1], pch = 22, cex = 1.2, 
                      fill = "white", col = "black")) +
-      as.layer(xyplot(med_right ~ 0.02 * x_lim[2], pch = 22, cex = 1.5, 
+      as.layer(xyplot(med_right ~ 0.02 * x_lim[2], pch = 22, cex = 1.2, 
                       fill = "white", col = "black"))
   }
   

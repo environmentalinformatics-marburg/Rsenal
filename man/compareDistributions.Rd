@@ -33,6 +33,22 @@ compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1),
                      add.spread = FALSE)
 compareDistributions(rnorm(1000, 2, 3), rnorm(1000, -5, 1),
                      add.spread = TRUE, clrs = c("red", "brown"))
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = FALSE, add.spread = FALSE)
+
+## pass additional parameters to density()
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = FALSE, add.spread = FALSE, bw = 5)
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = FALSE, add.spread = FALSE, bw = 8,
+                     kernel = "rectangular")
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = FALSE, add.spread = TRUE, bw = 8,
+                     n = 3)
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = TRUE, add.spread = TRUE, bw = 0.1)
+compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
+                     print.stats = TRUE, add.spread = TRUE, bw = 0.5)
 }
 \author{
 Tim Appelhans
