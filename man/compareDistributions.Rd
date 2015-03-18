@@ -5,7 +5,8 @@
 \title{compare two density distributions side by side}
 \usage{
 compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
-  clrs = c("purple", "lightblue"), xlab = "density", ylab = "value", ...)
+  xlim = NULL, ylim = NULL, clrs = c("purple", "lightblue"),
+  xlab = "density", ylab = "value", ...)
 }
 \arguments{
 \item{left}{numeric vector}

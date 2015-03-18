@@ -30,6 +30,8 @@ compareDistributions <- function(left,
                                  right,
                                  add.spread = TRUE,
                                  print.stats = TRUE,
+                                 xlim = NULL,
+                                 ylim = NULL,
                                  clrs = c("purple", "lightblue"),
                                  xlab = "density",
                                  ylab = "value",
@@ -42,14 +44,19 @@ compareDistributions <- function(left,
   right_x <- density(right)$x
   right_y <- density(right)$y
   
-  x_lim <- c(-sort(abs(c(range(left_y), range(right_y))), 
-                   decreasing = TRUE)[1] * 1.1,
-             sort(abs(c(range(left_y), range(right_y))), 
-                  decreasing = TRUE)[1] * 1.1)
-  y_lim <- c(sort(c(range(left_x), range(right_x)))[1] * 1.1,
-             sort(abs(c(range(left_x), range(right_x))), 
-                  decreasing = TRUE)[1] * 1.1)
+  if (is.null(xlim)) {
+    x_lim <- c(-sort(abs(c(range(left_y), range(right_y))), 
+                     decreasing = TRUE)[1] * 1.1,
+               sort(abs(c(range(left_y), range(right_y))), 
+                    decreasing = TRUE)[1] * 1.1)
+  } else x_lim <- xlim
   
+  if (is.null(ylim)) {
+    y_lim <- c(sort(c(range(left_x), range(right_x)))[1] * 1.1,
+               sort(abs(c(range(left_x), range(right_x))), 
+                    decreasing = TRUE)[1] * 1.1)
+  } else y_lim <- ylim
+    
   mean_left <- mean(left, na.rm = TRUE)
   mean_right <- mean(right, na.rm = TRUE)
   sd_left <- sd(left, na.rm = TRUE)
