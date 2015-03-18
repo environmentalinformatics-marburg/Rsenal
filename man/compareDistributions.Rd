@@ -16,6 +16,8 @@ compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
 \item{clrs}{a character vector of length 2 specifying the colors
 for the filled density regions}
 
+\item{...}{additional arguments passed to \code{\link{density}}}
+
 \item{add.spred}{logical, whether to plot the spread (q25 to q75 and the median)}
 }
 \value{

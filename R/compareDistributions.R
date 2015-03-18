@@ -9,6 +9,7 @@
 #' @param add.spred logical, whether to plot the spread (q25 to q75 and the median)
 #' @param clrs a character vector of length 2 specifying the colors 
 #' for the filled density regions
+#' @param ... additional arguments passed to \code{\link{density}}
 #' 
 #' @return
 #' A trellis object
@@ -39,10 +40,10 @@ compareDistributions <- function(left,
   
   library(latticeExtra)
   
-  left_x <- density(left)$x
-  left_y <- -density(left)$y
-  right_x <- density(right)$x
-  right_y <- density(right)$y
+  left_x <- density(left, ...)$x
+  left_y <- -density(left, ...)$y
+  right_x <- density(right, ...)$x
+  right_y <- density(right, ...)$y
   
   if (is.null(xlim)) {
     x_lim <- c(-sort(abs(c(range(left_y), range(right_y))), 
