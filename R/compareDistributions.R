@@ -9,7 +9,6 @@
 #' @param add.spred logical, whether to plot the spread (q25 to q75 and the median)
 #' @param clrs a character vector of length 2 specifying the colors 
 #' for the filled density regions
-#' @param ... currently not used
 #' 
 #' @return
 #' A trellis object
@@ -120,7 +119,7 @@ compareDistributions <- function(left,
                           panel.text(x = x_lim[2] * 0.95,
                                      y = y_lim[2] * 0.95,
                                      labels = txt_right,
-                                     adj = c(1, 1))
+                                     adj = c(1, 1), cex = 0.8)
                         })
     
     txtp_left <- xyplot(left_x ~ left_y, xlim = x_lim, ylim = y_lim, 
@@ -129,7 +128,7 @@ compareDistributions <- function(left,
                           panel.text(x = x_lim[1] * 0.95,
                                      y = y_lim[2] * 0.95,
                                      labels = txt_left,
-                                     adj = c(0, 1))
+                                     adj = c(0, 1), cex = 0.8)
                         })
     
     p <- p + as.layer(txtp_left) + as.layer(txtp_right)
