@@ -51,20 +51,20 @@ compareDistributions <- function(left,
              sort(abs(c(range(left_x), range(right_x))), 
                   decreasing = TRUE)[1] * 1.1)
   
-  mean_left <- mean(left_x, na.rm = TRUE)
-  mean_right <- mean(right_x, na.rm = TRUE)
-  sd_left <- sd(left_x, na.rm = TRUE)
-  sd_right <- sd(right_x, na.rm = TRUE)
-  med_left <- median(left_x, na.rm = TRUE)
-  med_right <- median(right_x, na.rm = TRUE)
-  q25_left <- quantile(left_x, 0.25)
-  q25_right <- quantile(right_x, 0.25)
-  q75_left <- quantile(left_x, 0.75)
-  q75_right <- quantile(right_x, 0.75)
-  min_left <- min(left_x, na.rm = TRUE)
-  min_right <- min(right_x, na.rm = TRUE)
-  max_left <- max(left_x, na.rm = TRUE)
-  max_right <- max(right_x, na.rm = TRUE)
+  mean_left <- mean(left, na.rm = TRUE)
+  mean_right <- mean(right, na.rm = TRUE)
+  sd_left <- sd(left, na.rm = TRUE)
+  sd_right <- sd(right, na.rm = TRUE)
+  med_left <- median(left, na.rm = TRUE)
+  med_right <- median(right, na.rm = TRUE)
+  q25_left <- quantile(left, 0.25)
+  q25_right <- quantile(right, 0.25)
+  q75_left <- quantile(left, 0.75)
+  q75_right <- quantile(right, 0.75)
+  min_left <- min(left, na.rm = TRUE)
+  min_right <- min(right, na.rm = TRUE)
+  max_left <- max(left, na.rm = TRUE)
+  max_right <- max(right, na.rm = TRUE)
   
   
   p <- xyplot(left_x ~ left_y, xlim = x_lim, ylim = y_lim, type = "l",
@@ -86,30 +86,32 @@ compareDistributions <- function(left,
                              panel = panel.polygon, col = "grey60")) +
       as.layer(xyplot(pol_right$y ~ pol_right$x, type = "l",
                       panel = panel.polygon, col = "grey60")) +
-      as.layer(xyplot(med_left ~ 0.02 * x_lim[1], pch = 22, 
+      as.layer(xyplot(med_left ~ 0.02 * x_lim[1], pch = 22, cex = 1.5, 
                      fill = "white", col = "black")) +
-      as.layer(xyplot(med_right ~ 0.02 * x_lim[2], pch = 22, 
+      as.layer(xyplot(med_right ~ 0.02 * x_lim[2], pch = 22, cex = 1.5, 
                       fill = "white", col = "black"))
   }
   
   if (print.stats) {
     
     txt_left <- paste("Mean: ", round(mean_left, 2), "\n",
-                      "StdDev: ", round(sd_left, 2), "\n",
                       "Median: ", round(med_left, 2), "\n",
                       "Min: ", round(min_left, 2), "\n",
                       "Max: ", round(max_left, 2), "\n",
                       "Q25: ", round(q25_left, 2), "\n",
                       "Q75: ", round(q75_left, 2), "\n",
+                      "StdDev: ", round(sd_left, 2), "\n",
+                      "N: ", length(na.exclude(left)), "\n",
                       sep = "")
     
     txt_right <- paste("Mean: ", round(mean_right, 2), "\n",
-                      "StdDev: ", round(sd_right, 2), "\n",
                       "Median: ", round(med_right, 2), "\n",
                       "Min: ", round(min_right, 2), "\n",
                       "Max: ", round(max_right, 2), "\n",
                       "Q25: ", round(q25_right, 2), "\n",
                       "Q75: ", round(q75_right, 2), "\n",
+                      "StdDev: ", round(sd_right, 2), "\n",
+                      "N: ", length(na.exclude(right)), "\n",
                       sep = "")
     
     txtp_right <- xyplot(right_x ~ right_y, xlim = x_lim, ylim = y_lim, 
