@@ -1,0 +1,53 @@
+#' extract cross-validated important variables
+#' 
+#' @description 
+#' this function approaches the identification of important variables from
+#' \code{\link{rfe}} more conservatively than \code{\link{caret}}. It uses
+#' the standard deviation of the cross-validated error metric to identify
+#' important variables.
+#' 
+#' @param rfe.model a rfe model. See \code{\link{rfe}}
+#' @param metric the metric to be used. Note this needs to be the metric used 
+#' to calculate the \code{\link{rfe}} model
+#' 
+#' @return
+#' a character vector of the variable names
+#' 
+#' @author
+#' Hanna Meyer, Tim Appelhans
+#' 
+#' @export varsRfeCV
+#' @aliases varsRfeCV
+
+varsRfeCV <- function (rfe.model,
+                       metric = rfe.model$metric) {
+
+  data <- as.data.frame(rfe.model$resample)
+
+  sdv <- c()
+  means <- c()
+
+  for (i in unique(data$Variables)) {
+    sdv <- c(sdv,
+             sd(eval(parse(text = paste("data$",
+                                        metric)))[data$Variables == i]))
+    means <- c(means,
+               mean(eval(parse(text=paste("data$",
+                                          metric)))[data$Variables==i]))
+  }
+
+  upr <- means + sdv
+  start_var <- min(unique(data$Variables))
+  start_offset <- abs(start_var - 1)
+
+#   print(means)
+#   print(upr)
+#   print(upr[rfe.model$bestSubset - start_offset])
+#   print(means < upr[rfe.model$bestSubset - start_offset])
+  n_vars <- unique(data$Variables)[which(means <
+                                           upr[rfe.model$bestSubset -
+                                                 start_offset])[1]]
+
+  return(rfe.model$optVariables[1:n_vars])
+
+}
