@@ -32,7 +32,7 @@ varsRfeCV <- function (rfe.model,
   if (metric=="Rsquared"||metric=="ROC"||metric=="Accuracy"){
     maximize=TRUE
   } else {
-    metric =FALSE
+    maximize =FALSE
   }
   
   data <- as.data.frame(rfe.model$resample)
