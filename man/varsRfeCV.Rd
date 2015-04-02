@@ -4,13 +4,19 @@
 \alias{varsRfeCV}
 \title{extract cross-validated important variables}
 \usage{
-varsRfeCV(rfe.model, metric = rfe.model$metric)
+varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE)
 }
 \arguments{
 \item{rfe.model}{a rfe model. See \code{\link{rfe}}}
 
 \item{metric}{the metric to be used. Note this needs to be the metric used
 to calculate the \code{\link{rfe}} model}
+
+\item{maximize}{logical: Is a higher value of the metric favourable
+ (e.g metric = Rsquared) or not (e.g metric = RMSE). maximize=TRUE is
+ determined automatically as long as metric is either Rsquared, ROC, Accuracy.
+ maximize =FALSE is used for all other metrics. Set this manually if you
+ use an other metric where higher values are favourable.}
 }
 \value{
 a character vector of the variable names
