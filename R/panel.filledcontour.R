@@ -39,6 +39,8 @@ panel.filledcontour <- function(x, y, z,
                                 col.regions = cm.colors,
                                 col = col.regions(length(at) - 1),
                                 col.contours = "black",
+                                lty.contours = 1,
+                                lwd.contours = 1,
                                 draw.labels = TRUE,
                                 ...) {
   
@@ -88,6 +90,8 @@ panel.filledcontour <- function(x, y, z,
             levels = as.double(cont_seq), 
             add = TRUE,
             col = col.contours, # color of the lines
+            lty = lty.contours,
+            lwd = lwd.contours,
             drawlabels = draw.labels)
     
   } else NULL
