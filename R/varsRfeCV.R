@@ -3,8 +3,8 @@
 #' @description 
 #' this function approaches the identification of important variables from
 #' \code{\link{rfe}} more conservatively than \code{\link{caret}}. It uses
-#' the standard deviation of the cross-validated error metric to identify
-#' important variables.
+#' the standard deviation (or standard error) of the cross-validated error 
+#' metric to identify important variables.
 #' 
 #' @param rfe.model a rfe model. See \code{\link{rfe}}
 #' @param metric the metric to be used. Note this needs to be the metric used 
@@ -14,7 +14,8 @@
 #'  determined automatically as long as metric is either Rsquared, ROC, Accuracy.
 #'  maximize =FALSE is used for all other metrics. Set this manually if you
 #'  use an other metric where higher values are favourable.
-#' 
+#' @param sderror If TRUE then standard error is calculated. If FALSE then
+#' standard deviations are used
 #' @return
 #' a character vector of the variable names
 #' 
@@ -26,7 +27,8 @@
 
 varsRfeCV <- function (rfe.model,
                        metric = rfe.model$metric,
-                       maximize=FALSE) {
+                       maximize=FALSE,
+                       sderror=TRUE) {
   
   
   if (metric=="Rsquared"||metric=="ROC"||metric=="Accuracy"){
@@ -41,9 +43,15 @@ varsRfeCV <- function (rfe.model,
   means <- c()
   
   for (i in unique(data$Variables)) {
-    sdv <- c(sdv,
-             sd(eval(parse(text = paste("data$",
-                                        metric)))[data$Variables == i]))
+    if(!sderror){
+      sdv <- c(sdv,
+               sd(eval(parse(text = paste("data$",
+                                          metric)))[data$Variables == i]))
+    }
+    if(sderror){
+      sdv <- c(sdv,se(eval(parse(text = paste("data$",
+                                              metric)))[data$Variables == i]))
+    }
     means <- c(means,
                mean(eval(parse(text=paste("data$",
                                           metric)))[data$Variables==i]))
@@ -65,13 +73,21 @@ varsRfeCV <- function (rfe.model,
                                              upr[which(unique(data$Variables)==
                                                          rfe.model$bestSubset)])[1]]
   } else{
-  n_vars <- unique(data$Variables)[which(means <
-                                           upr[which(unique(data$Variables)==
-                                                       rfe.model$bestSubset)])[1]]
+    n_vars <- unique(data$Variables)[which(means <
+                                             upr[which(unique(data$Variables)==
+                                                         rfe.model$bestSubset)])[1]]
   }
-
-  bestVar <- rfe.model$control$functions$selectVar(rfe.model$variables, n_vars)
   
+  subset <- rfe.model$variables[rfe.model$variables$Variables==n_vars,]
+  uniqueVars <- unique(subset$var)
+  bestVar<-c()
+  for (i in 1:length(uniqueVars)){
+    bestVar[i]=sum(subset$Overall[subset$var==uniqueVars[i]])/10
+  }
+  names(bestVar) <- uniqueVars
+  bestVar<-sort(bestVar,decreasing=TRUE)[1:n_vars]
+  
+  #bestVar <- rfe.model$control$functions$selectVar(rfe.model$variables, n_vars)
   #return(rfe.model$optVariables[1:n_vars])
   return(bestVar)
   

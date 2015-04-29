@@ -4,7 +4,8 @@
 \alias{varsRfeCV}
 \title{extract cross-validated important variables}
 \usage{
-varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE)
+varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE,
+  sderror = TRUE)
 }
 \arguments{
 \item{rfe.model}{a rfe model. See \code{\link{rfe}}}
@@ -13,10 +14,13 @@ varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE)
 to calculate the \code{\link{rfe}} model}
 
 \item{maximize}{logical: Is a higher value of the metric favourable
- (e.g metric = Rsquared) or not (e.g metric = RMSE). maximize=TRUE is
- determined automatically as long as metric is either Rsquared, ROC, Accuracy.
- maximize =FALSE is used for all other metrics. Set this manually if you
- use an other metric where higher values are favourable.}
+(e.g metric = Rsquared) or not (e.g metric = RMSE). maximize=TRUE is
+determined automatically as long as metric is either Rsquared, ROC, Accuracy.
+maximize =FALSE is used for all other metrics. Set this manually if you
+use an other metric where higher values are favourable.}
+
+\item{sderror}{If TRUE then standard error is calculated. If FALSE then
+standard deviations are used}
 }
 \value{
 a character vector of the variable names
@@ -24,8 +28,8 @@ a character vector of the variable names
 \description{
 this function approaches the identification of important variables from
 \code{\link{rfe}} more conservatively than \code{\link{caret}}. It uses
-the standard deviation of the cross-validated error metric to identify
-important variables.
+the standard deviation (or standard error) of the cross-validated error
+metric to identify important variables.
 }
 \author{
 Hanna Meyer, Tim Appelhans

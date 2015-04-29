@@ -2,8 +2,9 @@
 #' 
 #' @description 
 #' this function plots variable imporatnce for cross-validated 
-#' \code{\link{rfe}} variable selection classes. It uses the k cross-validations
-#' to compute the mean +/- sd error metric.
+#' \code{\link{rfe}} variable selection classes or \code{\link{train}} classes.
+#'  It uses the k cross-validations to compute the mean +/- sd error or 
+#'  standard deviation metric.
 #' 
 #' @param model A rfe or train object. See \code{\link{rfe}} and \code{\link{train}}
 #' @param metric the metric to be used. Note this needs to be the metric used 
@@ -12,6 +13,8 @@
 #' For rfe models default is "Variables", the number of variables.
 #' @param xlim the xlim for the plot
 #' @param ylim the ylim for the plot  
+#' @param sderror If TRUE then standard error is calculated. If FALSE then
+#' standard deviations are used
 #' 
 #' @return
 #' a trellis object
@@ -27,7 +30,9 @@ plotModelCV <- function(model,
                       metric = model$metric,
                       tuningValue = "Variables",
                       xlim = "minmax",
-                      ylim = "minmax") {
+                      ylim = "minmax",
+                      sderror=FALSE) {
+  require(lattice)
 
   data <- as.data.frame(model$resample)
   
@@ -41,7 +46,12 @@ plotModelCV <- function(model,
   means <- c()
 
   for (i in unique(data$tuningValue)) {
-      sdv<-c(sdv,sd(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
+      if(!sderror){
+        sdv<-c(sdv,sd(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
+      }
+      if(sderror){
+        sdv<-c(sdv,se(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
+      }
       means<-c(means,mean(eval(parse(text=paste("data$",metric)))
                           [data$tuningValue==i]))
     }

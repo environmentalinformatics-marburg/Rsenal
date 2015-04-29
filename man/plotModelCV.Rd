@@ -5,7 +5,7 @@
 \title{plot cross-validated variable importance}
 \usage{
 plotModelCV(model, metric = model$metric, tuningValue = "Variables",
-  xlim = "minmax", ylim = "minmax")
+  xlim = "minmax", ylim = "minmax", sderror = FALSE)
 }
 \arguments{
 \item{model}{A rfe or train object. See \code{\link{rfe}} and \code{\link{train}}}
@@ -19,14 +19,18 @@ For rfe models default is "Variables", the number of variables.}
 \item{xlim}{the xlim for the plot}
 
 \item{ylim}{the ylim for the plot}
+
+\item{sderror}{If TRUE then standard error is calculated. If FALSE then
+standard deviations are used}
 }
 \value{
 a trellis object
 }
 \description{
 this function plots variable imporatnce for cross-validated
-\code{\link{rfe}} variable selection classes. It uses the k cross-validations
-to compute the mean +/- sd error metric.
+\code{\link{rfe}} variable selection classes or \code{\link{train}} classes.
+ It uses the k cross-validations to compute the mean +/- sd error or
+ standard deviation metric.
 }
 \note{
 if rfe is used as model, then returnResamp = "all"
