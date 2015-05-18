@@ -30,8 +30,14 @@
 #' @aliases rgb2YCbCr
 rgb2YCbCr <- function(rgb, r = 1, g = 2, b = 3) {
   
-  ## required packages
-  stopifnot(require(raster))
+  ### prerequisites
+  
+  ## compatibility check
+  if (nlayers(rgb) < 3)
+    stop("Argument 'rgb' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
+  
+  
+  ### processing
   
   ## red, green and blue bands
   r <- rgb[[r]]
