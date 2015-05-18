@@ -4,11 +4,15 @@
 \alias{rgbShadowMask}
 \title{Shadow mask from RGB (satellite) imagery}
 \usage{
-rgbShadowMask(rgb, ...)
+rgbShadowMask(rgb, n_iter = 1, ...)
 }
 \arguments{
 \item{rgb}{A \code{RasterStack} or \code{RasterBrick} object. 3
 bands are mandatory (usually red, green and blue).}
+
+\item{n_iter}{Integer, defaults to '1'. Number of iterations to distinguish
+between shadow and non-shadow pixels. The more iterations, the fewer shadow
+pixels will remain.}
 
 \item{...}{Further arguments passed on to \code{\link{rgb2YCbCr}}.}
 }
@@ -19,13 +23,14 @@ A shadow mask \code{RasterLayer}.
 This function builds a shadow mask from a RGB \code{Raster*} object.
 }
 \examples{
-data(gmap_hel)
+library(RColorBrewer)
 
+data(gmap_hel)
 plotRGB(gmap_hel)
 
 gmap_hel_wsh <- rgbShadowMask(gmap_hel)
 plot(gmap_hel_wsh, axes = FALSE, legend = FALSE,
-     col = rev(brewer.pal(9, "Greys")), alpha = .1, add = TRUE)
+     col = c(rev(brewer.pal(9, "Greys"))), alpha = .25, add = TRUE)
 }
 \author{
 Florian Detsch, Tim Appelhans

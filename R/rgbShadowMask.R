@@ -5,6 +5,9 @@
 #' 
 #' @param rgb A \code{RasterStack} or \code{RasterBrick} object. 3
 #' bands are mandatory (usually red, green and blue).
+#' @param n_iter Integer, defaults to '1'. Number of iterations to distinguish 
+#' between shadow and non-shadow pixels. The more iterations, the fewer shadow 
+#' pixels will remain.
 #' @param ... Further arguments passed on to \code{\link{rgb2YCbCr}}.
 #' 
 #' @return 
@@ -19,17 +22,18 @@
 #' @seealso \code{\link{rgb2YCbCr}}
 #' 
 #' @examples
-#' data(gmap_hel)
+#' library(RColorBrewer)
 #' 
+#' data(gmap_hel)
 #' plotRGB(gmap_hel)
 #' 
 #' gmap_hel_wsh <- rgbShadowMask(gmap_hel)
 #' plot(gmap_hel_wsh, axes = FALSE, legend = FALSE, 
-#'      col = rev(brewer.pal(9, "Greys")), alpha = .1, add = TRUE)
+#'      col = c(rev(brewer.pal(9, "Greys"))), alpha = .25, add = TRUE)
 #' 
 #' @export rgbShadowMask
 #' @aliases rgbShadowMask
-rgbShadowMask <- function(rgb, ...) {
+rgbShadowMask <- function(rgb, n_iter = 1, ...) {
 
   ### prerequisites
   
@@ -56,18 +60,31 @@ rgbShadowMask <- function(rgb, ...) {
   rst_fcl_mu <- focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
   rst_fcl_mu[rst_fcl_mu[] < num_trsh] <- 0
   rst_fcl_mu[rst_fcl_mu[] > 0] <- 1
-  
-  ## modified threshold
-  y_msk <- y[rst_fcl_mu[] == 0]
-  num_mu_y_msk <- mean(y_msk)
-  num_sd_y_msk <- sd(y_msk)
-  num_trsh_msk <- num_mu_y_msk - num_sd_y_msk
-  
-  ## rejection of focal means based on modified threshold
-  rst_fcl_mu_msk <- focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
-  rst_fcl_mu_msk[rst_fcl_mu_msk[] < num_trsh_msk] <- 0
-  rst_fcl_mu_msk[rst_fcl_mu_msk[] > 0] <- 1
+
+  ## iteratively identify shadow
+  if (n_iter > 0) {
+    for (i in 1:n_iter) {
+      
+      ## modified threshold
+      y_msk <- y[rst_fcl_mu[] == 0]
+      num_mu_y_msk <- mean(y_msk)
+      num_sd_y_msk <- sd(y_msk)
+      num_trsh_msk <- num_mu_y_msk - num_sd_y_msk
+      
+      ## rejection of focal means based on modified threshold
+      rst_fcl_mu_msk <- focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
+      rst_fcl_mu_msk[rst_fcl_mu_msk[] < num_trsh_msk] <- 0
+      rst_fcl_mu_msk[rst_fcl_mu_msk[] > 0] <- 1
+      
+      if (any(rst_fcl_mu_msk[] == 0)) {
+        rst_fcl_mu <- rst_fcl_mu_msk
+      } else {
+        cat("Break at iteration # ", i, ": there will be no shadow pixels left after next iteration.", sep = "")
+        break
+      }
+    }
+  }
   
   ## return shadow mask
-  return(rst_fcl_mu_msk)
+  return(rst_fcl_mu)
 }
