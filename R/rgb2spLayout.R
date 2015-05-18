@@ -75,7 +75,8 @@ rgb2spLayout <- function(x, alpha) {
   sp.raster <- list('grid.raster', map.cols,
                     x = lonCenter, y = latCenter,
                     width = width, height = height,
-                    default.units = 'native')
+                    default.units = 'native',
+                    first = TRUE)
   
   return(sp.raster)
 }
