@@ -4,12 +4,15 @@
 \alias{extendByDist}
 \title{Extend an object's extent by distance}
 \usage{
-extendByDist(x, dist)
+extendByDist(x, width)
 }
 \arguments{
 \item{x}{Extent, Raster* or Spatial* object.}
 
-\item{dist}{Numeric. Distance (in native map units) from original geometry.}
+\item{width}{Numeric. Distance to add to original geometry (in native map
+units). Can be of length 1 (applied equally in each direction), 2 (first
+entry applied in vertical direction, second entry in horizontal direction) or
+4 (applied separately in bottom/left/top/right direction).}
 }
 \value{
 An extended extent.
@@ -25,7 +28,7 @@ decimal degrees when the projection is EPSG:4326.
 rst <- kiliAerial(rasterize = TRUE, minNumTiles = 4L)
 
 extent(rst)
-extendByDist(rst, dist = 1000)
+extendByDist(rst, width = 1000)
 }
 \author{
 Florian Detsch
