@@ -8,7 +8,10 @@
 #' decimal degrees when the projection is EPSG:4326. 
 #' 
 #' @param x Extent, Raster* or Spatial* object.
-#' @param dist Numeric. Distance (in native map units) from original geometry.
+#' @param width Numeric. Distance to add to original geometry (in native map 
+#' units). Can be of length 1 (applied equally in each direction), 2 (first 
+#' entry applied in vertical direction, second entry in horizontal direction) or 
+#' 4 (applied separately in bottom/left/top/right direction).
 #' 
 #' @return
 #' An extended extent.
@@ -23,11 +26,11 @@
 #' rst <- kiliAerial(rasterize = TRUE, minNumTiles = 4L)
 #' 
 #' extent(rst)
-#' extendByDist(rst, dist = 1000)
+#' extendByDist(rst, width = 1000)
 #' 
 #' @export extendByDist
 #' @aliases extendByDist
-extendByDist <- function(x, dist) {
+extendByDist <- function(x, width) {
  
   ## required package
   stopifnot(require(raster))
@@ -37,10 +40,19 @@ extendByDist <- function(x, dist) {
     x <- extent(x)
     
   ## add distance
-  xmin(x) <- xmin(x) - dist
-  xmax(x) <- xmax(x) + dist
-  ymin(x) <- ymin(x) - dist
-  ymax(x) <- ymax(x) + dist
+  int_len <- length(width)
+  if (int_len == 1) {
+    width <- rep(width, 4)
+  } else if (int_len == 2) {
+    width <- c(width[1], width[2], width[1], width[2])
+  } else if (int_len == 3 | int_len > 4) {
+    stop("Please supply a valid width (see ?extendBywidth).")
+  }
+  
+  ymin(x) <- ymin(x) - width[1]
+  xmin(x) <- xmin(x) - width[2]
+  ymax(x) <- ymax(x) + width[3]
+  xmax(x) <- xmax(x) + width[4]
   
   return(x)
 }
