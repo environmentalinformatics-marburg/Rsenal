@@ -21,8 +21,8 @@
 #' \code{\link{download.file}}, \code{\link{getURL}}
 #' 
 #' @examples  
-#' # Download TRMM 3B42 data from Jan 1 to Jan 31, 2015 (might take some time...)
-#' downloadTRMM(begin = "2015-01-01", end = "2015-01-31")
+#' ## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
+#' downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
 #'               
 #' @export downloadTRMM
 #' @aliases downloadTRMM
@@ -67,7 +67,8 @@ downloadTRMM <- function(begin, end, dsn = ".", format = "%Y-%m-%d") {
     tmp_ch_fls_out <- as.character(tmp_ch_fls_out)
     tmp_id_xml <- grep("xml", tmp_ch_fls_out)
     data.frame(bin = tmp_ch_fls_out[-tmp_id_xml], 
-               xml = tmp_ch_fls_out[tmp_id_xml])
+               xml = tmp_ch_fls_out[tmp_id_xml], 
+               stringsAsFactors = FALSE)
     
   })
   

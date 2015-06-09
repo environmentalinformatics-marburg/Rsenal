@@ -26,8 +26,8 @@ Download TRMM 3B42 daily binary data for a given time span from the NASA FTP ser
 (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_daily/}).
 }
 \examples{
-# Download TRMM 3B42 data from Jan 1 to Jan 31, 2015 (might take some time...)
-downloadTRMM(begin = "2015-01-01", end = "2015-01-31")
+## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
+downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
 }
 \author{
 Florian Detsch
