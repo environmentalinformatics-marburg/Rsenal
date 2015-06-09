@@ -72,7 +72,8 @@ rasterizeTRMM <- function(binary, meta, write_out = TRUE) {
   rst_trmm[] <- num_val
   
   ch_fls_out <- gsub("\\.", "_", basename(binary))
-  ch_fls_out <- paste(dirname(binary), substr(ch_fls_out, 1, nchar(ch_fls_out)-4))
+  ch_fls_out <- paste(dirname(binary), substr(ch_fls_out, 1, nchar(ch_fls_out)-4), 
+                      sep = "/")
   
   rst_trmm <- flip(rst_trmm, direction = "y", 
                    filename = ifelse(write_out, ch_fls_out, ""), 
