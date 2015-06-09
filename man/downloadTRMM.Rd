@@ -4,8 +4,7 @@
 \alias{downloadTRMM}
 \title{Download TRMM 3B42 daily data}
 \usage{
-downloadTRMM(begin, end, dsn = ".", incl_xml = FALSE,
-  format = "\%Y-\%m-\%d")
+downloadTRMM(begin, end, dsn = ".", format = "\%Y-\%m-\%d")
 }
 \arguments{
 \item{begin}{Date or character. Desired start date.}
@@ -14,8 +13,6 @@ downloadTRMM(begin, end, dsn = ".", incl_xml = FALSE,
 
 \item{dsn}{Character. Target directory for file download. If not supplied,
 this defaults to the current working directory.}
-
-\item{incl_xml}{Logical. If \code{TRUE}, *.xml files will be downloaded as well.}
 
 \item{format}{Character. See \code{\link{as.Date}}.}
 

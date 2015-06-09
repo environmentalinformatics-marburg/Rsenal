@@ -8,7 +8,6 @@
 #' @param end Date or character. Desired end date.
 #' @param dsn Character. Target directory for file download. If not supplied, 
 #' this defaults to the current working directory. 
-#' @param incl_xml Logical. If \code{TRUE}, *.xml files will be downloaded as well.
 #' @param format Character. See \code{\link{as.Date}}.
 #' @param ... Further arguments. Currently not used. 
 #' 
@@ -27,8 +26,7 @@
 #'               
 #' @export downloadTRMM
 #' @aliases downloadTRMM
-downloadTRMM <- function(begin, end, dsn = ".", incl_xml = FALSE, 
-                         format = "%Y-%m-%d") {
+downloadTRMM <- function(begin, end, dsn = ".", format = "%Y-%m-%d") {
   
   ## required packages
   stopifnot(require(lubridate))
@@ -58,27 +56,22 @@ downloadTRMM <- function(begin, end, dsn = ".", incl_xml = FALSE,
     tmp_ch_fls <- unlist(tmp_ls_fls)
     
     # download all files found (including *.xml)
-    if (incl_xml) {
-      tmp_ch_fls <- paste(tmp_ch_url, tmp_ch_fls, sep = "/")
-      tmp_ch_fls_out <- sapply(tmp_ch_fls, function(j) {
-        tmp_ch_fls_out <- paste(dsn, basename(j), sep = "/")
-        download.file(j, tmp_ch_fls_out)
-        return(tmp_ch_fls_out)
-      })
-      
-      # download gridded data (*.bin) only  
-    } else {
-      int_id_bin <- grep(".bin$", tmp_ch_fls)
-      tmp_ch_fls <- tmp_ch_fls[int_id_bin]
-      tmp_ch_bin <- paste(tmp_ch_url, tmp_ch_fls, sep = "/")
-      
-      tmp_ch_bin_out <- paste(dsn, basename(tmp_ch_bin), sep = "/")
-      download.file(tmp_ch_bin, tmp_ch_bin_out)
-      return(tmp_ch_bin_out)
-    }
+    tmp_ch_fls <- paste(tmp_ch_url, tmp_ch_fls, sep = "/")
+    tmp_ch_fls_out <- sapply(tmp_ch_fls, function(j) {
+      tmp_ch_fls_out <- paste(dsn, basename(j), sep = "/")
+      download.file(j, tmp_ch_fls_out)
+      return(tmp_ch_fls_out)
+    })
+    
+    # return data frame with *.bin and *.xml filenames
+    tmp_ch_fls_out <- as.character(tmp_ch_fls_out)
+    tmp_id_xml <- grep("xml", tmp_ch_fls_out)
+    data.frame(bin = tmp_ch_fls_out[-tmp_id_xml], 
+               xml = tmp_ch_fls_out[tmp_id_xml])
+    
   })
   
-  ## return output filenames
-  ch_fls_out <- do.call("c", ls_fls_out)
+  ## join and return names of processed files
+  ch_fls_out <- do.call("rbind",ls_fls_out)
   return(ch_fls_out)
 }
