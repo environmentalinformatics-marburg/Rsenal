@@ -17,6 +17,9 @@
 #' @seealso
 #' \code{\link{readBin}}, \code{\link{downloadTRMM}}
 #' 
+#' @references
+#' \url{https://stat.ethz.ch/pipermail/r-sig-geo/attachments/20110913/5ece92b0/attachment.pl}
+#' 
 #' @examples  
 #' ## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
 #' fls_trmm <- downloadTRMM(begin = "2015-01-01", end = "2015-01-05")

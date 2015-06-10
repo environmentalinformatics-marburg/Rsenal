@@ -33,6 +33,9 @@ plot(rst_trmm)
 \author{
 Florian Detsch
 }
+\references{
+\url{https://stat.ethz.ch/pipermail/r-sig-geo/attachments/20110913/5ece92b0/attachment.pl}
+}
 \seealso{
 \code{\link{readBin}}, \code{\link{downloadTRMM}}
 }
