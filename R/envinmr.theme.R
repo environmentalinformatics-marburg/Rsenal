@@ -51,6 +51,13 @@ envinmr.theme <- function(win.fontfamily = NULL,
                                      "#E6642C", "#D92120",
                                      "#460000"))(n)
                 },
+                topo.cols = function(n) {
+                  colorRampPalette(c("#00434B","#048354",
+                                     "#878F3F","#C4906D",
+                                     "#DE93B2","#CCA9E0",
+                                     "#9FC5E6","#99D6D1",
+                                     "#C2DBC3"))(n)
+                },
                 par.main.text = list(font = 1),
                 reference.line = list(col = if (with.bg) "white" else "#aaaaaa", 
                                       lwd = 1.75), 
