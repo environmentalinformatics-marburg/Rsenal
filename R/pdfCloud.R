@@ -13,6 +13,7 @@
 #' @param max.char.length maximum length of words to be included in the cloud
 #' @param clrs vector of colors to be used for the word cloud
 #' @param seed seed to be used for the random word placement
+#' @param wmin see \code{\link{tagcloud}} for details
 #' @param ... additional arguments passed to \code{\link{tagcloud}}
 #' 
 #' @author
@@ -28,7 +29,7 @@ pdfCloud <- function(pdf.path, exclude = NULL, nwords = 180,
                      min.char.length = 5, max.char.length = 30,
                      clrs = c("#8c510a", "#bf812d", "#35978f",
                               "#01665e", "#7fbc41", "#4d9221"),
-                     seed = 123, ...) {
+                     seed = 123, wmin = NULL, ...) {
 
   if(!system('pdftotext -v') == 0) {
     stop("please install 'pdftotext'")
@@ -77,7 +78,7 @@ pdfCloud <- function(pdf.path, exclude = NULL, nwords = 180,
   tags <- names(freqs[order(freqs, decreasing = TRUE)][1:nwords])
   wgts <- freqs[order(freqs, decreasing = TRUE)][1:nwords]
 
-  if (missing(wmin)) wmin <- quantile(wgts, probs = 0.6)
+  if (is.null(wmin)) wmin <- quantile(wgts, probs = 0.6)
 
   set.seed(seed)
   return(tagcloud(tags, wgts, wmin = wmin,
