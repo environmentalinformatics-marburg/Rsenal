@@ -27,14 +27,14 @@
 #' @export panel.map
 #' @aliases panel.map
 
-panel.map <- function(map.data, fill = TRUE, col = "grey70", ...) {
+panel.map <- function(map.data, col = "transparent", ...) {
   
   library(maps)
   
-  mm <- map(map.data, plot = FALSE, fill = fill, 
+  mm <- map(map.data, plot = FALSE, fill = TRUE, 
             col = col)
   
-  pp <- panel.polygon(mm$x, mm$y, ...)
+  pp <- panel.polygon(mm$x, mm$y, col = col, ...)
   
   return(pp)
   
