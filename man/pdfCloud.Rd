@@ -6,7 +6,7 @@
 \usage{
 pdfCloud(pdf.path, exclude = NULL, nwords = 180, min.char.length = 5,
   max.char.length = 30, clrs = c("#8c510a", "#bf812d", "#35978f", "#01665e",
-  "#7fbc41", "#4d9221"), seed = 123, ...)
+  "#7fbc41", "#4d9221"), seed = 123, wmin = NULL, ...)
 }
 \arguments{
 \item{pdf.path}{path to the pdf folder}
@@ -23,6 +23,8 @@ from the cloud}
 \item{clrs}{vector of colors to be used for the word cloud}
 
 \item{seed}{seed to be used for the random word placement}
+
+\item{wmin}{see \code{\link{tagcloud}} for details}
 
 \item{...}{additional arguments passed to \code{\link{tagcloud}}}
 }

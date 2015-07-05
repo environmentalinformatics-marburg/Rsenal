@@ -4,16 +4,16 @@
 \alias{panel.map}
 \title{panel function for maps}
 \usage{
-panel.map(map.data, fill = TRUE, col = "grey70", ...)
+panel.map(map.data, col = "transparent", ...)
 }
 \arguments{
 \item{map.data}{the map type - see \code{\link{map}} database argument}
 
-\item{fill}{should the polygons be filled?}
-
 \item{col}{the colour of the fill}
 
 \item{...}{additional arguments passed on to \code{\link{panel.polygon}}}
+
+\item{fill}{should the polygons be filled?}
 }
 \value{
 A \code{\link{panel.polygon}} object
