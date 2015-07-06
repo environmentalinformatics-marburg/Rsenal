@@ -129,11 +129,13 @@ setMethod('gisView', signature(x = 'RasterLayer'),
                                   baseGroups = map.types,
                                   overlayGroups = names(x))
             } else {
+              list.len <- length(map$x$calls)
               m <- addLayersControl(map = m,
                                     position = "topleft",
                                     baseGroups = map.types,
-                                    overlayGroups = c(m$x$calls[[5]]$args[[2]], 
-                                                      names(x)))
+                                    overlayGroups = 
+                                      c(m$x$calls[[list.len]]$args[[2]], 
+                                        names(x)))
             }
             
             return(m)
