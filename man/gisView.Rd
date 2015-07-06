@@ -4,6 +4,7 @@
 \name{gisView}
 \alias{gisView}
 \alias{gisView,RasterStack-method}
+\alias{gisView,SpatialPointsDataFrame-method}
 \title{view raster layers interactively}
 \usage{
 \S4method{gisView}{RasterLayer}(x, map = NULL, cols = envinmrPalette(7),
@@ -12,6 +13,11 @@
   legend.opacity = 1, trim = TRUE, ...)
 
 \S4method{gisView}{RasterStack}(x, ...)
+
+\S4method{gisView}{SpatialPointsDataFrame}(x, map = NULL, burst = TRUE,
+  cols = envinmrPalette(7), na.color = "transparent", values = NULL,
+  map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
+  legend = TRUE, legend.opacity = 1, ...)
 }
 \arguments{
 \item{x}{a \code{\link{raster}}* object}
@@ -44,8 +50,11 @@ raster layers on top of the specified base maps.
 \section{Methods (by class)}{
 \itemize{
 \item \code{RasterStack}: 
+
+\item \code{SpatialPointsDataFrame}: 
 }}
 \examples{
+### raster data ###
 LUC1990 <- raster(system.file("LUC1990.rst", package = "Rsenal"))
 LUC2006 <- raster(system.file("LUC2006.rst", package = "Rsenal"))
 
@@ -57,6 +66,14 @@ gisView(LUC2006_f)
 
 stck <- stack(LUC1990_f, LUC2006_f)
 gisView(stck)
+
+### vector data ###
+data(meuse)
+summary(meuse)
+coordinates(meuse) <- ~x+y
+proj4string(meuse) <- CRS("+init=epsg:28992")
+
+gisView(meuse)
 }
 \author{
 Tim Appelhans

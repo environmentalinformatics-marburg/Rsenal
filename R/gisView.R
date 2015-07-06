@@ -27,6 +27,7 @@ if ( !isGeneric('gisView') ) {
 #' Tim Appelhans
 #' 
 #' @examples
+#' ### raster data ###
 #' LUC1990 <- raster(system.file("LUC1990.rst", package = "Rsenal"))
 #' LUC2006 <- raster(system.file("LUC2006.rst", package = "Rsenal"))
 #' 
@@ -38,6 +39,14 @@ if ( !isGeneric('gisView') ) {
 #' 
 #' stck <- stack(LUC1990_f, LUC2006_f)
 #' gisView(stck)
+#' 
+#' ### vector data ###
+#' data(meuse)
+#' summary(meuse)
+#' coordinates(meuse) <- ~x+y
+#' proj4string(meuse) <- CRS("+init=epsg:28992")
+#' 
+#' gisView(meuse)
 #' 
 #' @export gisView
 #' @name gisView
@@ -162,3 +171,88 @@ setMethod('gisView', signature(x = 'RasterStack'),
           
 )
 
+#' @describeIn gisView
+
+setMethod('gisView', signature(x = 'SpatialPointsDataFrame'), 
+          function(x,
+                   map = NULL,
+                   burst = TRUE,
+                   cols = envinmrPalette(7), 
+                   na.color = "transparent",
+                   values = NULL,
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   legend = TRUE,
+                   legend.opacity = 1,
+                   ...) {
+            
+            stopifnot(require(leaflet))
+            
+            llcrs <- CRS("+init=epsg:4326")@projargs
+            
+            if (!identical(projection(x), llcrs)) {
+              cat("\n", "reprojecting to web mercator", "\n\n")
+              x <- spTransform(x, CRSobj = llcrs)
+              }
+            
+            if (burst) {
+              lst <- lapply(names(x), function(j) x[j])
+              
+              vals <- lapply(seq(lst), function(i) lst[[i]]@data[, 1])
+              
+              pal_n <- lapply(seq(lst), function(i) {
+                if (is.factor(lst[[i]]@data[, 1])) {
+                  colorFactor(cols, lst[[i]]@data[, 1], 
+                              levels = levels(lst[[i]]@data[, 1]))
+                } else {
+                  colorNumeric(cols, vals[[i]], na.color = "transparent")
+                }
+              })
+              
+              m <- leaflet() %>%
+                addTiles(group = map.types[1]) %>%
+                addProviderTiles(provider = map.types[2],
+                                 group = map.types[2])
+              
+              for (i in seq(lst)) {
+                len <- length(m$x$calls)
+                m <- addCircleMarkers(m, lng = coordinates(lst[[i]])[, 1],
+                                      lat = coordinates(lst[[i]])[, 2],
+                                      group = names(lst[[i]]),
+                                      color = pal_n[[i]](vals[[i]]))
+                
+                
+                m <- addMarkers(m, lng = coordinates(lst[[i]])[, 1],
+                                lat = coordinates(lst[[i]])[, 2],
+                                group = names(lst[[i]]),
+                                options = markerOptions(opacity = 0),
+                                popup = as.character(vals[[i]]))
+                
+                m <- addLegend(map = m, position = "topright", pal = pal_n[[i]],
+                               opacity = 1, values = vals[[i]], title = "Legend")
+                
+                if (i == 1) {
+                  m <- addLayersControl(map = m,
+                                        position = "topleft",
+                                        baseGroups = c("OpenStreetMap",
+                                                       "Esri.WorldImagery"),
+                                        overlayGroups = names(lst[[i]]))
+                } else {
+                  m <- addLayersControl(map = m,
+                                        position = "topleft",
+                                        baseGroups = c("OpenStreetMap",
+                                                       "Esri.WorldImagery"),
+                                        overlayGroups = c(
+                                          m$x$calls[[len]]$args[[2]],
+                                          names(lst[[i]])))
+                }
+              }
+              
+            } #else {
+            
+            return(m)
+            
+          }
+          
+)
