@@ -1,6 +1,6 @@
-if ( !isGeneric('gisView') ) {
-  setGeneric('gisView', function(x, ...)
-    standardGeneric('gisView'))
+if ( !isGeneric('mapView') ) {
+  setGeneric('mapView', function(x, ...)
+    standardGeneric('mapView'))
 }
 
 #' view raster layers interactively
@@ -34,11 +34,11 @@ if ( !isGeneric('gisView') ) {
 #' LUC1990_f <- as.factor(LUC1990)
 #' LUC2006_f <- as.factor(LUC2006)
 #' 
-#' gisView(LUC1990_f)
-#' gisView(LUC2006_f)
+#' mapView(LUC1990_f)
+#' mapView(LUC2006_f)
 #' 
 #' stck <- stack(LUC1990_f, LUC2006_f)
-#' gisView(stck)
+#' mapView(stck)
 #' 
 #' ### vector data ###
 #' data(meuse)
@@ -46,14 +46,14 @@ if ( !isGeneric('gisView') ) {
 #' coordinates(meuse) <- ~x+y
 #' proj4string(meuse) <- CRS("+init=epsg:28992")
 #' 
-#' gisView(meuse)
+#' mapView(meuse)
 #' 
-#' @export gisView
-#' @name gisView
-#' @rdname gisView
-#' @aliases gisView,RasterStack-method
+#' @export mapView
+#' @name mapView
+#' @rdname mapView
+#' @aliases mapView,RasterStack-method
 
-setMethod('gisView', signature(x = 'RasterLayer'), 
+setMethod('mapView', signature(x = 'RasterLayer'), 
           function(x,
                    map = NULL,
                    cols = envinmrPalette(7), 
@@ -153,16 +153,16 @@ setMethod('gisView', signature(x = 'RasterLayer'),
           
 )
 
-#' @describeIn gisView
+#' @describeIn mapView
 
-setMethod('gisView', signature(x = 'RasterStack'), 
+setMethod('mapView', signature(x = 'RasterStack'), 
           function(x, 
                    ...) {
             
-            m <- gisView(x[[1]], ...)
+            m <- mapView(x[[1]], ...)
             
             for (i in 2:nlayers(x)) {
-              m <- gisView(x[[i]], m, ...)
+              m <- mapView(x[[i]], m, ...)
             }
             
             return(m)
@@ -171,9 +171,9 @@ setMethod('gisView', signature(x = 'RasterStack'),
           
 )
 
-#' @describeIn gisView
+#' @describeIn mapView
 
-setMethod('gisView', signature(x = 'SpatialPointsDataFrame'), 
+setMethod('mapView', signature(x = 'SpatialPointsDataFrame'), 
           function(x,
                    map = NULL,
                    burst = TRUE,
