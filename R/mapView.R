@@ -90,9 +90,10 @@ setMethod('mapView', signature(x = 'RasterLayer'),
               if (is.fact) {
                 values <- x@data@attributes[[1]]$ID
               } else {
-                values <- seq(round(min(x[], na.rm = TRUE), 5),
-                              round(max(x[], na.rm = TRUE), 5),
+                values <- seq(floor(min(x[], na.rm = TRUE)),
+                              ceiling(max(x[], na.rm = TRUE)),
                               length.out = 10)
+                values <- round(values, 5)
               }
             } else {
               values <- round(values, 5)
@@ -172,6 +173,7 @@ setMethod('mapView', signature(x = 'RasterStack'),
 )
 
 #' @describeIn mapView
+#' @param burst whether to show all (TRUE) or only one (FALSE) layers 
 
 setMethod('mapView', signature(x = 'SpatialPointsDataFrame'), 
           function(x,
@@ -249,7 +251,43 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                 }
               }
               
-            } #else {
+            } else {
+              
+              #print(strsplit(sys.calls()[1], split = " \\= ")[2])
+              nms <- names(x@data)
+              grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
+                                       "=")[[1]][2], ",")[[1]][1]
+              
+              m <- leaflet() %>%
+                addTiles(group = "OpenStreetMap") %>%
+                addProviderTiles(provider = "Esri.WorldImagery",
+                                 group = "Esri.WorldImagery")
+              
+              m <- addCircleMarkers(m, lng = coordinates(x)[, 1],
+                                    lat = coordinates(x)[, 2],
+                                    group = grp,
+                                    color = "black")
+              
+              txt <- sapply(seq(nrow(x@data)), function(i) {
+                paste(nms, x@data[i, ], sep = ": ")
+              })
+              
+              txt <- sapply(seq(ncol(txt)), function(j) {
+                paste(txt[, j], collapse = " <br> ")
+              })
+              
+              m <- addMarkers(m, lng = coordinates(x)[, 1],
+                              lat = coordinates(x)[, 2],
+                              group = grp,
+                              options = markerOptions(opacity = 0),
+                              popup = txt)
+              
+              m <- addLayersControl(map = m,
+                                    position = "topleft",
+                                    baseGroups = c("OpenStreetMap",
+                                                   "Esri.WorldImagery"),
+                                    overlayGroups = grp)
+            }
             
             return(m)
             

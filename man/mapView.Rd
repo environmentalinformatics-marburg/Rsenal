@@ -42,6 +42,8 @@ for available options.}
 \item{trim}{should the raster be trimmed in case there are NAs on the egdes}
 
 \item{...}{additional arguments passed on to \code{\link{addLegend}}}
+
+\item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
 }
 \description{
 this function produces an interactive GIS-like view of the specified
