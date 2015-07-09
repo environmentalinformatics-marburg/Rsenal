@@ -28,17 +28,17 @@ if ( !isGeneric('mapView') ) {
 #' 
 #' @examples
 #' ### raster data ###
-#' LUC1990 <- raster(system.file("LUC1990.rst", package = "Rsenal"))
-#' LUC2006 <- raster(system.file("LUC2006.rst", package = "Rsenal"))
+#' data(meuse.grid)
+#' coordinates(meuse.grid) = ~x+y
+#' proj4string(meuse.grid) <- CRS("+init=epsg:28992")
+#' gridded(meuse.grid) = TRUE
+#' meuse_rst <- stack(meuse.grid)
 #' 
-#' LUC1990_f <- as.factor(LUC1990)
-#' LUC2006_f <- as.factor(LUC2006)
+#' m1 <- mapView(meuse_rst)
+#' m1
 #' 
-#' mapView(LUC1990_f)
-#' mapView(LUC2006_f)
-#' 
-#' stck <- stack(LUC1990_f, LUC2006_f)
-#' mapView(stck)
+#' m2 <- mapView(meuse_rst[[1]])
+#' m2
 #' 
 #' ### vector data ###
 #' data(meuse)
@@ -50,6 +50,10 @@ if ( !isGeneric('mapView') ) {
 #' 
 #' # only one layer, all info in popups
 #' mapView(meuse, burst = FALSE)
+#' 
+#' ### overlay vector on top of raster ###
+#' m3 <- mapView(meuse, map = m2, burst = FALSE)
+#' m3
 #' 
 #' @export mapView
 #' @name mapView
@@ -199,7 +203,16 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
             if (!identical(projection(x), llcrs)) {
               cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
-              }
+            }
+            
+            if (is.null(map)) {
+              m <- leaflet() %>%
+                addTiles(group = map.types[1]) %>%
+                addProviderTiles(provider = map.types[2],
+                                 group = map.types[2])
+            } else {
+              m <- map
+            }
             
             if (burst) {
               lst <- lapply(names(x), function(j) x[j])
@@ -214,12 +227,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                   colorNumeric(cols, vals[[i]], na.color = "transparent")
                 }
               })
-              
-              m <- leaflet() %>%
-                addTiles(group = map.types[1]) %>%
-                addProviderTiles(provider = map.types[2],
-                                 group = map.types[2])
-              
+            
               for (i in seq(lst)) {
                 len <- length(m$x$calls)
                 m <- addCircleMarkers(m, lng = coordinates(lst[[i]])[, 1],
@@ -263,10 +271,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
                                        "\\(")[[1]][2], ",")[[1]][1]
               
-              m <- leaflet() %>%
-                addTiles(group = "OpenStreetMap") %>%
-                addProviderTiles(provider = "Esri.WorldImagery",
-                                 group = "Esri.WorldImagery")
+              len <- length(m$x$calls)
               
               m <- addCircleMarkers(m, lng = coordinates(x)[, 1],
                                     lat = coordinates(x)[, 2],
@@ -291,7 +296,9 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                     position = "topleft",
                                     baseGroups = c("OpenStreetMap",
                                                    "Esri.WorldImagery"),
-                                    overlayGroups = grp)
+                                    overlayGroups = c(
+                                      m$x$calls[[len]]$args[[2]],
+                                      grp))
             }
             
             return(m)

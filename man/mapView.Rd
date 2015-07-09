@@ -57,17 +57,16 @@ raster layers on top of the specified base maps.
 }}
 \examples{
 ### raster data ###
-LUC1990 <- raster(system.file("LUC1990.rst", package = "Rsenal"))
-LUC2006 <- raster(system.file("LUC2006.rst", package = "Rsenal"))
+data(meuse.grid)
+coordinates(meuse.grid) = ~x+y
+proj4string(meuse.grid) <- CRS("+init=epsg:28992")
+gridded(meuse.grid) = TRUE
+meuse_rst <- stack(meuse.grid)
 
-LUC1990_f <- as.factor(LUC1990)
-LUC2006_f <- as.factor(LUC2006)
+m1 <- mapView(meuse_rst)
+m1
 
-mapView(LUC1990_f)
-mapView(LUC2006_f)
-
-stck <- stack(LUC1990_f, LUC2006_f)
-mapView(stck)
+m2 <- mapView(meuse_rst[[1]])
 
 ### vector data ###
 data(meuse)
@@ -79,6 +78,9 @@ mapView(meuse)
 
 # only one layer, all info in popups
 mapView(meuse, burst = FALSE)
+
+### overlay vector on top of raster ###
+m3 <- mapView(meuse, map = m2, burst = FALSE)
 }
 \author{
 Tim Appelhans
