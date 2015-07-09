@@ -71,11 +71,14 @@ mapView(stck)
 
 ### vector data ###
 data(meuse)
-summary(meuse)
 coordinates(meuse) <- ~x+y
 proj4string(meuse) <- CRS("+init=epsg:28992")
 
+# all layers of meuse
 mapView(meuse)
+
+# only one layer, all info in popups
+mapView(meuse, burst = FALSE)
 }
 \author{
 Tim Appelhans

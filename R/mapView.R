@@ -42,11 +42,14 @@ if ( !isGeneric('mapView') ) {
 #' 
 #' ### vector data ###
 #' data(meuse)
-#' summary(meuse)
 #' coordinates(meuse) <- ~x+y
 #' proj4string(meuse) <- CRS("+init=epsg:28992")
 #' 
+#' # all layers of meuse
 #' mapView(meuse)
+#' 
+#' # only one layer, all info in popups
+#' mapView(meuse, burst = FALSE)
 #' 
 #' @export mapView
 #' @name mapView
@@ -253,10 +256,12 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               
             } else {
               
-              #print(strsplit(sys.calls()[1], split = " \\= ")[2])
-              nms <- names(x@data)
+              df <- as.data.frame(sapply(x@data, as.character),
+                                  stringsAsFactors = FALSE)
+              
+              nms <- names(df)
               grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                       "=")[[1]][2], ",")[[1]][1]
+                                       "\\(")[[1]][2], ",")[[1]][1]
               
               m <- leaflet() %>%
                 addTiles(group = "OpenStreetMap") %>%
@@ -266,11 +271,13 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               m <- addCircleMarkers(m, lng = coordinates(x)[, 1],
                                     lat = coordinates(x)[, 2],
                                     group = grp,
-                                    color = "black")
+                                    color = cols[length(cols)])
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
-                paste(nms, x@data[i, ], sep = ": ")
+                paste(nms, df[i, ], sep = ": ")
               })
+              
+              print(txt)
               
               txt <- sapply(seq(ncol(txt)), function(j) {
                 paste(txt[, j], collapse = " <br> ")
