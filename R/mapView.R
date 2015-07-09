@@ -55,6 +55,9 @@ if ( !isGeneric('mapView') ) {
 #' m3 <- mapView(meuse, map = m2, burst = FALSE)
 #' m3
 #' 
+#' m4 <- mapView(meuse, map = m2)
+#' m4
+#' 
 #' @export mapView
 #' @name mapView
 #' @rdname mapView
@@ -250,7 +253,9 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                         position = "topleft",
                                         baseGroups = c("OpenStreetMap",
                                                        "Esri.WorldImagery"),
-                                        overlayGroups = names(lst[[i]]))
+                                        overlayGroups = c(
+                                          m$x$calls[[len]]$args[[2]],
+                                          names(lst[[i]])))
                 } else {
                   m <- addLayersControl(map = m,
                                         position = "topleft",

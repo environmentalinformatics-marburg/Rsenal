@@ -67,6 +67,7 @@ m1 <- mapView(meuse_rst)
 m1
 
 m2 <- mapView(meuse_rst[[1]])
+m2
 
 ### vector data ###
 data(meuse)
@@ -81,6 +82,10 @@ mapView(meuse, burst = FALSE)
 
 ### overlay vector on top of raster ###
 m3 <- mapView(meuse, map = m2, burst = FALSE)
+m3
+
+m4 <- mapView(meuse, map = m2)
+m4
 }
 \author{
 Tim Appelhans
