@@ -277,8 +277,6 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                 paste(nms, df[i, ], sep = ": ")
               })
               
-              print(txt)
-              
               txt <- sapply(seq(ncol(txt)), function(j) {
                 paste(txt[, j], collapse = " <br> ")
               })
