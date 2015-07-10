@@ -61,8 +61,10 @@ if ( !isGeneric('mapView') ) {
 #' @export mapView
 #' @name mapView
 #' @rdname mapView
-#' @aliases mapView,RasterStack-method
+#' @aliases mapView
 
+
+## RasterLayer ============================================================
 setMethod('mapView', signature(x = 'RasterLayer'), 
           function(x,
                    map = NULL,
@@ -77,7 +79,9 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                    trim = TRUE,
                    ...) {
   
-            stopifnot(require(leaflet))
+            pkgs <- c("leaflet", "raster")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
             
             is.fact <- raster::is.factor(x)
             
@@ -164,11 +168,16 @@ setMethod('mapView', signature(x = 'RasterLayer'),
           
 )
 
+## Raster Stack ===========================================================
 #' @describeIn mapView
 
 setMethod('mapView', signature(x = 'RasterStack'), 
           function(x, 
                    ...) {
+            
+            pkgs <- c("leaflet", "raster")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
             
             m <- mapView(x[[1]], ...)
             
@@ -182,6 +191,32 @@ setMethod('mapView', signature(x = 'RasterStack'),
           
 )
 
+
+## Raster Brick ===========================================================
+#' @describeIn mapView
+
+setMethod('mapView', signature(x = 'RasterBrick'), 
+          function(x, 
+                   ...) {
+            
+            pkgs <- c("leaflet", "raster")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            m <- mapView(x[[1]], ...)
+            
+            for (i in 2:nlayers(x)) {
+              m <- mapView(x[[i]], m, ...)
+            }
+            
+            return(m)
+            
+          }
+          
+)
+
+
+## SpatialPointsDataFrame =================================================
 #' @describeIn mapView
 #' @param burst whether to show all (TRUE) or only one (FALSE) layers 
 
@@ -199,7 +234,9 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                    legend.opacity = 1,
                    ...) {
             
-            stopifnot(require(leaflet))
+            pkgs <- c("leaflet", "sp")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
             
             llcrs <- CRS("+init=epsg:4326")@projargs
             
@@ -304,6 +341,34 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                     overlayGroups = c(
                                       m$x$calls[[len]]$args[[2]],
                                       grp))
+            }
+            
+            return(m)
+            
+          }
+          
+)
+
+## Satellite object =======================================================
+
+#' @describeIn mapView
+
+setMethod('mapView', signature(x = 'Satellite'), 
+          function(x,
+                   ...) {
+            
+            pkgs <- c("leaflet", "satellite")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            lyrs <- x@layers
+            
+            m <- mapView(lyrs[[1]], ...)
+            
+            if (length(lyrs) > 1) {
+              for (i in 2:length(lyrs)) {
+                m <- mapView(lyrs[[i]], m, ...)
+              }
             }
             
             return(m)

@@ -3,7 +3,9 @@
 \docType{methods}
 \name{mapView}
 \alias{mapView}
+\alias{mapView,RasterBrick-method}
 \alias{mapView,RasterStack-method}
+\alias{mapView,Satellite-method}
 \alias{mapView,SpatialPointsDataFrame-method}
 \title{view raster layers interactively}
 \usage{
@@ -14,10 +16,14 @@
 
 \S4method{mapView}{RasterStack}(x, ...)
 
+\S4method{mapView}{RasterBrick}(x, ...)
+
 \S4method{mapView}{SpatialPointsDataFrame}(x, map = NULL, burst = TRUE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, ...)
+
+\S4method{mapView}{Satellite}(x, ...)
 }
 \arguments{
 \item{x}{a \code{\link{raster}}* object}
@@ -53,7 +59,11 @@ raster layers on top of the specified base maps.
 \itemize{
 \item \code{RasterStack}: 
 
+\item \code{RasterBrick}: 
+
 \item \code{SpatialPointsDataFrame}: 
+
+\item \code{Satellite}: 
 }}
 \examples{
 ### raster data ###
