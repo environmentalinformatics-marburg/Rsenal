@@ -85,15 +85,16 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             
             is.fact <- raster::is.factor(x)
             
-            llcrs <- CRS("+init=epsg:3857")@projargs
+            #llcrs <- CRS("+init=epsg:3857")@projargs
+            llcrs <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"
             
             if (!identical(projection(x), llcrs)) {
               cat("\n", "reprojecting to web mercator", "\n\n")
-              if (is.fact) {
-                x <- raster::projectRaster(x, crs = llcrs, method = "ngb")
-              } else {
-                x <- projectRaster(x, crs = llcrs)
-              }
+#               if (is.fact) {
+#                 x <- raster::projectRaster(x, crs = llcrs, method = "ngb")
+#               } else {
+#                 x <- raster::projectRaster(x, crs = llcrs)
+#               }
             }
             
             if (trim) x <- trim(x)
@@ -134,7 +135,7 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             m <- addRasterImage(map = m,
                                 x = x,
                                 colors = pal,
-                                project = FALSE,
+                                project = TRUE,
                                 opacity = layer.opacity,
                                 group = names(x))
 
