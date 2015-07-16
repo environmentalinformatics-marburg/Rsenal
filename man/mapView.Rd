@@ -6,6 +6,7 @@
 \alias{mapView,RasterBrick-method}
 \alias{mapView,RasterStack-method}
 \alias{mapView,Satellite-method}
+\alias{mapView,SpatialLinesDataFrame-method}
 \alias{mapView,SpatialPointsDataFrame-method}
 \alias{mapView,SpatialPolygonsDataFrame-method}
 \title{view raster layers interactively}
@@ -25,6 +26,11 @@
   legend = TRUE, legend.opacity = 1, ...)
 
 \S4method{mapView}{SpatialPolygonsDataFrame}(x, map = NULL, burst = FALSE,
+  cols = envinmrPalette(7), na.color = "transparent", values = NULL,
+  map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
+  legend = TRUE, legend.opacity = 1, weight = 2, ...)
+
+\S4method{mapView}{SpatialLinesDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, weight = 2, ...)
@@ -58,6 +64,8 @@ for available options.}
 \item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
 
 \item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
+
+\item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
 }
 \description{
 this function produces an interactive GIS-like view of the specified
@@ -72,6 +80,8 @@ raster layers on top of the specified base maps.
 \item \code{SpatialPointsDataFrame}: 
 
 \item \code{SpatialPolygonsDataFrame}: 
+
+\item \code{SpatialLinesDataFrame}: 
 
 \item \code{Satellite}: 
 }}
@@ -110,6 +120,9 @@ m4
 ### polygon vector data ###
 data("DEU_adm2")
 mapView(gadm, burst = FALSE)
+
+### lines vector data
+mapView(as(gadm, "SpatialLinesDataFrame"), burst = FALSE)
 }
 \author{
 Tim Appelhans

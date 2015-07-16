@@ -62,6 +62,9 @@ if ( !isGeneric('mapView') ) {
 #' data("DEU_adm2")
 #' mapView(gadm, burst = FALSE)
 #' 
+#' ### lines vector data
+#' mapView(as(gadm, "SpatialLinesDataFrame"), burst = FALSE)
+#' 
 #' @export mapView
 #' @name mapView
 #' @rdname mapView
@@ -503,6 +506,173 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                             group = grp,
                                             color = cols[length(cols)],
                                             popup = txt[j])
+                }
+              }
+              
+              m <- leaflet::addLayersControl(map = m,
+                                             position = "topleft",
+                                             baseGroups = c("OpenStreetMap",
+                                                            "Esri.WorldImagery"),
+                                             overlayGroups = c(
+                                               m$x$calls[[len]]$args[[2]],
+                                               grp))
+            }
+            
+            return(m)
+            
+          }
+          
+)
+
+
+
+## SpatialLinesDataFrame =================================================
+#' @describeIn mapView
+#' @param burst whether to show all (TRUE) or only one (FALSE) layers 
+
+setMethod('mapView', signature(x = 'SpatialLinesDataFrame'), 
+          function(x,
+                   map = NULL,
+                   burst = FALSE,
+                   cols = envinmrPalette(7), 
+                   na.color = "transparent",
+                   values = NULL,
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   legend = TRUE,
+                   legend.opacity = 1,
+                   weight = 2,
+                   ...) {
+            
+            pkgs <- c("leaflet", "sp", "magrittr")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            llcrs <- CRS("+init=epsg:4326")@projargs
+            
+            if (!identical(projection(x), llcrs)) {
+              cat("\n", "reprojecting to web mercator", "\n\n")
+              x <- spTransform(x, CRSobj = llcrs)
+            }
+            
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            if (burst) {
+              
+              lst <- lapply(names(x), function(j) x[j])
+              
+              df_all <- lapply(seq(lst), function(i) {
+                dat <- data.frame(lst[[i]], stringsAsFactors = TRUE)
+                if (is.character(dat[, 1])) {
+                  dat[, 1] <- factor(dat[, 1], levels = unique(dat[, 1]))
+                }
+                return(dat)
+              })
+              
+              vals <- lapply(seq(lst), function(i) df_all[[i]][, 1])
+              
+              pal_n <- lapply(seq(lst), function(i) {
+                if (is.factor(df_all[[i]][, 1])) {
+                  leaflet::colorFactor(cols, vals[[i]], 
+                                       levels = levels(vals[[i]]),
+                                       na.color = "transparent")
+                } else {
+                  leaflet::colorNumeric(cols, vals[[i]], 
+                                        na.color = "transparent")
+                }
+              })
+              
+              for (i in seq(lst)) {
+                
+                x <- lst[[i]]
+                
+                df <- as.data.frame(sapply(x@data, as.character),
+                                    stringsAsFactors = FALSE)
+                
+                nms <- names(df)
+                grp <- nms
+                
+                txt <- sapply(seq(nrow(x@data)), function(i) {
+                  paste(nms, df[i, ], sep = ": ")
+                })
+                
+                len <- length(m$x$calls)
+                
+                coord_lst <- lapply(slot(x, "lines"), function(x) {
+                  lapply(slot(x, "Lines"), function(y) slot(y, "coords"))
+                })
+                
+                for (j in seq(coord_lst)) {
+                  for (h in seq(coord_lst[[j]])) {
+                    x_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 1]
+                    y_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 2]
+                    clrs <- pal_n[[i]](vals[[i]])
+                    m <- leaflet::addPolylines(m,
+                                               lng = x_coord,
+                                               lat = y_coord,
+                                               weight = weight,
+                                               group = grp,
+                                               color = clrs[j], 
+                                               popup = txt[j])
+                  }
+                }
+                
+                m <- leaflet::addLegend(map = m, position = "topright", 
+                                        pal = pal_n[[i]], opacity = 1, 
+                                        values = vals[[i]], title = "Legend")
+                
+                m <- leaflet::addLayersControl(map = m,
+                                               position = "topleft",
+                                               baseGroups = c("OpenStreetMap",
+                                                              "Esri.WorldImagery"),
+                                               overlayGroups = c(
+                                                 m$x$calls[[len]]$args[[2]],
+                                                 grp))
+                
+              }
+              
+            } else {
+              
+              df <- as.data.frame(sapply(x@data, as.character),
+                                  stringsAsFactors = FALSE)
+              
+              nms <- names(df)
+              grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
+                                       "\\(")[[1]][2], ",")[[1]][1]
+              
+              txt <- sapply(seq(nrow(x@data)), function(i) {
+                paste(nms, df[i, ], sep = ": ")
+              })
+              
+              txt <- sapply(seq(ncol(txt)), function(j) {
+                paste(txt[, j], collapse = " <br> ")
+              })
+              
+              len <- length(m$x$calls)
+              
+              coord_lst <- lapply(slot(x, "lines"), function(x) {
+                lapply(slot(x, "Lines"), function(y) slot(y, "coords"))
+              })
+              
+              for (j in seq(coord_lst)) {
+                for (h in seq(coord_lst[[j]])) {
+                  x_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 1]
+                  y_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 2]
+                  m <- leaflet::addPolylines(m,
+                                             lng = x_coord,
+                                             lat = y_coord,
+                                             weight = weight,
+                                             group = grp,
+                                             color = cols[length(cols)],
+                                             popup = txt[j])
                 }
               }
               
