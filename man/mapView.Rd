@@ -19,12 +19,12 @@
 
 \S4method{mapView}{RasterBrick}(x, ...)
 
-\S4method{mapView}{SpatialPointsDataFrame}(x, map = NULL, burst = TRUE,
+\S4method{mapView}{SpatialPointsDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, ...)
 
-\S4method{mapView}{SpatialPolygonsDataFrame}(x, map = NULL, burst = TRUE,
+\S4method{mapView}{SpatialPolygonsDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, weight = 2, ...)
