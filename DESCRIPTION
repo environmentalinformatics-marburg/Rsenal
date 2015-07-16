@@ -1,7 +1,7 @@
 Package: Rsenal
 Type: Package
 Title: magic R functions for things various
-Version: 0.1.74
+Version: 0.1.75
 Date: 2015-07-16
 Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer, Spaska Forteva, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
