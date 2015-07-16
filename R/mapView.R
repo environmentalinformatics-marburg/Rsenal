@@ -434,10 +434,6 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                   paste(nms, df[i, ], sep = ": ")
                 })
                 
-#                 txt <- sapply(seq(ncol(txt)), function(j) {
-#                   paste(txt[, j], collapse = " <br> ")
-#                 })
-                
                 len <- length(m$x$calls)
                 
                 coord_lst <- lapply(slot(x, "polygons"), function(x) {
@@ -448,7 +444,6 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                   for (h in seq(coord_lst[[j]])) {
                     x_coord <- coordinates(x@polygons[[j]]@Polygons[[h]])[, 1]
                     y_coord <- coordinates(x@polygons[[j]]@Polygons[[h]])[, 2]
-                    ### need to fix that only one color can be supplied
                     clrs <- pal_n[[i]](vals[[i]])
                     m <- leaflet::addPolygons(m,
                                               lng = x_coord,
@@ -473,82 +468,6 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                                  grp))
                 
               }
-              
-#               
-#               
-#               lst <- lapply(names(x), function(j) x[j])
-#               
-#               df <- lapply(seq(lst), function(i) {
-#                 dat <- data.frame(lst[[i]], stringsAsFactors = TRUE)
-#                 if (is.character(dat[, 1])) {
-#                   dat[, 1] <- factor(dat[, 1], levels = unique(dat[, 1]))
-#                 }
-#                 return(dat)
-#               })
-#               
-#               vals <- lapply(seq(lst), function(i) df[[i]][, 1])
-#               
-#               pal_n <- lapply(seq(lst), function(i) {
-#                 if (is.factor(df[[i]][, 1])) {
-#                   leaflet::colorFactor(cols, df[[i]][, 1], levels = levels(df[[i]][, 1]))
-#                 } else {
-#                   leaflet::colorNumeric(cols, vals[[i]], na.color = "transparent")
-#                 }
-#               })
-#               
-#               len <- length(m$x$calls)
-#               
-#               for (i in seq(lst)) {
-#                 
-#                 coord_lst <- lapply(slot(lst[[i]], "polygons"), function(x) {
-#                   lapply(slot(x, "Polygons"), function(y) slot(y, "coords"))
-#                 })
-#                 
-#                 for (j in seq(coord_lst)) {
-#                   for (h in seq(coord_lst[[j]])) {
-#                     x_coord <- coordinates(lst[[i]]@polygons[[j]]@Polygons[[h]])[, 1]
-#                     y_coord <- coordinates(lst[[i]]@polygons[[j]]@Polygons[[h]])[, 2]
-#                     m <- leaflet::addPolygons(m,
-#                                               lng = x_coord,
-#                                               lat = y_coord,
-#                                               weight = weight,
-#                                               group = names(lst[[i]]),
-#                                               color = pal_n[[i]](vals[[i]]),
-#                                               popup = as.character(vals[[i]]))
-#                   }
-#                 }
-#                 
-# #                 for (j in seq(x@polygons)) {
-# #                   m <- leaflet::addPolygons(m, 
-# #                                             lng = x@polygons[[j]]@Polygons[[1]]@coords[, 1],
-# #                                             lat = x@polygons[[j]]@Polygons[[1]]@coords[, 2],
-# #                                             weight = weight,
-# #                                             group = names(lst[[i]]),
-# #                                             color = pal_n[[i]](vals[[i]]),
-# #                                             popup = as.character(vals[[i]]))
-# #                 }
-#                 
-#                 m <- leaflet::addLegend(map = m, position = "topright", pal = pal_n[[i]],
-#                                         opacity = 1, values = vals[[i]], title = "Legend")
-#                 
-# #                 if (i == 1) {
-# #                   m <- leaflet::addLayersControl(map = m,
-# #                                                  position = "topleft",
-# #                                                  baseGroups = c("OpenStreetMap",
-# #                                                                 "Esri.WorldImagery"),
-# #                                                  overlayGroups = c(
-# #                                                    m$x$calls[[len]]$args[[2]],
-# #                                                    names(lst[[i]])))
-# #                 } else {
-#                   m <- leaflet::addLayersControl(map = m,
-#                                                  position = "topleft",
-#                                                  baseGroups = c("OpenStreetMap",
-#                                                                 "Esri.WorldImagery"),
-#                                                  overlayGroups = c(
-#                                                    m$x$calls[[len]]$args[[2]],
-#                                                    names(lst[[i]])))
-#                 # }
-              # }
               
             } else {
               
