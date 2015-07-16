@@ -119,10 +119,10 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             }
             
             if (is.fact) {
-              pal <- colorFactor(cols, as.factor(values), 
-                                 levels = values, na.color = na.color)
+              pal <- leaflet::colorFactor(cols, as.factor(values), 
+                                          levels = values, na.color = na.color)
             } else {
-              pal <- colorNumeric(cols, values, na.color = na.color)
+              pal <- leaflet::colorNumeric(cols, values, na.color = na.color)
             }
             
             ## create base map using specified map types
