@@ -7,6 +7,7 @@
 \alias{mapView,RasterStack-method}
 \alias{mapView,Satellite-method}
 \alias{mapView,SpatialPointsDataFrame-method}
+\alias{mapView,SpatialPolygonsDataFrame-method}
 \title{view raster layers interactively}
 \usage{
 \S4method{mapView}{RasterLayer}(x, map = NULL, cols = envinmrPalette(7),
@@ -22,6 +23,11 @@
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, ...)
+
+\S4method{mapView}{SpatialPolygonsDataFrame}(x, map = NULL, burst = TRUE,
+  cols = envinmrPalette(7), na.color = "transparent", values = NULL,
+  map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
+  legend = TRUE, legend.opacity = 1, weight = 2, ...)
 
 \S4method{mapView}{Satellite}(x, ...)
 }
@@ -50,6 +56,8 @@ for available options.}
 \item{...}{additional arguments passed on to \code{\link{addLegend}}}
 
 \item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
+
+\item{burst}{whether to show all (TRUE) or only one (FALSE) layers}
 }
 \description{
 this function produces an interactive GIS-like view of the specified
@@ -62,6 +70,8 @@ raster layers on top of the specified base maps.
 \item \code{RasterBrick}: 
 
 \item \code{SpatialPointsDataFrame}: 
+
+\item \code{SpatialPolygonsDataFrame}: 
 
 \item \code{Satellite}: 
 }}
@@ -79,7 +89,7 @@ m1
 m2 <- mapView(meuse_rst[[1]])
 m2
 
-### vector data ###
+### point vector data ###
 data(meuse)
 coordinates(meuse) <- ~x+y
 proj4string(meuse) <- CRS("+init=epsg:28992")
@@ -96,6 +106,10 @@ m3
 
 m4 <- mapView(meuse, map = m2)
 m4
+
+### polygon vector data ###
+data("DEU_adm2")
+mapView(gadm, burst = FALSE)
 }
 \author{
 Tim Appelhans
