@@ -455,7 +455,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                               lat = y_coord,
                                               weight = weight,
                                               group = grp,
-                                              color = clrs[length(clrs)], 
+                                              color = clrs[j], 
                                               popup = txt[j])
                   }
                 }
