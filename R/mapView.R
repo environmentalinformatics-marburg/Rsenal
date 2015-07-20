@@ -63,7 +63,9 @@ if ( !isGeneric('mapView') ) {
 #' mapView(gadm, burst = FALSE)
 #' 
 #' ### lines vector data
-#' mapView(as(gadm, "SpatialLinesDataFrame"), burst = FALSE)
+#' data("atlStorms2005")
+#' mapView(atlStorms2005, burst = FALSE)
+#' mapView(atlStorms2005, burst = TRUE)
 #' 
 #' @export mapView
 #' @name mapView
@@ -144,7 +146,8 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                                          colors = pal,
                                          project = TRUE,
                                          opacity = layer.opacity,
-                                         group = names(x))
+                                         group = names(x),
+                                         ...)
 
             if (legend) {
               ## add legend
@@ -224,6 +227,38 @@ setMethod('mapView', signature(x = 'RasterBrick'),
 )
 
 
+
+## Satellite object =======================================================
+
+#' @describeIn mapView
+
+setMethod('mapView', signature(x = 'Satellite'), 
+          function(x,
+                   ...) {
+            
+            pkgs <- c("leaflet", "satellite", "magrittr")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            lyrs <- x@layers
+            
+            m <- mapView(lyrs[[1]], ...)
+            
+            if (length(lyrs) > 1) {
+              for (i in 2:length(lyrs)) {
+                m <- mapView(lyrs[[i]], m, ...)
+              }
+            }
+            
+            return(m)
+            
+          }
+          
+)
+
+
+
+
 ## SpatialPointsDataFrame =================================================
 #' @describeIn mapView
 #' @param burst whether to show all (TRUE) or only one (FALSE) layers 
@@ -282,7 +317,8 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                 m <- leaflet::addCircleMarkers(m, lng = coordinates(lst[[i]])[, 1],
                                                lat = coordinates(lst[[i]])[, 2],
                                                group = names(lst[[i]]),
-                                               color = pal_n[[i]](vals[[i]]))
+                                               color = pal_n[[i]](vals[[i]]),
+                                               ...)
                 
                 
                 m <- leaflet::addMarkers(m, lng = coordinates(lst[[i]])[, 1],
@@ -327,7 +363,8 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               m <- leaflet::addCircleMarkers(m, lng = coordinates(x)[, 1],
                                              lat = coordinates(x)[, 2],
                                              group = grp,
-                                             color = cols[length(cols)])
+                                             color = cols[length(cols)],
+                                             ...)
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
@@ -454,7 +491,8 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                               weight = weight,
                                               group = grp,
                                               color = clrs[j], 
-                                              popup = txt[j])
+                                              popup = txt[j],
+                                              ...)
                   }
                 }
                 
@@ -505,7 +543,8 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                             weight = weight,
                                             group = grp,
                                             color = cols[length(cols)],
-                                            popup = txt[j])
+                                            popup = txt[j],
+                                            ...)
                 }
               }
               
@@ -571,6 +610,9 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
               
               df_all <- lapply(seq(lst), function(i) {
                 dat <- data.frame(lst[[i]], stringsAsFactors = TRUE)
+                if (any(class(dat[, 1]) == "POSIXt")) {
+                  dat[, 1] <- as.character(dat[, 1])
+                }
                 if (is.character(dat[, 1])) {
                   dat[, 1] <- factor(dat[, 1], levels = unique(dat[, 1]))
                 }
@@ -621,7 +663,8 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                                                weight = weight,
                                                group = grp,
                                                color = clrs[j], 
-                                               popup = txt[j])
+                                               popup = txt[j],
+                                               ...)
                   }
                 }
                 
@@ -672,7 +715,8 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                                              weight = weight,
                                              group = grp,
                                              color = cols[length(cols)],
-                                             popup = txt[j])
+                                             popup = txt[j],
+                                             ...)
                 }
               }
               
@@ -683,36 +727,6 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                                              overlayGroups = c(
                                                m$x$calls[[len]]$args[[2]],
                                                grp))
-            }
-            
-            return(m)
-            
-          }
-          
-)
-
-
-
-## Satellite object =======================================================
-
-#' @describeIn mapView
-
-setMethod('mapView', signature(x = 'Satellite'), 
-          function(x,
-                   ...) {
-            
-            pkgs <- c("leaflet", "satellite", "magrittr")
-            tst <- sapply(pkgs, "requireNamespace", 
-                          quietly = TRUE, USE.NAMES = FALSE)
-            
-            lyrs <- x@layers
-            
-            m <- mapView(lyrs[[1]], ...)
-            
-            if (length(lyrs) > 1) {
-              for (i in 2:length(lyrs)) {
-                m <- mapView(lyrs[[i]], m, ...)
-              }
             }
             
             return(m)

@@ -20,6 +20,8 @@
 
 \S4method{mapView}{RasterBrick}(x, ...)
 
+\S4method{mapView}{Satellite}(x, ...)
+
 \S4method{mapView}{SpatialPointsDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
@@ -34,8 +36,6 @@
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, weight = 2, ...)
-
-\S4method{mapView}{Satellite}(x, ...)
 }
 \arguments{
 \item{x}{a \code{\link{raster}}* object}
@@ -77,13 +77,13 @@ raster layers on top of the specified base maps.
 
 \item \code{RasterBrick}: 
 
+\item \code{Satellite}: 
+
 \item \code{SpatialPointsDataFrame}: 
 
 \item \code{SpatialPolygonsDataFrame}: 
 
 \item \code{SpatialLinesDataFrame}: 
-
-\item \code{Satellite}: 
 }}
 \examples{
 ### raster data ###
@@ -122,7 +122,9 @@ data("DEU_adm2")
 mapView(gadm, burst = FALSE)
 
 ### lines vector data
-mapView(as(gadm, "SpatialLinesDataFrame"), burst = FALSE)
+data("atlStorms2005")
+mapView(atlStorms2005, burst = FALSE)
+mapView(atlStorms2005, burst = TRUE)
 }
 \author{
 Tim Appelhans
