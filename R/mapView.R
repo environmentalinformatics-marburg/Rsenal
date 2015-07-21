@@ -159,7 +159,9 @@ setMethod('mapView', signature(x = 'RasterLayer'),
               m <- leaflet::addLegend(map = m,
                                       pal = pal,
                                       opacity = legend.opacity, 
-                                      values = values, ...)
+                                      values = values, 
+                                      title = names(x),
+                                      ...)
             }
             
             ## add layer control buttons
@@ -169,12 +171,12 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                                              baseGroups = map.types,
                                              overlayGroups = names(x))
             } else {
-              list.len <- length(map$x$calls)
+              # list.len <- length(map$x$calls)
               m <- leaflet::addLayersControl(map = m,
                                              position = "topleft",
                                              baseGroups = map.types,
                                              overlayGroups = 
-                                               c(m$x$calls[[list.len]]$args[[2]], 
+                                               c(Rsenal:::getLayerNamesFromMap(m), 
                                                  names(x)))
             }
             
@@ -201,6 +203,8 @@ setMethod('mapView', signature(x = 'RasterStack'),
               m <- mapView(x[[i]], m, ...)
             }
             
+            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+            
             return(m)
             
           }
@@ -224,6 +228,8 @@ setMethod('mapView', signature(x = 'RasterBrick'),
             for (i in 2:nlayers(x)) {
               m <- mapView(x[[i]], m, ...)
             }
+            
+            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
@@ -254,6 +260,8 @@ setMethod('mapView', signature(x = 'Satellite'),
                 m <- mapView(lyrs[[i]], m, ...)
               }
             }
+            
+            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
@@ -318,7 +326,17 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               })
             
               for (i in seq(lst)) {
-                len <- length(m$x$calls)
+                pop <- paste(names(lst[[i]]), 
+                             as.character(vals[[i]]), 
+                             sep = ": ")
+                
+                txt_x <- paste0("x: ", round(coordinates(lst[[i]])[, 1], 2))
+                txt_y <- paste0("y: ", round(coordinates(lst[[i]])[, 2], 2))
+                
+                txt <- sapply(seq(pop), function(j) {
+                  paste(pop[j], txt_x[j], txt_y[j], sep = "<br/>")
+                })
+                
                 m <- leaflet::addCircleMarkers(m, lng = coordinates(lst[[i]])[, 1],
                                                lat = coordinates(lst[[i]])[, 2],
                                                group = names(lst[[i]]),
@@ -330,10 +348,13 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                          lat = coordinates(lst[[i]])[, 2],
                                          group = names(lst[[i]]),
                                          options = leaflet::markerOptions(opacity = 0),
-                                         popup = as.character(vals[[i]]))
+                                         popup = txt)
                 
-                m <- leaflet::addLegend(map = m, position = "topright", pal = pal_n[[i]],
-                                        opacity = 1, values = vals[[i]], title = "Legend")
+                m <- leaflet::addLegend(map = m, position = "topright", 
+                                        pal = pal_n[[i]],
+                                        opacity = 1, values = vals[[i]], 
+                                        title = names(lst[[i]]),
+                                        layerId = names(lst[[i]]))
                 
                 if (i == 1) {
                   m <- leaflet::addLayersControl(map = m,
@@ -341,7 +362,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                                  baseGroups = c("OpenStreetMap",
                                                                 "Esri.WorldImagery"),
                                                  overlayGroups = c(
-                                                   m$x$calls[[len]]$args[[2]],
+                                                   Rsenal:::getLayerNamesFromMap(m),
                                                    names(lst[[i]])))
                 } else {
                   m <- leaflet::addLayersControl(map = m,
@@ -349,10 +370,12 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                                  baseGroups = c("OpenStreetMap",
                                                                 "Esri.WorldImagery"),
                                                  overlayGroups = c(
-                                                   m$x$calls[[len]]$args[[2]],
+                                                   Rsenal:::getLayerNamesFromMap(m),
                                                    names(lst[[i]])))
                 }
               }
+              
+              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -391,7 +414,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                              baseGroups = c("OpenStreetMap",
                                                             "Esri.WorldImagery"),
                                              overlayGroups = c(
-                                               m$x$calls[[len]]$args[[2]],
+                                               Rsenal:::getLayerNamesFromMap(m),
                                                grp))
             }
             
@@ -504,17 +527,20 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                 
                 m <- leaflet::addLegend(map = m, position = "topright", 
                                         pal = pal_n[[i]], opacity = 1, 
-                                        values = vals[[i]], title = "Legend")
+                                        values = vals[[i]], 
+                                        title = grp)
                 
                 m <- leaflet::addLayersControl(map = m,
                                                position = "topleft",
                                                baseGroups = c("OpenStreetMap",
                                                               "Esri.WorldImagery"),
                                                overlayGroups = c(
-                                                 m$x$calls[[len]]$args[[2]],
+                                                 Rsenal:::getLayerNamesFromMap(m),
                                                  grp))
                 
               }
+              
+              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -559,7 +585,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                              baseGroups = c("OpenStreetMap",
                                                             "Esri.WorldImagery"),
                                              overlayGroups = c(
-                                               m$x$calls[[len]]$args[[2]],
+                                               Rsenal:::getLayerNamesFromMap(m),
                                                grp))
             }
             
@@ -676,17 +702,19 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                 
                 m <- leaflet::addLegend(map = m, position = "topright", 
                                         pal = pal_n[[i]], opacity = 1, 
-                                        values = vals[[i]], title = "Legend")
+                                        values = vals[[i]], title = grp)
                 
                 m <- leaflet::addLayersControl(map = m,
                                                position = "topleft",
                                                baseGroups = c("OpenStreetMap",
                                                               "Esri.WorldImagery"),
                                                overlayGroups = c(
-                                                 m$x$calls[[len]]$args[[2]],
+                                                 Rsenal:::getLayerNamesFromMap(m),
                                                  grp))
                 
               }
+              
+              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -731,7 +759,7 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                                              baseGroups = c("OpenStreetMap",
                                                             "Esri.WorldImagery"),
                                              overlayGroups = c(
-                                               m$x$calls[[len]]$args[[2]],
+                                               Rsenal:::getLayerNamesFromMap(m),
                                                grp))
             }
             
@@ -752,17 +780,3 @@ setMethod('mapView', signature(x = 'leaflet'),
           }
 )
 
-
-
-extractObjectName <- function(x) {
-  pipe_splt <- strsplit(x, "%>%")[[1]][-1]
-  
-  grp <- vector("character", length(pipe_splt))
-  for (i in seq(grp)) {
-    x <- pipe_splt[i]
-    tmp <- strsplit(strsplit(x, 
-                             "\\(")[[1]][2], ",")[[1]][1]
-    grp[i] <- gsub("\\)", "", tmp)
-  }
-  return(grp)
-}
