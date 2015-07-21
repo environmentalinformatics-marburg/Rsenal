@@ -45,3 +45,6 @@ NULL
 #' Elevation  : numeric\cr
 #' 
 NULL
+#' @importFrom magrittr %>%
+#' @export %>%
+NULL

@@ -46,17 +46,18 @@ if ( !isGeneric('mapView') ) {
 #' proj4string(meuse) <- CRS("+init=epsg:28992")
 #' 
 #' # all layers of meuse
-#' mapView(meuse)
+#' mapView(meuse, burst = TRUE)
 #' 
 #' # only one layer, all info in popups
 #' mapView(meuse, burst = FALSE)
 #' 
 #' ### overlay vector on top of raster ###
-#' m3 <- mapView(meuse, map = m2, burst = FALSE)
+#' m3 <- mapView(meuse, map = m2)
 #' m3
 #' 
-#' m4 <- mapView(meuse, map = m2)
-#' m4
+#' m4 <- mapView(meuse, map = m2, burst = TRUE)
+#' m4 # is the same as
+#' addLayer(meuse, m2, burst = TRUE)
 #' 
 #' ### polygon vector data ###
 #' data("DEU_adm2")
@@ -114,9 +115,10 @@ setMethod('mapView', signature(x = 'RasterLayer'),
               if (is.fact) {
                 values <- x@data@attributes[[1]]$ID
               } else {
-                values <- seq(floor(min(x[], na.rm = TRUE)),
-                              ceiling(max(x[], na.rm = TRUE)),
-                              length.out = 10)
+                offset <- diff(range(x[], na.rm = TRUE)) * 0.05
+                top <- ceiling(max(x[], na.rm = TRUE)) + offset
+                bot <- floor(min(x[], na.rm = TRUE)) - offset
+                values <- seq(bot, top, length.out = 10)
                 values <- round(values, 5)
               }
             } else {
@@ -124,10 +126,13 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             }
             
             if (is.fact) {
-              pal <- leaflet::colorFactor(cols, as.factor(values), 
-                                          levels = values, na.color = na.color)
+              pal <- leaflet::colorFactor(cols, 
+                                          domain = NULL, 
+                                          na.color = na.color)
             } else {
-              pal <- leaflet::colorNumeric(cols, values, na.color = na.color)
+              pal <- leaflet::colorNumeric(cols, 
+                                           domain = values, 
+                                           na.color = na.color)
             }
             
             ## create base map using specified map types
@@ -357,6 +362,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
               nms <- names(df)
               grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
                                        "\\(")[[1]][2], ",")[[1]][1]
+              grp <- gsub("\\)", "", grp)
               
               len <- length(m$x$calls)
               
@@ -734,3 +740,29 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
           }
           
 )
+
+
+
+## leaflet ================================================================
+#' @describeIn mapView
+ 
+setMethod('mapView', signature(x = 'leaflet'), 
+          function(x, y) {
+            Rsenal::addLayer(y, map = x)
+          }
+)
+
+
+
+extractObjectName <- function(x) {
+  pipe_splt <- strsplit(x, "%>%")[[1]][-1]
+  
+  grp <- vector("character", length(pipe_splt))
+  for (i in seq(grp)) {
+    x <- pipe_splt[i]
+    tmp <- strsplit(strsplit(x, 
+                             "\\(")[[1]][2], ",")[[1]][1]
+    grp[i] <- gsub("\\)", "", tmp)
+  }
+  return(grp)
+}

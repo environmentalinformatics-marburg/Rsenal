@@ -9,6 +9,7 @@
 \alias{mapView,SpatialLinesDataFrame-method}
 \alias{mapView,SpatialPointsDataFrame-method}
 \alias{mapView,SpatialPolygonsDataFrame-method}
+\alias{mapView,leaflet-method}
 \title{view raster layers interactively}
 \usage{
 \S4method{mapView}{RasterLayer}(x, map = NULL, cols = envinmrPalette(7),
@@ -36,6 +37,8 @@
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
   legend = TRUE, legend.opacity = 1, weight = 2, ...)
+
+\S4method{mapView}{leaflet}(x, y)
 }
 \arguments{
 \item{x}{a \code{\link{raster}}* object}
@@ -84,6 +87,8 @@ raster layers on top of the specified base maps.
 \item \code{SpatialPolygonsDataFrame}: 
 
 \item \code{SpatialLinesDataFrame}: 
+
+\item \code{leaflet}: 
 }}
 \examples{
 ### raster data ###
@@ -105,17 +110,18 @@ coordinates(meuse) <- ~x+y
 proj4string(meuse) <- CRS("+init=epsg:28992")
 
 # all layers of meuse
-mapView(meuse)
+mapView(meuse, burst = TRUE)
 
 # only one layer, all info in popups
 mapView(meuse, burst = FALSE)
 
 ### overlay vector on top of raster ###
-m3 <- mapView(meuse, map = m2, burst = FALSE)
+m3 <- mapView(meuse, map = m2)
 m3
 
-m4 <- mapView(meuse, map = m2)
-m4
+m4 <- mapView(meuse, map = m2, burst = TRUE)
+m4 # is the same as
+addLayer(meuse, m2, burst = TRUE)
 
 ### polygon vector data ###
 data("DEU_adm2")
