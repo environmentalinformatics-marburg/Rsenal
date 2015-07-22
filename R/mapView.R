@@ -40,7 +40,10 @@ if ( !isGeneric('mapView') ) {
 #' m2 <- mapView(meuse_rst[[1]])
 #' m2
 #' 
+#' 
+#' 
 #' ### point vector data ###
+#' ## SpatialPointsDataFrame ##
 #' data(meuse)
 #' coordinates(meuse) <- ~x+y
 #' proj4string(meuse) <- CRS("+init=epsg:28992")
@@ -51,17 +54,36 @@ if ( !isGeneric('mapView') ) {
 #' # only one layer, all info in popups
 #' mapView(meuse, burst = FALSE)
 #' 
+#' ## SpatialPoints ##
+#' meuse_pts <- as(meuse, "SpatialPoints")
+#' mapView(meuse_pts)
+#' 
+#' 
+#' 
 #' ### overlay vector on top of raster ###
 #' m3 <- mapView(meuse, map = m2)
 #' m3
 #' 
 #' m4 <- mapView(meuse, map = m2, burst = TRUE)
 #' m4 # is the same as
-#' addLayer(meuse, m2, burst = TRUE)
+#' m5 <- addLayer(meuse, m2, burst = TRUE)
+#' m5
+#' 
+#' 
 #' 
 #' ### polygon vector data ###
 #' data("DEU_adm2")
-#' mapView(gadm, burst = FALSE)
+#' m <- mapView(gadm, burst = FALSE)
+#' m
+#' 
+#' ## points on polygons ##
+#' centres <- data.frame(coordinates(gadm))
+#' names(centres) <- c("x", "y")
+#' coordinates(centres) <- ~ x + y
+#' projection(centres) <- projection(gadm)
+#' addLayer(centres, m)
+#' 
+#' 
 #' 
 #' ### lines vector data
 #' data("atlStorms2005")
@@ -100,11 +122,16 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             
             if (!identical(projection(x), llcrs)) {
               cat("\n", "reprojecting to web mercator", "\n\n")
-#               if (is.fact) {
-#                 x <- raster::projectRaster(x, crs = llcrs, method = "ngb")
-#               } else {
-#                 x <- raster::projectRaster(x, crs = llcrs)
-#               }
+            }
+            
+            ## create base map using specified map types
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
             }
             
             if (trim) x <- trim(x)
@@ -135,15 +162,6 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                                            na.color = na.color)
             }
             
-            ## create base map using specified map types
-            if (is.null(map)) {
-              m <- leaflet::leaflet()
-              m <- leaflet::addTiles(m, group = map.types[1])
-              m <- leaflet::addProviderTiles(m, provider = map.types[2],
-                                             group = map.types[2])
-            } else {
-              m <- map
-            }
             
             ## add layers to base map
             m <- leaflet::addRasterImage(map = m,
@@ -153,7 +171,7 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                                          opacity = layer.opacity,
                                          group = names(x),
                                          ...)
-
+            
             if (legend) {
               ## add legend
               m <- leaflet::addLegend(map = m,
@@ -171,7 +189,6 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                                              baseGroups = map.types,
                                              overlayGroups = names(x))
             } else {
-              # list.len <- length(map$x$calls)
               m <- leaflet::addLayersControl(map = m,
                                              position = "topleft",
                                              baseGroups = map.types,
@@ -191,19 +208,30 @@ setMethod('mapView', signature(x = 'RasterLayer'),
 
 setMethod('mapView', signature(x = 'RasterStack'), 
           function(x, 
+                   map = NULL,
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
             tst <- sapply(pkgs, "requireNamespace", 
                           quietly = TRUE, USE.NAMES = FALSE)
             
-            m <- mapView(x[[1]], ...)
+            ## create base map using specified map types
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            m <- mapView(x[[1]], m, ...)
             
             for (i in 2:nlayers(x)) {
               m <- mapView(x[[i]], m, ...)
             }
             
-            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+            m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
@@ -216,20 +244,31 @@ setMethod('mapView', signature(x = 'RasterStack'),
 #' @describeIn mapView
 
 setMethod('mapView', signature(x = 'RasterBrick'), 
-          function(x, 
+          function(x,
+                   map = NULL,
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
             tst <- sapply(pkgs, "requireNamespace", 
                           quietly = TRUE, USE.NAMES = FALSE)
             
-            m <- mapView(x[[1]], ...)
+            ## create base map using specified map types
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            m <- mapView(x[[1]], m, ...)
             
             for (i in 2:nlayers(x)) {
               m <- mapView(x[[i]], m, ...)
             }
             
-            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+            m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
@@ -261,7 +300,7 @@ setMethod('mapView', signature(x = 'Satellite'),
               }
             }
             
-            m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+            m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
@@ -375,7 +414,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                 }
               }
               
-              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+              m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -395,12 +434,15 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                              color = cols[length(cols)],
                                              ...)
               
-              txt <- sapply(seq(nrow(x@data)), function(i) {
+              txt_x <- paste0("x: ", round(coordinates(x)[, 1], 2))
+              txt_y <- paste0("y: ", round(coordinates(x)[, 2], 2))
+              
+              txt <- rbind(sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
-              })
+              }), txt_x, txt_y)
               
               txt <- sapply(seq(ncol(txt)), function(j) {
-                paste(txt[, j], collapse = " <br> ")
+                paste(txt[, j], collapse = " <br/> ")
               })
               
               m <- leaflet::addMarkers(m, lng = coordinates(x)[, 1],
@@ -425,9 +467,80 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
 )
 
 
-## SpatialPolygonsDataFrame =================================================
+
+## SpatialPoints ==========================================================
 #' @describeIn mapView
-#' @param burst whether to show all (TRUE) or only one (FALSE) layers 
+
+setMethod('mapView', signature(x = 'SpatialPoints'), 
+          function(x,
+                   map = NULL,
+                   na.color = "transparent",
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   ...) {
+            
+            pkgs <- c("leaflet", "sp", "magrittr")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            llcrs <- CRS("+init=epsg:4326")@projargs
+            
+            if (!identical(projection(x), llcrs)) {
+              cat("\n", "reprojecting to web mercator", "\n\n")
+              x <- spTransform(x, CRSobj = llcrs)
+            }
+            
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            txt_x <- paste0("x: ", round(coordinates(x)[, 1], 2))
+            txt_y <- paste0("y: ", round(coordinates(x)[, 2], 2))
+            
+            txt <- sapply(seq(txt_x), function(j) {
+              paste(txt_x[j], txt_y[j], sep = "<br/>")
+            })
+            
+            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
+                                     "\\(")[[1]][2], ",")[[1]][1]
+            grp <- gsub("\\)", "", grp)
+            
+            m <- leaflet::addCircleMarkers(m, lng = coordinates(x)[, 1],
+                                           lat = coordinates(x)[, 2],
+                                           group = grp,
+                                           ...)
+            
+            
+            m <- leaflet::addMarkers(m, lng = coordinates(x)[, 1],
+                                     lat = coordinates(x)[, 2],
+                                     group = grp,
+                                     options = leaflet::markerOptions(opacity = 0),
+                                     popup = txt)
+            
+            m <- leaflet::addLayersControl(map = m,
+                                           position = "topleft",
+                                           baseGroups = c("OpenStreetMap",
+                                                          "Esri.WorldImagery"),
+                                           overlayGroups = c(
+                                             Rsenal:::getLayerNamesFromMap(m),
+                                             grp))
+            
+            return(m)
+            
+          }
+)
+
+
+
+
+## SpatialPolygonsDataFrame ===============================================
+#' @describeIn mapView
 
 setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'), 
           function(x,
@@ -540,7 +653,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                 
               }
               
-              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+              m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -550,6 +663,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
               nms <- names(df)
               grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
                                        "\\(")[[1]][2], ",")[[1]][1]
+              grp <- gsub("\\)", "", grp)
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
@@ -597,9 +711,76 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
 
 
 
+## SpatialPolygons ========================================================
+#' @describeIn mapView
+
+setMethod('mapView', signature(x = 'SpatialPolygons'), 
+          function(x,
+                   map = NULL,
+                   na.color = "transparent",
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   weight = 2,
+                   ...) {
+            
+            pkgs <- c("leaflet", "sp", "magrittr")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            llcrs <- CRS("+init=epsg:4326")@projargs
+            
+            if (!identical(projection(x), llcrs)) {
+              cat("\n", "reprojecting to web mercator", "\n\n")
+              x <- spTransform(x, CRSobj = llcrs)
+            }
+            
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
+                                     "\\(")[[1]][2], ",")[[1]][1]
+            grp <- gsub("\\)", "", grp)
+            
+            coord_lst <- lapply(slot(x, "polygons"), function(x) {
+              lapply(slot(x, "Polygons"), function(y) slot(y, "coords"))
+            })
+            
+            for (j in seq(coord_lst)) {
+              for (h in seq(coord_lst[[j]])) {
+                x_coord <- coordinates(x@polygons[[j]]@Polygons[[h]])[, 1]
+                y_coord <- coordinates(x@polygons[[j]]@Polygons[[h]])[, 2]
+                m <- leaflet::addPolygons(m,
+                                          lng = x_coord,
+                                          lat = y_coord,
+                                          weight = weight,
+                                          group = grp,
+                                          ...)
+              }
+            }
+            
+            m <- leaflet::addLayersControl(map = m,
+                                           position = "topleft",
+                                           baseGroups = c("OpenStreetMap",
+                                                          "Esri.WorldImagery"),
+                                           overlayGroups = c(
+                                             Rsenal:::getLayerNamesFromMap(m),
+                                             grp))
+          
+            return(m)
+            
+          }
+)
+
+
 ## SpatialLinesDataFrame =================================================
 #' @describeIn mapView
-#' @param burst whether to show all (TRUE) or only one (FALSE) layers 
 
 setMethod('mapView', signature(x = 'SpatialLinesDataFrame'), 
           function(x,
@@ -714,7 +895,7 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                 
               }
               
-              m <- hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+              m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
               
             } else {
               
@@ -724,6 +905,8 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
               nms <- names(df)
               grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
                                        "\\(")[[1]][2], ",")[[1]][1]
+              grp <- gsub("\\)", "", grp)
+              
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
@@ -768,6 +951,78 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
           }
           
 )
+
+
+
+
+## SpatialLines ===========================================================
+#' @describeIn mapView
+
+setMethod('mapView', signature(x = 'SpatialLines'), 
+          function(x,
+                   map = NULL,
+                   na.color = "transparent",
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   weight = 2,
+                   ...) {
+            
+            pkgs <- c("leaflet", "sp", "magrittr")
+            tst <- sapply(pkgs, "requireNamespace", 
+                          quietly = TRUE, USE.NAMES = FALSE)
+            
+            llcrs <- CRS("+init=epsg:4326")@projargs
+            
+            if (!identical(projection(x), llcrs)) {
+              cat("\n", "reprojecting to web mercator", "\n\n")
+              x <- spTransform(x, CRSobj = llcrs)
+            }
+            
+            if (is.null(map)) {
+              m <- leaflet::leaflet()
+              m <- leaflet::addTiles(m, group = map.types[1])
+              m <- leaflet::addProviderTiles(m, provider = map.types[2],
+                                             group = map.types[2])
+            } else {
+              m <- map
+            }
+            
+            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
+                                     "\\(")[[1]][2], ",")[[1]][1]
+            grp <- gsub("\\)", "", grp)
+            
+            coord_lst <- lapply(slot(x, "lines"), function(x) {
+              lapply(slot(x, "Lines"), function(y) slot(y, "coords"))
+            })
+            
+            for (j in seq(coord_lst)) {
+              for (h in seq(coord_lst[[j]])) {
+                x_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 1]
+                y_coord <- coordinates(x@lines[[j]]@Lines[[h]])[, 2]
+                m <- leaflet::addPolylines(m,
+                                           lng = x_coord,
+                                           lat = y_coord,
+                                           weight = weight,
+                                           group = grp,
+                                           ...)
+              }
+            }
+            
+            m <- leaflet::addLayersControl(map = m,
+                                           position = "topleft",
+                                           baseGroups = c("OpenStreetMap",
+                                                          "Esri.WorldImagery"),
+                                           overlayGroups = c(
+                                             Rsenal:::getLayerNamesFromMap(m),
+                                             grp))
+            
+            return(m)
+            
+          }
+          
+)
+
 
 
 
