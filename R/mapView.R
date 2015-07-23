@@ -209,6 +209,15 @@ setMethod('mapView', signature(x = 'RasterLayer'),
 setMethod('mapView', signature(x = 'RasterStack'), 
           function(x, 
                    map = NULL,
+                   cols = envinmrPalette(7), 
+                   na.color = "transparent",
+                   values = NULL,
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   legend = TRUE,
+                   legend.opacity = 1,
+                   trim = TRUE,
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
@@ -246,6 +255,15 @@ setMethod('mapView', signature(x = 'RasterStack'),
 setMethod('mapView', signature(x = 'RasterBrick'), 
           function(x,
                    map = NULL,
+                   cols = envinmrPalette(7), 
+                   na.color = "transparent",
+                   values = NULL,
+                   map.types = c("OpenStreetMap",
+                                 "Esri.WorldImagery"),
+                   layer.opacity = 0.8,
+                   legend = TRUE,
+                   legend.opacity = 1,
+                   trim = TRUE,
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
