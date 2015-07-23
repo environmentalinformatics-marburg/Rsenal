@@ -37,7 +37,7 @@
 
 addLayer <- function(x, map, ...) {
   
-  m <- mapView(x, map = map, ...)
+  m <- mapView(x = x, map = map, ...)
   
   return(m)
   

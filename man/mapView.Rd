@@ -18,46 +18,46 @@
 \S4method{mapView}{RasterLayer}(x, map = NULL, cols = envinmrPalette(7),
   na.color = "transparent", values = NULL, map.types = c("OpenStreetMap",
   "Esri.WorldImagery"), layer.opacity = 0.8, legend = TRUE,
-  legend.opacity = 1, trim = TRUE, ...)
+  legend.opacity = 1, trim = TRUE, verbose = FALSE, ...)
 
 \S4method{mapView}{RasterStack}(x, map = NULL, cols = envinmrPalette(7),
   na.color = "transparent", values = NULL, map.types = c("OpenStreetMap",
   "Esri.WorldImagery"), layer.opacity = 0.8, legend = TRUE,
-  legend.opacity = 1, trim = TRUE, ...)
+  legend.opacity = 1, trim = TRUE, verbose = FALSE, ...)
 
 \S4method{mapView}{RasterBrick}(x, map = NULL, cols = envinmrPalette(7),
   na.color = "transparent", values = NULL, map.types = c("OpenStreetMap",
   "Esri.WorldImagery"), layer.opacity = 0.8, legend = TRUE,
-  legend.opacity = 1, trim = TRUE, ...)
+  legend.opacity = 1, trim = TRUE, verbose = FALSE, ...)
 
 \S4method{mapView}{Satellite}(x, ...)
 
 \S4method{mapView}{SpatialPointsDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  legend = TRUE, legend.opacity = 1, ...)
+  legend = TRUE, legend.opacity = 1, verbose = FALSE, ...)
 
 \S4method{mapView}{SpatialPoints}(x, map = NULL, na.color = "transparent",
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  ...)
+  verbose = FALSE, ...)
 
 \S4method{mapView}{SpatialPolygonsDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  legend = TRUE, legend.opacity = 1, weight = 2, ...)
+  legend = TRUE, legend.opacity = 1, weight = 2, verbose = FALSE, ...)
 
 \S4method{mapView}{SpatialPolygons}(x, map = NULL, na.color = "transparent",
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  weight = 2, ...)
+  weight = 2, verbose = FALSE, ...)
 
 \S4method{mapView}{SpatialLinesDataFrame}(x, map = NULL, burst = FALSE,
   cols = envinmrPalette(7), na.color = "transparent", values = NULL,
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  legend = TRUE, legend.opacity = 1, weight = 2, ...)
+  legend = TRUE, legend.opacity = 1, weight = 2, verbose = FALSE, ...)
 
 \S4method{mapView}{SpatialLines}(x, map = NULL, na.color = "transparent",
   map.types = c("OpenStreetMap", "Esri.WorldImagery"), layer.opacity = 0.8,
-  weight = 2, ...)
+  weight = 2, verbose = FALSE, ...)
 
 \S4method{mapView}{leaflet}(x, y)
 }

@@ -109,6 +109,7 @@ setMethod('mapView', signature(x = 'RasterLayer'),
                    legend = TRUE,
                    legend.opacity = 1,
                    trim = TRUE,
+                   verbose = FALSE,
                    ...) {
   
             pkgs <- c("leaflet", "raster", "magrittr")
@@ -121,7 +122,7 @@ setMethod('mapView', signature(x = 'RasterLayer'),
             llcrs <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
             }
             
             ## create base map using specified map types
@@ -218,6 +219,7 @@ setMethod('mapView', signature(x = 'RasterStack'),
                    legend = TRUE,
                    legend.opacity = 1,
                    trim = TRUE,
+                   verbose = FALSE,                    
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
@@ -264,6 +266,7 @@ setMethod('mapView', signature(x = 'RasterBrick'),
                    legend = TRUE,
                    legend.opacity = 1,
                    trim = TRUE,
+                   verbose = FALSE,                  
                    ...) {
             
             pkgs <- c("leaflet", "raster", "magrittr")
@@ -345,6 +348,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                    layer.opacity = 0.8,
                    legend = TRUE,
                    legend.opacity = 1,
+                   verbose = FALSE,                    
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -354,7 +358,7 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -440,9 +444,9 @@ setMethod('mapView', signature(x = 'SpatialPointsDataFrame'),
                                   stringsAsFactors = FALSE)
               
               nms <- names(df)
-              grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                       "\\(")[[1]][2], ",")[[1]][1]
-              grp <- gsub("\\)", "", grp)
+              
+              nam <- sys.call(-1)
+              grp <- as.character(nam)[2]
               
               len <- length(m$x$calls)
               
@@ -496,6 +500,7 @@ setMethod('mapView', signature(x = 'SpatialPoints'),
                    map.types = c("OpenStreetMap",
                                  "Esri.WorldImagery"),
                    layer.opacity = 0.8,
+                   verbose = FALSE,                   
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -505,7 +510,7 @@ setMethod('mapView', signature(x = 'SpatialPoints'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -525,9 +530,8 @@ setMethod('mapView', signature(x = 'SpatialPoints'),
               paste(txt_x[j], txt_y[j], sep = "<br/>")
             })
             
-            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                     "\\(")[[1]][2], ",")[[1]][1]
-            grp <- gsub("\\)", "", grp)
+            nam <- sys.call(-1)
+            grp <- as.character(nam)[2]
             
             m <- leaflet::addCircleMarkers(m, lng = coordinates(x)[, 1],
                                            lat = coordinates(x)[, 2],
@@ -573,6 +577,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                    legend = TRUE,
                    legend.opacity = 1,
                    weight = 2,
+                   verbose = FALSE,                    
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -582,7 +587,7 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -679,9 +684,9 @@ setMethod('mapView', signature(x = 'SpatialPolygonsDataFrame'),
                                   stringsAsFactors = FALSE)
               
               nms <- names(df)
-              grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                       "\\(")[[1]][2], ",")[[1]][1]
-              grp <- gsub("\\)", "", grp)
+              
+              nam <- sys.call(-1)
+              grp <- as.character(nam)[2]
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
@@ -740,6 +745,7 @@ setMethod('mapView', signature(x = 'SpatialPolygons'),
                                  "Esri.WorldImagery"),
                    layer.opacity = 0.8,
                    weight = 2,
+                   verbose = FALSE,                   
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -749,7 +755,7 @@ setMethod('mapView', signature(x = 'SpatialPolygons'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -762,9 +768,8 @@ setMethod('mapView', signature(x = 'SpatialPolygons'),
               m <- map
             }
             
-            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                     "\\(")[[1]][2], ",")[[1]][1]
-            grp <- gsub("\\)", "", grp)
+            nam <- sys.call(-1)
+            grp <- as.character(nam)[2]
             
             coord_lst <- lapply(slot(x, "polygons"), function(x) {
               lapply(slot(x, "Polygons"), function(y) slot(y, "coords"))
@@ -813,6 +818,7 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                    legend = TRUE,
                    legend.opacity = 1,
                    weight = 2,
+                   verbose = FALSE,                   
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -822,7 +828,7 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -921,10 +927,9 @@ setMethod('mapView', signature(x = 'SpatialLinesDataFrame'),
                                   stringsAsFactors = FALSE)
               
               nms <- names(df)
-              grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                       "\\(")[[1]][2], ",")[[1]][1]
-              grp <- gsub("\\)", "", grp)
               
+              nam <- sys.call(-1)
+              grp <- as.character(nam)[2]
               
               txt <- sapply(seq(nrow(x@data)), function(i) {
                 paste(nms, df[i, ], sep = ": ")
@@ -984,6 +989,7 @@ setMethod('mapView', signature(x = 'SpatialLines'),
                                  "Esri.WorldImagery"),
                    layer.opacity = 0.8,
                    weight = 2,
+                   verbose = FALSE,                   
                    ...) {
             
             pkgs <- c("leaflet", "sp", "magrittr")
@@ -993,7 +999,7 @@ setMethod('mapView', signature(x = 'SpatialLines'),
             llcrs <- CRS("+init=epsg:4326")@projargs
             
             if (!identical(projection(x), llcrs)) {
-              cat("\n", "reprojecting to web mercator", "\n\n")
+              if(verbose) cat("\n", "reprojecting to web mercator", "\n\n")
               x <- spTransform(x, CRSobj = llcrs)
             }
             
@@ -1006,9 +1012,8 @@ setMethod('mapView', signature(x = 'SpatialLines'),
               m <- map
             }
             
-            grp <- strsplit(strsplit(as.character(sys.calls()[1]), 
-                                     "\\(")[[1]][2], ",")[[1]][1]
-            grp <- gsub("\\)", "", grp)
+            nam <- sys.call(-1)
+            grp <- as.character(nam)[2]
             
             coord_lst <- lapply(slot(x, "lines"), function(x) {
               lapply(slot(x, "Lines"), function(y) slot(y, "coords"))
