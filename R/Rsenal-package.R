@@ -45,6 +45,5 @@ NULL
 #' Elevation  : numeric\cr
 #' 
 NULL
-#' @importFrom magrittr %>%
-#' @export %>%
+#' @import leaflet scales
 NULL
