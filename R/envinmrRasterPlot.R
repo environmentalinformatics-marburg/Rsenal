@@ -7,6 +7,7 @@
 #' that the main = ... argument can be used to describe the colorkey.
 #' 
 #' @param spplot.obj the \code{\link{spplot}} object to be modified
+#' @param rot Rotation angle of the y-axis tick labels. Defaults to 90 degrees.
 #' @param ... additional arguments passed to \code{\link{update.trellis}}
 #' 
 #' @return
@@ -39,10 +40,10 @@
 #' @aliases envinmrRasterPlot
 
 
-envinmrRasterPlot <- function(spplot.obj, ...) {
+envinmrRasterPlot <- function(spplot.obj, rot = 90, ...) {
   library(latticeExtra)
   tmp <- update(spplot.obj,
-                scales = list(draw = TRUE, y = list(rot = c(90)), 
+                scales = list(draw = TRUE, y = list(rot = rot), 
                               alternating = 3), 
                 ...)
   
