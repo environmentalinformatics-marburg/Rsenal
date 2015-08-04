@@ -4,12 +4,15 @@
 \alias{envinmrRasterPlot}
 \title{modify spplot objects}
 \usage{
-envinmrRasterPlot(spplot.obj, rot = 90, ...)
+envinmrRasterPlot(spplot.obj, rot = 90, col, ...)
 }
 \arguments{
 \item{spplot.obj}{the \code{\link{spplot}} object to be modified}
 
 \item{rot}{Rotation angle of the y-axis tick labels. Defaults to 90 degrees.}
+
+\item{col}{Color vector. If not specified, color information will
+automatically be extracted from \code{spplot.obj}.}
 
 \item{...}{additional arguments passed to \code{\link{update.trellis}}}
 }

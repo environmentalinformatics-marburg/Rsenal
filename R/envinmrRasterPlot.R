@@ -8,6 +8,8 @@
 #' 
 #' @param spplot.obj the \code{\link{spplot}} object to be modified
 #' @param rot Rotation angle of the y-axis tick labels. Defaults to 90 degrees.
+#' @param col Color vector. If not specified, color information will 
+#' automatically be extracted from \code{spplot.obj}.
 #' @param ... additional arguments passed to \code{\link{update.trellis}}
 #' 
 #' @return
@@ -40,7 +42,7 @@
 #' @aliases envinmrRasterPlot
 
 
-envinmrRasterPlot <- function(spplot.obj, rot = 90, ...) {
+envinmrRasterPlot <- function(spplot.obj, rot = 90, col, ...) {
   library(latticeExtra)
   tmp <- update(spplot.obj,
                 scales = list(draw = TRUE, y = list(rot = rot), 
@@ -54,10 +56,14 @@ envinmrRasterPlot <- function(spplot.obj, rot = 90, ...) {
                   list(key = list(space = "top",
                                   width = 1,
                                   height = 0.75,
-                                  if(!is.null(tmp$panel.args.common$col.regions)) {
+                                  if(!is.null(tmp$panel.args.common$col.regions) &
+                                     missing(col)) {
                                     col = tmp$panel.args.common$col.regions
-                                  } else { 
+                                  } else if (is.null(tmp$panel.args.common$col.regions) &
+                                             missing(col)) {
                                     col = envinmr.theme()$regions.fun
+                                  } else {
+                                    col = col
                                   },
                                   at = tmp$panel.args.common$at),
                        draw = FALSE)))
