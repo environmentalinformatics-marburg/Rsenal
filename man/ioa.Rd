@@ -2,7 +2,7 @@
 % Please edit documentation in R/ioa.R
 \name{ioa}
 \alias{ioa}
-\title{Index of Agreement}
+\title{Index of Association}
 \usage{
 ioa(x, y)
 }
@@ -17,8 +17,8 @@ changing in opposite directions, 1 means they are always changing
 in identical directions
 }
 \description{
-This is a very basic index of agreement. It simply counts how often
-two vectors increase or decrease in parallel
+This is a very basic index of association (IOA). It simply counts how often
+two vectors increase or decrease in parallel.
 }
 \examples{
 a <- 1:10
@@ -37,6 +37,6 @@ ioa(d, e)
 Norman Matloff
 }
 \references{
-Matloff R. (2011), The beauty of R programming.
+Matloff N. (2011), The Art of R Programming (and page 49 therein).
 }
 

@@ -1,8 +1,8 @@
-#' Index of Agreement
+#' Index of Association
 #' 
 #' @description
-#' This is a very basic index of agreement. It simply counts how often 
-#' two vectors increase or decrease in parallel
+#' This is a very basic index of association (IOA). It simply counts how often 
+#' two vectors increase or decrease in parallel.
 #' 
 #' @param x a numeric vector 
 #' @param y a numeric vector 
@@ -16,7 +16,7 @@
 #' Norman Matloff
 #' 
 #' @references
-#' Matloff R. (2011), The beauty of R programming.
+#' Matloff N. (2011), The Art of R Programming (and page 49 therein).
 #' 
 #' @examples
 #' a <- 1:10
