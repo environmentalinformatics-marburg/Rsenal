@@ -238,7 +238,7 @@ setMethod('mapView', signature(x = 'RasterStack'),
             
             m <- mapView(x[[1]], m, ...)
             
-            for (i in 2:nlayers(x)) {
+            for (i in seq(nlayers(x))) {
               m <- mapView(x[[i]], m, ...)
             }
             
@@ -285,7 +285,7 @@ setMethod('mapView', signature(x = 'RasterBrick'),
             
             m <- mapView(x[[1]], m, ...)
             
-            for (i in 2:nlayers(x)) {
+            for (i in seq(nlayers(x))) {
               m <- mapView(x[[i]], m, ...)
             }
             
@@ -316,7 +316,7 @@ setMethod('mapView', signature(x = 'Satellite'),
             m <- mapView(lyrs[[1]], ...)
             
             if (length(lyrs) > 1) {
-              for (i in 2:length(lyrs)) {
+              for (i in seq_along(lyrs)) {
                 m <- mapView(lyrs[[i]], m, ...)
               }
             }
