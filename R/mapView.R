@@ -236,13 +236,17 @@ setMethod('mapView', signature(x = 'RasterStack'),
               m <- map
             }
             
-            m <- mapView(x[[1]], m, ...)
-            
-            for (i in 2:nlayers(x)) {
-              m <- mapView(x[[i]], m, ...)
-            }
-            
-            m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+            if (nlayers(x) == 1) {
+              m <- mapView(x[[1]], m, ...)
+            } else {
+              m <- mapView(x[[1]], m, ...)
+              for (i in 2:nlayers(x)) {
+                m <- mapView(x[[i]], m, ...)
+              }
+              
+              m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+              
+            }       
             
             return(m)
             
@@ -283,13 +287,17 @@ setMethod('mapView', signature(x = 'RasterBrick'),
               m <- map
             }
             
-            m <- mapView(x[[1]], m, ...)
-            
-            for (i in 2:nlayers(x)) {
-              m <- mapView(x[[i]], m, ...)
+            if (nlayers(x) == 1) {
+              m <- mapView(x[[1]], m, ...)
+            } else {
+              m <- mapView(x[[1]], m, ...)
+              for (i in 2:nlayers(x)) {
+                m <- mapView(x[[i]], m, ...)
+              }
+              
+              m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
+              
             }
-            
-            m <- leaflet::hideGroup(map = m, group = Rsenal:::layers2bHidden(m))
             
             return(m)
             
