@@ -4,7 +4,8 @@
 \alias{envinmrRasterPlot}
 \title{modify spplot objects}
 \usage{
-envinmrRasterPlot(spplot.obj, rot = 90, col, ...)
+envinmrRasterPlot(spplot.obj, rot = 90, col, width = 1, height = 0.75,
+  ...)
 }
 \arguments{
 \item{spplot.obj}{the \code{\link{spplot}} object to be modified}
@@ -13,6 +14,10 @@ envinmrRasterPlot(spplot.obj, rot = 90, col, ...)
 
 \item{col}{Color vector. If not specified, color information will
 automatically be extracted from \code{spplot.obj}.}
+
+\item{width}{Key width.}
+
+\item{height}{Key height.}
 
 \item{...}{additional arguments passed to \code{\link{update.trellis}}}
 }
