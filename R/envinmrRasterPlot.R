@@ -10,6 +10,7 @@
 #' @param rot Rotation angle of the y-axis tick labels. Defaults to 90 degrees.
 #' @param col Color vector. If not specified, color information will 
 #' automatically be extracted from \code{spplot.obj}.
+#' @param key.cex size of the colorkey labels.
 #' @param width Key width. 
 #' @param height Key height.
 #' @param ... additional arguments passed to \code{\link{update.trellis}}
@@ -44,7 +45,7 @@
 #' @aliases envinmrRasterPlot
 
 
-envinmrRasterPlot <- function(spplot.obj, rot = 90, col, 
+envinmrRasterPlot <- function(spplot.obj, rot = 90, col, key.cex = 1,
                               width = 1, height = 0.75, ...) {
   library(latticeExtra)
   tmp <- update(spplot.obj,
@@ -56,7 +57,8 @@ envinmrRasterPlot <- function(spplot.obj, rot = 90, col,
     list(top = 
            list(fun = "draw.colorkey",
                 args = 
-                  list(key = list(space = "top",
+                  list(key = list(labels = list(cex = key.cex),
+                                  space = "top",
                                   width = width,
                                   height = height,
                                   if(!is.null(tmp$panel.args.common$col.regions) &
