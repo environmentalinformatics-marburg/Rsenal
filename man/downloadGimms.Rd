@@ -4,11 +4,14 @@
 \alias{downloadGimms}
 \title{Download GIMMS 3G data}
 \usage{
-downloadGimms(decades, dsn = ".", ...)
+downloadGimms(begin = NULL, end = NULL, dsn = ".", ...)
 }
 \arguments{
-\item{decades}{Numeric. Decadal data to download. If not supplied, the entire
-GIMMS 3G dataset will be acquired, i.e. \code{decades = seq(1980, 2010, 10)}.}
+\item{begin}{Numeric. Start year, e.g. '2000'. If not supplied, download will
+start from the first year available.}
+
+\item{end}{Numeric. End year. If not supplied, download will stop at the last
+year available.}
 
 \item{dsn}{Character. Destination folder for file download. If not supplied,
 all downloaded files will be stored in the current working directory.}
@@ -20,12 +23,11 @@ A vector of filepaths.
 }
 \description{
 Download GIMMS 3G binary data for a given time span from NASA FTP server
-(\url{http://ecocast.arc.nasa.gov/data/pub/gimms/3g/}).
+(\url{http://ecocast.arc.nasa.gov/data/pub/gimms/3g.v0/}).
 }
 \examples{
 # Download GIMMS 3G data from 1990 to 2009 (this might take some time...)
-downloadGimms(decades = c(1990, 2000),
-              dsn = paste(getwd(), "data", sep = "/"))
+downloadGimms(begin = 2000, dsn = paste(getwd(), "data", sep = "/"))
 }
 \author{
 Florian Detsch
