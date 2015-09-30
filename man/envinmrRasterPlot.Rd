@@ -4,8 +4,8 @@
 \alias{envinmrRasterPlot}
 \title{modify spplot objects}
 \usage{
-envinmrRasterPlot(spplot.obj, rot = 90, col, width = 1, height = 0.75,
-  ...)
+envinmrRasterPlot(spplot.obj, rot = 90, col, key.cex = 1, width = 1,
+  height = 0.75, ...)
 }
 \arguments{
 \item{spplot.obj}{the \code{\link{spplot}} object to be modified}
@@ -14,6 +14,8 @@ envinmrRasterPlot(spplot.obj, rot = 90, col, width = 1, height = 0.75,
 
 \item{col}{Color vector. If not specified, color information will
 automatically be extracted from \code{spplot.obj}.}
+
+\item{key.cex}{size of the colorkey labels.}
 
 \item{width}{Key width.}
 
