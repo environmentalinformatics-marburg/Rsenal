@@ -15,6 +15,7 @@
 #' @param ylim the ylim for the plot  
 #' @param sderror If TRUE then standard error is calculated. If FALSE then
 #' standard deviations are used
+#' @param grid Print grid or not
 #' 
 #' @return
 #' a trellis object
@@ -31,7 +32,8 @@ plotModelCV <- function(model,
                       tuningValue = "Variables",
                       xlim = "minmax",
                       ylim = "minmax",
-                      sderror=FALSE) {
+                      sderror=FALSE, 
+                      grid=TRUE) {
   require(lattice)
 
   data <- as.data.frame(model$resample)
@@ -73,7 +75,7 @@ plotModelCV <- function(model,
            panel.polygon(c(unique(data$tuningValue),rev(unique(data$tuningValue))),
                          c(means+sdv, rev(means-sdv)), col="grey80", 
                          border=FALSE)
-           panel.xyplot(x,y,type=c("b","g"),col="black",pch=16)
+           panel.xyplot(x,y,type=c("b","g"),col="black",pch=16, grid=grid)
          }
   )
 }
