@@ -10,4 +10,7 @@ License: GNU GPL (>=3)
 Depends: raster
 Imports: satellite,
   scales,
-  leaflet
+  leaflet, 
+  Rcpp
+LinkingTo:
+  Rcpp

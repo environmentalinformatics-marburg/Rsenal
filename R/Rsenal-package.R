@@ -20,6 +20,8 @@
 #' 
 #' @keywords package
 #' 
+#' @import Rcpp
+#' @importFrom Rcpp evalCpp
 NULL
 #' 
 #' @docType data 
