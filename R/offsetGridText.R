@@ -35,7 +35,7 @@
 #' \code{\link{calcOffsetGridText}}.
 #' 
 #' @examples
-#' bing satellite image of mt. kilimanjaro
+#' # bing satellite image of mt. kilimanjaro
 #' rst_kili <- kiliAerial(minNumTiles = 20, rasterize = TRUE, 
 #'                        projection = "+init=epsg:4326")
 #' spl_kili <- rgb2spLayout(rst_kili, alpha = .8)
@@ -54,6 +54,8 @@
 #' projection(df_peaks) <- "+init=epsg:4326"
 #' 
 #' # visualization
+#' library(latticeExtra)
+#' 
 #' xlim_kili <- c(37.15, 37.55)
 #' ylim_kili <- c(-3.25, -2.9)
 #' 
@@ -73,8 +75,20 @@
 offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL, 
                            pos = NULL, stext = FALSE, offset = .02, ...) {
   
-  stopifnot(require(plotrix))
+  # install old version of 'gridExtra' package
   stopifnot(require(gridExtra))
+  if (packageVersion("gridExtra") > "0.9.1") {
+    cat("Installing 'gridExtra' version 0.9.1 ...\n")
+    reinstall <- TRUE
+    detach("package:gridExtra")
+    install.packages("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz", 
+                     repos = NULL)
+    library(gridExtra)
+  } else {
+    reinstall <- FALSE
+  }
+  
+  stopifnot(require(plotrix))
   
   if (is.matrix(x)) {
     y <- x[, 2]
@@ -102,5 +116,12 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
                 just = ch_loc_lbl[tmp_cnt], ...)
     }
   }
+  
+  if (reinstall) {
+    detach("package:gridExtra")
+    install.packages("gridExtra")
+  }
+  
+  return(invisible())
       
 }

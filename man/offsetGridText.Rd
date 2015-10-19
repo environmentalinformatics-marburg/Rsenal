@@ -44,7 +44,7 @@ This is a wrapper function around \code{\link{calcOffsetGridText}} and
 offset text annotations to a 'trellis' plot.
 }
 \examples{
-bing satellite image of mt. kilimanjaro
+# bing satellite image of mt. kilimanjaro
 rst_kili <- kiliAerial(minNumTiles = 20, rasterize = TRUE,
                        projection = "+init=epsg:4326")
 spl_kili <- rgb2spLayout(rst_kili, alpha = .8)
@@ -63,6 +63,8 @@ coordinates(df_peaks) <- ~ x + y
 projection(df_peaks) <- "+init=epsg:4326"
 
 # visualization
+library(latticeExtra)
+
 xlim_kili <- c(37.15, 37.55)
 ylim_kili <- c(-3.25, -2.9)
 
