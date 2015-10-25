@@ -37,7 +37,9 @@
 #' @export rgb2spLayout
 #' @aliases rgb2spLayout
 
-rgb2spLayout <- function(x, alpha) {
+rgb2spLayout <- function(x, 
+                         quantiles = c(0.02, 0.98),
+                         alpha = 1) {
   
   library(raster)
   
@@ -49,15 +51,31 @@ rgb2spLayout <- function(x, alpha) {
   colim.recl[colim.recl < 0] <- 1
   
   ### use downloaded map for sp raster layout definition
-  cols <- rgb(colim.recl[[1]][] / 255, 
-              colim.recl[[2]][] / 255, 
-              colim.recl[[3]][] / 255,
-              alpha = alpha)
+#   cols <- rgb(colim.recl[[1]][] / 255, 
+#               colim.recl[[2]][] / 255, 
+#               colim.recl[[3]][] / 255,
+#               alpha = alpha)
+  
+  mat <- cbind(colim.recl[[1]][],
+               colim.recl[[2]][],
+               colim.recl[[3]][])
+  
+  for(i in seq(ncol(mat))){
+    z <- mat[, i]
+    lwr <- stats::quantile(z, quantiles[1], na.rm = TRUE)
+    upr <- stats::quantile(z, quantiles[2], na.rm = TRUE)
+    z <- (z - lwr) / (upr - lwr)
+    z[z < 0] <- 0
+    z[z > 1] <- 1
+    mat[, i] <- z
+  }
+  
+  cols <- grDevices::rgb(mat[, ], alpha = 1)
   
   map.cols <- matrix(cols,
                      nrow = colim.recl@nrows,
                      ncol = colim.recl@ncols)
-  
+
   attr(map.cols, "class") <- c("ggmap", "raster")
   attr(map.cols, "bb") <- data.frame(ll.y = colim.recl@extent@ymin,
                                      ll.x = colim.recl@extent@xmin,
