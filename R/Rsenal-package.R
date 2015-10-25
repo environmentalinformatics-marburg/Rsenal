@@ -20,6 +20,9 @@
 #' 
 #' @keywords package
 #' 
+#' @import Rcpp
+#' @importFrom Rcpp evalCpp
+#' @useDynLib Rsenal
 NULL
 #' 
 #' @docType data 
