@@ -60,10 +60,14 @@ significantTau <- function(x, p = 0.001, prewhitening = FALSE, ...) {
   }
   
   # reject value of tau if p >= 0.001
-  if (sig >= p) {
+  if (is.logical(sig) | is.logical(p)) {
     return(NA)
-    # keep value of tau if p < 0.001
   } else {
-    return(tau)
+    if (sig >= p) {
+      return(NA)
+      # keep value of tau if p < 0.001
+    } else {
+      return(tau)
+    }
   }
 }
