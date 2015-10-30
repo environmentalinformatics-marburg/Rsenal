@@ -4,7 +4,7 @@
 \alias{rgb2spLayout}
 \title{Convert an RGB RasterBrick/Stack to use with spplot}
 \usage{
-rgb2spLayout(x, alpha)
+rgb2spLayout(x, quantiles = c(0.02, 0.98), alpha = 1)
 }
 \arguments{
 \item{x}{a RasterBrick or RasterStack}

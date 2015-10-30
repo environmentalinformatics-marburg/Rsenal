@@ -14,7 +14,7 @@
 #' Tim Appelhans
 #'
 #' @export bumpVersion
-#'
+#' @name bumpVersion
 bumpVersion <- function(element = "patch", pkg.repo= ".") {
 
   ### DESCRIPTION file
