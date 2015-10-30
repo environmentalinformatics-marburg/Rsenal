@@ -3,14 +3,22 @@ Type: Package
 Title: magic R functions for things various
 Version: 0.2.2
 Date: 2015-10-14
-Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer, Spaska Forteva, Thomas Nauss
+Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer,
+    Spaska Forteva, Thomas Nauss
 Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
-Description: a compilation of R functions we find useful for our day-to-day business
+Description: a compilation of R functions we find useful for our day-to-day
+    business
 License: GNU GPL (>=3)
-Depends: raster
-Imports: satellite,
-  scales,
-  leaflet, 
-  Rcpp
-LinkingTo:
-  Rcpp
+Depends:
+    raster, 
+    Rcpp
+Suggests:
+    Kendall,
+    zyp
+Imports:
+    satellite,
+    scales,
+    leaflet,
+    Rcpp
+LinkingTo: Rcpp
+RoxygenNote: 5.0.0
