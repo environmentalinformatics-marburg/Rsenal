@@ -10,6 +10,8 @@
 #' @param p Significance level to be tested.
 #' @param prewhitening 'logical'. If \code{TRUE}, pre-whitening (see description 
 #' in package \strong{zyp}) is applied prior to the Mann-Kendall trend test.
+#' @param df 'logical'. If \code{TRUE}, a 'data.frame' holding the value of 
+#' Kendall's tau and the referring significance level. 
 #' @param ... Further arguments passed on to \code{\link{zyp.trend.vector}}.
 #' 
 #' @return Kendall's tau depending on the predefined significance level. If 
@@ -35,7 +37,7 @@
 #' 
 #' @export significantTau
 #' @name significantTau
-significantTau <- function(x, p = 0.001, prewhitening = FALSE, ...) {
+significantTau <- function(x, p = 0.001, prewhitening = FALSE, df = FALSE, ...) {
   
   # if only one unique value exists in 'x', return NA
   if (length(unique(x)) == 1)
@@ -43,13 +45,18 @@ significantTau <- function(x, p = 0.001, prewhitening = FALSE, ...) {
   
   # with prewhitening
   if (prewhitening) {
-    mk <- zyp::zyp.trend.vector(x, ...)
-    
-    id_sig <- grep("sig", names(mk))
-    sig <- mk[id_sig]
-
-    id_tau <- grep("tau", names(mk))
-    tau <- mk[id_tau]
+    if (any(is.na(x))) {
+      sig <- NA
+      tau <- NA
+    } else {
+      mk <- zyp::zyp.trend.vector(x, ...)
+      
+      id_sig <- grep("sig", names(mk))
+      sig <- mk[id_sig]
+      
+      id_tau <- grep("tau", names(mk))
+      tau <- mk[id_tau]
+    }
 
     # without prewhitening
   } else {
@@ -59,15 +66,23 @@ significantTau <- function(x, p = 0.001, prewhitening = FALSE, ...) {
     tau <- mk$tau
   }
   
+  # return data.frame
+  if (df) {
+    return(data.frame(tau = tau, p = sig))
+
   # reject value of tau if p >= 0.001
-  if (is.logical(sig) | is.logical(p)) {
-    return(NA)
   } else {
-    if (sig >= p) {
+    
+    if (is.logical(sig) | is.logical(p)) {
       return(NA)
-      # keep value of tau if p < 0.001
     } else {
-      return(tau)
+      if (sig >= p) {
+        return(NA)
+        # keep value of tau if p < 0.001
+      } else {
+        return(tau)
+      }
     }
   }
 }
+  

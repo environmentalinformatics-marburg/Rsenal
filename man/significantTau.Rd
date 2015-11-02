@@ -4,7 +4,7 @@
 \alias{significantTau}
 \title{Compute Kendall's tau}
 \usage{
-significantTau(x, p = 0.001, prewhitening = FALSE, ...)
+significantTau(x, p = 0.001, prewhitening = FALSE, df = FALSE, ...)
 }
 \arguments{
 \item{x}{A 'numeric' vector.}
@@ -13,6 +13,9 @@ significantTau(x, p = 0.001, prewhitening = FALSE, ...)
 
 \item{prewhitening}{'logical'. If \code{TRUE}, pre-whitening (see description 
 in package \strong{zyp}) is applied prior to the Mann-Kendall trend test.}
+
+\item{df}{'logical'. If \code{TRUE}, a 'data.frame' holding the value of 
+Kendall's tau and the referring significance level.}
 
 \item{...}{Further arguments passed on to \code{\link{zyp.trend.vector}}.}
 }
