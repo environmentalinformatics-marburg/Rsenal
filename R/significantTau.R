@@ -45,11 +45,15 @@ significantTau <- function(x, p = 0.001, prewhitening = FALSE, df = FALSE, ...) 
   
   # with prewhitening
   if (prewhitening) {
-    if (any(is.na(x))) {
-      sig <- NA
-      tau <- NA
-    } else {
-      mk <- zyp::zyp.trend.vector(x, ...)
+    
+    # try to compute pre-whitened mann-kendall trend test
+    try(mk <- zyp::zyp.trend.vector(x, ...), silent = TRUE)
+    
+    # if previous computation fails, return NA
+    if (class(mk) == "try-error") {
+      sig <- tau <- NA
+    # else return kendall's tau and referring p value  
+    } else {    
       
       id_sig <- grep("sig", names(mk))
       sig <- mk[id_sig]
