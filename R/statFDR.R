@@ -14,6 +14,13 @@
 #' @author
 #' Tim Appelhans
 #' 
+#' @references
+#' Review article:
+#' An investigation of the false discovery rate and the misinterpretation of p-values
+#' 
+#' David Colquhoun
+#' R. Soc. open sci. 2014 1 140216; DOI: 10.1098/rsos.140216. Published 19 November 2014
+#' 
 #' @examples
 #' ## reproducing Figure 1 from \url{http://rsos.royalsocietypublishing.org/content/1/3/140216}
 #' n <- 10000

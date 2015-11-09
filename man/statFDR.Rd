@@ -35,4 +35,11 @@ statFDR(n, prev, sens, p_val)
 \author{
 Tim Appelhans
 }
+\references{
+Review article:
+An investigation of the false discovery rate and the misinterpretation of p-values
+
+David Colquhoun
+R. Soc. open sci. 2014 1 140216; DOI: 10.1098/rsos.140216. Published 19 November 2014
+}
 
