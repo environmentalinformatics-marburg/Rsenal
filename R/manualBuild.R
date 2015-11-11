@@ -1,7 +1,34 @@
+#' Build package manually
+#' 
+#' @description 
+#' This function was specifically designed to build a package from local source 
+#' files manually, i.e., without using the package building functionality 
+#' offered e.g. by RStudio. 
+#' 
+#' @param dsn 'character'. Target folder containing source files; defaults to 
+#' the current working directory.
+#' @param document 'logical'. Determines whether or not to invoke 
+#' \code{\link{roxygenize}} with default roclets.  
+#' @param ... Further arguments passed on to \code{\link[devtools]{build}}. 
+#' 
+#' @seealso 
+#' \code{\link{roxygenize}}, \code{\link[devtools]{build}},\code{\link{install.packages}}.
+#' 
+#' @author 
+#' Florian Detsch
+#' 
+#' @examples
+#' \dontrun{
+#' ## when in a package directory, e.g. '~/satellite' 
+#' manualBuild()
+#' }
+#' 
+#' @export manualBuild
+#' @name manualBuild
 manualBuild <- function(dsn = getwd(), document = TRUE, ...) {
 
   ## reset 'dsn' to 'H:/...'  
-  if (grep("students_smb", dsn) == 1) {
+  if (length(grep("students_smb", dsn)) > 0) {
     lst_dsn <- strsplit(dsn, "/")
     chr_dsn <- unlist(lst_dsn)[3:5]
     dsn <- paste0("H:/", paste(chr_dsn, collapse = "/"))
