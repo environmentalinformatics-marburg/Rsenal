@@ -4,45 +4,56 @@
 \alias{kiliAerial}
 \title{Retrieve an (aerial) image of Mt. Kilimanjaro}
 \usage{
-kiliAerial(projection = "+init=epsg:21037", type = "bing",
-  template = NULL, rasterize = FALSE, ...)
+kiliAerial(upperLeft, lowerRight, template = NULL,
+  projection = "+init=epsg:21037", type = "bing", rasterize = TRUE, ...)
 }
 \arguments{
-\item{projection}{Character, defaults to "+init=epsg:21037". Output projection
-of the retrieved OSM data, passed on to \code{\link{openproj}}.}
+\item{upperLeft, lowerRight}{'numeric'. Upper-left (lower-right) bounding box 
+coordinates passed on to \code{\link{openmap}}. If not supplied and 
+'template' is missing, the returned image defaults to the extent of the study 
+area covered in \strong{Detsch et al. (under review)}.}
 
-\item{type}{Character, defaults to "bing". Tile server from which to get the
+\item{template}{'Extent' object, or any object that is compatible with 
+\code{\link{extent}}.}
+
+\item{projection}{'character', defaults to "+init=epsg:21037". Output projection
+of the retrieved image, see \code{\link{openproj}}.}
+
+\item{type}{'character', defaults to "bing". Tile server from which to get the
 map, see \code{\link{openmap}}.}
 
-\item{template}{\code{Extent} object, or any object from which an \code{Extent}
-object can be extracted. Defaults to the extent of the 8-km GIMMS grid used 
-in \strong{Detsch et al. (in preparation)}.}
-
-\item{rasterize}{Logical, defaults to FALSE. Determines whether a multi-layer 
-\code{Raster*} object is returned.}
+\item{rasterize}{'logical'. If \code{TRUE} (default), the function returns a 
+RGB 'RasterStack' object.}
 
 \item{...}{Further arguments passed on to \code{\link{openmap}}.}
 }
 \value{
 An object of class \code{OpenStreetMap} or, if \code{rasterize = TRUE}, 
-a \code{RasterStack} object.
+a multi-layer 'RasterStack' object.
 }
 \description{
-Based on the functionalities offered by the R \bold{OpenStreetMap} package, 
+Based on functionalities offered by the R \bold{OpenStreetMap} package, 
 this function per default retrieves a Bing aerial image centered on Mt. 
-Kilimanjaro, Tanzania, that is aligned with the 8-km GIMMS grid covering the
-region.
+Kilimanjaro, Tanzania, that is aligned with the 8-km GIMMS NDVI grid covering 
+the region.
 }
 \examples{
  
-library(ggplot2)
+## download high-resolution image
+img <- kiliAerial(minNumTiles = 12L, rasterize = FALSE)
 
-img <- kiliAerial(minNumTiles = 20)
+## create figure
+library(ggplot2)
 autoplot(img)
               
 }
 \author{
 Florian Detsch
+}
+\references{
+Detsch, F., Otte, I., Appelhans, T., and T. Nauss (2015): Seasonal and 
+long-term vegetation dynamics from NDVI time series at Mt. Kilimanjaro, 
+Tanzania. Under review at \emph{Remote Sensing of Environment}.
 }
 \seealso{
 \code{\link{openmap}}, \code{\link{openproj}}
