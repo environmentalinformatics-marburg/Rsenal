@@ -62,7 +62,7 @@ rasterizeTRMM <- function(binary, meta, write_out = TRUE) {
   
   ## build world grid
   rst_trmm <- raster(nrows = int_nrows, ncols = int_ncols, 
-                     xmn = num_bbox[1], xmx = num_bbox[3], 
+                     xmn = num_bbox[1]-180, xmx = num_bbox[3]-180, 
                      ymn = num_bbox[4], ymx = num_bbox[2])
   rst_trmm <- setValues(rst_trmm, 0)
   
