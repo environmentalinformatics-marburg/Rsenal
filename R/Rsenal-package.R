@@ -20,7 +20,7 @@
 #' 
 #' @keywords package
 #' 
-#' @import Rcpp
+#' @import methods raster Rcpp
 #' @useDynLib Rsenal
 NULL
 #' 

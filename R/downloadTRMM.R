@@ -28,43 +28,41 @@
 #' @aliases downloadTRMM
 downloadTRMM <- function(begin, end, dsn = ".", format = "%Y-%m-%d") {
   
-  ## required packages
-  stopifnot(require(lubridate))
-  stopifnot(require(RCurl))
-  
   ## transform 'begin' and 'end' to 'Date' object if necessary
-  if (!is.Date(begin))
+  if (!class(begin) == "Date")
     begin <- as.Date(begin, format = format)
   
-  if (!is.Date(end))
+  if (!class(end) == "Date")
     end <- as.Date(end, format = format)
   
   ## trmm ftp server
   ch_url <-"ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_daily/"
   
   ## loop over daily sequence
-  ls_fls_out <- lapply(seq(begin, end, "day"), function(i) {
+  ls_fls_out <- lapply(seq(begin, end, 1), function(i) {
     
     # year and julian day
-    tmp_ch_yr <- year(i)
+    tmp_ch_yr <- strftime(i, format = "%Y")
     tmp_ch_dy <- strftime(i, format = "%j")
+    
+    # trmm date format
+    tmp_dt <- strftime(i+1, format = "%Y.%m.%d")
     
     # list files available on server
     tmp_ch_url <- paste(ch_url, tmp_ch_yr, tmp_ch_dy, "", sep = "/")
-    tmp_ch_fls <- getURL(tmp_ch_url, verbose = FALSE, dirlistonly = TRUE)
-    tmp_ls_fls <- strsplit(tmp_ch_fls, "\n")
-    tmp_ch_fls <- unlist(tmp_ls_fls)
     
-    # download all files found (including *.xml)
-    tmp_ch_fls <- paste(tmp_ch_url, tmp_ch_fls, sep = "/")
-    tmp_ch_fls_out <- sapply(tmp_ch_fls, function(j) {
-      tmp_ch_fls_out <- paste(dsn, basename(j), sep = "/")
-      download.file(j, tmp_ch_fls_out)
-      return(tmp_ch_fls_out)
-    })
-    
+    tmp_ch_fls <- tmp_ch_fls_out <- character(2L)
+    for (j in 1:2) {
+      tmp_ch_fls[j] <- paste0("3B42_daily.", tmp_dt, ".7", 
+                              ifelse(j == 1, ".bin", ".bin.xml"))
+      
+      tmp_ch_fls[j] <- paste(tmp_ch_url, tmp_ch_fls[j], sep = "/")
+      tmp_ch_fls_out[j] <- paste(dsn, basename(tmp_ch_fls[j]), sep = "/")
+      
+      download.file(tmp_ch_fls[j], tmp_ch_fls_out[j])
+    }
+
     # return data frame with *.bin and *.xml filenames
-    tmp_ch_fls_out <- as.character(tmp_ch_fls_out)
     tmp_id_xml <- grep("xml", tmp_ch_fls_out)
     data.frame(bin = tmp_ch_fls_out[-tmp_id_xml], 
                xml = tmp_ch_fls_out[tmp_id_xml], 

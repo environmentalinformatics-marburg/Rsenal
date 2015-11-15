@@ -18,7 +18,6 @@ Suggests:
 Imports:
     satellite,
     scales,
-    leaflet,
-    Rcpp
+    leaflet
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
