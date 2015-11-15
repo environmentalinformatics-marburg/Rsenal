@@ -10,11 +10,9 @@ Description: a compilation of R functions we find useful for our day-to-day
     business
 License: GNU GPL (>=3)
 Depends:
+    methods,
     raster,
     Rcpp
-Suggests:
-    Kendall,
-    zyp
 Imports:
     satellite,
     scales,

@@ -59,7 +59,7 @@ downloadTRMM <- function(begin, end, dsn = ".", format = "%Y-%m-%d") {
       tmp_ch_fls[j] <- paste(tmp_ch_url, tmp_ch_fls[j], sep = "/")
       tmp_ch_fls_out[j] <- paste(dsn, basename(tmp_ch_fls[j]), sep = "/")
       
-      download.file(tmp_ch_fls[j], tmp_ch_fls_out[j])
+      download.file(tmp_ch_fls[j], tmp_ch_fls_out[j], mode = "wb")
     }
 
     # return data frame with *.bin and *.xml filenames

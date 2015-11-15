@@ -54,7 +54,7 @@
 #' ctab(LUC1990,trainingSites,mask="0")
 #' 
 #' @export ctab
-#' 
+#' @name ctab
 ctab<-function(a,b,mask=""){
   require(raster)
   va<-values(a)
