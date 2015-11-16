@@ -32,6 +32,8 @@
 #' figureCaption(p1, txt, fontsize = 12)
 #' 
 #' ## ggplot2 example
+#' library(ggplot2)
+#' 
 #' p2 <- qplot(1:10, rnorm(10), colour = runif(10))
 #' figureCaption(p2, "Fig. 2: Some color coded random numbers.", 
 #'               fontface = "italic")

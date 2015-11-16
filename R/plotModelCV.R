@@ -66,7 +66,7 @@ plotModelCV <- function(model,
               max(means + sdv) + 0.1 * min(means - sdv))
   }
 
-  if(metric=="Rsquared"){metric="R²"}
+  if(metric=="Rsquared"){metric="R-squared"}
   xyplot(means~unique(data$tuningValue),
          ylim=ylim,
          xlim=xlim,
