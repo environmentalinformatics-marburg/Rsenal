@@ -20,7 +20,8 @@
 #' 
 #' @keywords package
 #' 
-#' @import methods raster Rcpp
+#' @import methods raster
+#' @importFrom Rcpp sourceCpp
 #' @useDynLib Rsenal
 NULL
 #' 
