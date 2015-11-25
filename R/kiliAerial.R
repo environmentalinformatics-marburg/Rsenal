@@ -15,20 +15,17 @@
 #' @param projection 'character', defaults to "+init=epsg:21037". Output projection
 #' of the retrieved image, see \code{\link{openproj}}.
 #' @param type 'character', defaults to "bing". Tile server from which to get the
-#' map, see \code{\link{openmap}}. 
-#' @param rasterize 'logical'. If \code{TRUE} (default), the function returns a 
-#' RGB 'RasterStack' object.
+#' map. 
 #' @param ... Further arguments passed on to \code{\link{openmap}}. 
 #' 
 #' @return
-#' An object of class \code{OpenStreetMap} or, if \code{rasterize = TRUE}, 
-#' a multi-layer 'RasterStack' object.
+#' An RGB 'RasterStack' object.
 #' 
 #' @author
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{openmap}}, \code{\link{openproj}}
+#' \code{\link{openmap}}, \code{\link{openproj}, \code{\link{gmap}}}.
 #' 
 #' @references 
 #' Detsch, F., Otte, I., Appelhans, T., and T. Nauss (2015): Seasonal and 
@@ -37,40 +34,51 @@
 #' 
 #' @examples  
 #' ## download high-resolution image
-#' img <- kiliAerial(minNumTiles = 12L, rasterize = FALSE)
+#' img <- kiliAerial(minNumTiles = 12L)
 #' 
 #' ## create figure
-#' library(ggplot2)
-#' autoplot(img)
+#' plotRGB(img)
 #'               
 #' @export kiliAerial
 #' @aliases kiliAerial
 kiliAerial <- function(upperLeft, lowerRight, template = NULL, 
                        projection = "+init=epsg:21037", 
-                       type = "bing",
-                       rasterize = TRUE,
+                       type = c("bing", "google"),
                        ...) {
  
-  # packages
-  lib <- c("raster", "rgdal", "OpenStreetMap")
-  jnk <- sapply(lib, function(x) stopifnot(require(x, character.only = TRUE)))
-  
-  # gimms extent
+  ## reference extent based on regular 8-km gimms grid
   if (is.null(template) & (missing("upperLeft") | missing("lowerRight")))
     template <- raster::extent(readRDS(system.file("extdata/gimms_grid.rds", 
                                                    package = "Rsenal")))
   
-  # data retrieval
-  if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
-  if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
+  ## data retrieval via openstreetmap
+  if (type == "bing") {
+    if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
+    if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
+    
+    kili.map <- 
+      OpenStreetMap::openproj(
+        OpenStreetMap::openmap(upperLeft = upperLeft, 
+                               lowerRight = lowerRight, 
+                               type = "bing", ...), 
+        projection = projection)
   
-  kili.map <- openproj(openmap(upperLeft = upperLeft, lowerRight = lowerRight, 
-                               type = type, ...), 
-                       projection = projection)
-  
-  # rasterization (optional)
-  if (rasterize)
-    kili.map <- raster(kili.map)
-  
+    # rasterization
+    kili.map <- raster::raster(kili.map)
+    
+  ## data retrieval via google
+  } else {
+    
+    if (!(missing("upperLeft") & missing("lowerRight")))
+      template <- raster::extent(upperLeft[2], lowerRight[2], 
+                                 lowerRight[1], upperLeft[1])
+    
+    kili.map <- dismo::gmap(x = template, type = "satellite", scale = 2, 
+                            rgb = TRUE)
+    
+    kili.map <- raster::projectRaster(kili.map, crs = projection, 
+                                      method = "bilinear")
+  }  
+
   return(kili.map)
 }

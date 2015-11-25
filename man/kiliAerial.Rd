@@ -5,7 +5,7 @@
 \title{Retrieve an (aerial) image of Mt. Kilimanjaro}
 \usage{
 kiliAerial(upperLeft, lowerRight, template = NULL,
-  projection = "+init=epsg:21037", type = "bing", rasterize = TRUE, ...)
+  projection = "+init=epsg:21037", type = c("bing", "google"), ...)
 }
 \arguments{
 \item{upperLeft, lowerRight}{'numeric'. Upper-left (lower-right) bounding box 
@@ -20,16 +20,12 @@ area covered in \strong{Detsch et al. (under review)}.}
 of the retrieved image, see \code{\link{openproj}}.}
 
 \item{type}{'character', defaults to "bing". Tile server from which to get the
-map, see \code{\link{openmap}}.}
-
-\item{rasterize}{'logical'. If \code{TRUE} (default), the function returns a 
-RGB 'RasterStack' object.}
+map.}
 
 \item{...}{Further arguments passed on to \code{\link{openmap}}.}
 }
 \value{
-An object of class \code{OpenStreetMap} or, if \code{rasterize = TRUE}, 
-a multi-layer 'RasterStack' object.
+An RGB 'RasterStack' object.
 }
 \description{
 Based on functionalities offered by the R \bold{OpenStreetMap} package, 
@@ -40,11 +36,10 @@ the region.
 \examples{
  
 ## download high-resolution image
-img <- kiliAerial(minNumTiles = 12L, rasterize = FALSE)
+img <- kiliAerial(minNumTiles = 12L)
 
 ## create figure
-library(ggplot2)
-autoplot(img)
+plotRGB(img)
               
 }
 \author{
@@ -56,6 +51,6 @@ long-term vegetation dynamics from NDVI time series at Mt. Kilimanjaro,
 Tanzania. Under review at \emph{Remote Sensing of Environment}.
 }
 \seealso{
-\code{\link{openmap}}, \code{\link{openproj}}
+\code{\link{openmap}}, \code{\link{openproj}, \code{\link{gmap}}}.
 }
 

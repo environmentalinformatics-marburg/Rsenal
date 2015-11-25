@@ -13,7 +13,8 @@ Description:
 License: GPL (>=3) | file LICENSE
 Depends:
     methods,
-    raster
+    raster, 
+    rgdal
 Imports:
     satellite,
     scales,
