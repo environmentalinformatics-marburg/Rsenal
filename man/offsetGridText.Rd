@@ -45,7 +45,7 @@ offset text annotations to a 'trellis' plot.
 }
 \examples{
 # bing satellite image of mt. kilimanjaro
-rst_kili <- kiliAerial(minNumTiles = 20, rasterize = TRUE, 
+rst_kili <- kiliAerial(minNumTiles = 12,
                        projection = "+init=epsg:4326")
 spl_kili <- rgb2spLayout(rst_kili, alpha = .8)
 
@@ -74,6 +74,8 @@ p_kili <- spplot(df_peaks, auto.key = FALSE, col.regions = "white",
   layer(sp.points(df_peaks, cex = 1.5, pch = 20, col = "black"))
 
 print(p_kili)
+
+library(grid)
 downViewport(trellis.vpname(name = "figure"))
 offsetGridText(x = coordinates(df_peaks), labels = c("Kibo", "Mawenzi", "Shira"),  
                xlim = xlim_kili, ylim = ylim_kili, stext = TRUE, offset = .02,

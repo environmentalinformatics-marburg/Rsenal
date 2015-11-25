@@ -52,7 +52,7 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
                                                    package = "Rsenal")))
   
   ## data retrieval via openstreetmap
-  if (type == "bing") {
+  if (type[1] == "bing") {
     if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
     if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
     
