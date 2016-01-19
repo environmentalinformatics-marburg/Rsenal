@@ -83,8 +83,8 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
     cat("Installing 'gridExtra' version 0.9.1 ...\n")
     reinstall <- TRUE
     detach("package:gridExtra")
-    install.packages("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz", 
-                     repos = NULL)
+    install.packages(system.file("packages/gridExtra_0.9.1.tar.gz", 
+                                 package = "Rsenal"), repos = NULL)
     library(gridExtra)
   } else {
     reinstall <- FALSE
@@ -121,7 +121,8 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
   
   if (reinstall) {
     detach("package:gridExtra", unload = TRUE)
-    install.packages("gridExtra")
+    install.packages(system.file("packages/gridExtra_2.0.0.tar.gz", 
+                                 package = "Rsenal"), repos = NULL)
   }
   
   return(invisible())
