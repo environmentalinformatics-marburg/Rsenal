@@ -20,8 +20,27 @@
 #' 
 #' @keywords package
 #' 
-#' @import methods raster rgdal
+#' @import methods raster sp rgdal 
+#' @import RColorBrewer lattice latticeExtra grid gridBase gridExtra
+#' @import hflights party satellite
+#' @import parallel doParallel foreach
+#' @importFrom devtools build
+#' @importFrom dismo gmap
+#' @importFrom dplyr count_
+#' @importFrom gdalUtils gdal_translate
+#' @importFrom ggplot2 ggplot_gtable ggplot_build
+#' @importFrom landsat histmatch
+#' @importFrom maps map
+#' @importFrom OpenStreetMap openmap openproj
+#' @importFrom plotrix thigmophobe
+#' @importFrom plyr round_any
 #' @importFrom Rcpp sourceCpp
+#' @importFrom reshape2 melt
+#' @importFrom rgeos gCentroid
+#' @importFrom roxygen2 roxygenize
+#' @importFrom SDMTools PatchStat
+#' @importFrom tagcloud tagcloud
+#' @importFrom TSA harmonic
 #' @useDynLib Rsenal
 NULL
 #' 
@@ -49,4 +68,29 @@ NULL
 #' 
 NULL
 #' @import leaflet scales
+NULL
+#'
+#' @docType data
+#' @name gmap_hel
+#' @title Google Maps aerial image of HEL1
+#' @description This aerial image was downloaded from Google Maps and covers the 
+#' research plot HEL1 declared within the framework of the research unit 
+#' "Kilimanjaro Ecosystems Under Global Change: Linking biodiversity, biotic 
+#' interactions and biogeochemical ecosystem processes". It was used to conduct 
+#' unsupervised image classification based on \code{\link{kmeans}} clustering. 
+#' @details For a more detailed description of the applied analysis, please refer to 
+#' \url{https://www.researchgate.net/publication/281716190_Unsupervised_classification_of_Google_maps_imagery_in_R} 
+#' (accessed on January 27, 2016).
+#' @format \code{raster::RasterBrick}
+#' 
+NULL
+#'
+#' @docType data
+#' @name atlStorms2005
+#' @title Atlantic Ocean storms 2005
+#' @description Atlantic Ocean storms 2005
+#' @details This dataset contains storm tracks for selected storms
+#' in the Atlantic Ocean basin for the year 2005
+#' @format \code{sp::SpatialLinesDataFrame}
+#' 
 NULL

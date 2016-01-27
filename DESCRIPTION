@@ -1,6 +1,6 @@
 Package: Rsenal
 Type: Package
-Title: magic R functions for things various
+Title: Magic R Functions for Things Various
 Version: 0.2.12
 Date: 2016-01-03
 Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer,
@@ -14,10 +14,38 @@ License: GPL (>=3) | file LICENSE
 Depends:
     methods,
     raster, 
+    sp,
     rgdal
 Imports:
+    devtools,
+    dismo,
+    doParallel,
+    dplyr,
+    foreach,
+    gdalUtils,
+    ggplot2,
+    grid, 
+    gridBase,
+    gridExtra,
+    hflights,
+    landsat,
+    lattice, 
+    latticeExtra,
+    maps,
+    OpenStreetMap,
+    parallel,
+    party,
+    plotrix,
+    plyr,
+    RColorBrewer, 
+    reshape2,
+    rgeos,
+    roxygen2,
     satellite,
     scales,
+    SDMTools, 
+    tagcloud,
+    TSA,
     leaflet, 
     Rcpp (>= 0.11.3)
 LinkingTo: Rcpp
