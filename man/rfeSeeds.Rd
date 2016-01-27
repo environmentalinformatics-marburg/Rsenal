@@ -17,13 +17,13 @@ rfeSeeds(sizes, number, seed = 357)
 a list of integer seeds
 }
 \description{
-this function creates a list of seeds to be used with \code{\link{rfeControl}}
+this function creates a list of seeds to be used with \code{\link[caret]{rfeControl}}
 }
 \examples{
 rfeSeeds(1:9, 3)
 
 }
 \author{
-Tim Appelhans (largely taken from the examples of \code{\link{rfeControl}})
+Tim Appelhans (largely taken from the examples of \code{\link[caret]{rfeControl}})
 }
 

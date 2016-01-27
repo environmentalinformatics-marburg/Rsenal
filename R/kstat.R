@@ -127,11 +127,10 @@
 #' #For an example of an other field of application of these indices see 
 #' #http://giswerk.org/doku.php?id=people:c:creudenbach:alpenwerk:achtunglawine
 #' 
-#' @aliases
-#' kstat
+#' @aliases kstat
+#' @export kstat
 
 kstat<-function(a,b,mask="",perCategory=TRUE) {
-  require(raster)
   ##################################################################################################
   #Function: Calculate kappa indices and disagreements
 	calculateKappa<-function(ct){

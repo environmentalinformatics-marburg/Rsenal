@@ -19,9 +19,6 @@
 #' @seealso
 #' For calculation of kappa indices see \code{\link{kstat}}
 #' 
-#' @aliases
-#' ctab
-#' 
 #' @examples
 #' #### Example 1: Calculate the contingency table from two Land cover maps
 #' #load data
@@ -54,9 +51,9 @@
 #' ctab(LUC1990,trainingSites,mask="0")
 #' 
 #' @export ctab
+#' @aliases ctab
 #' @name ctab
 ctab<-function(a,b,mask=""){
-  require(raster)
   va<-values(a)
   vb<-values(b)
   name<-sort(union(unique(a),unique(b)))

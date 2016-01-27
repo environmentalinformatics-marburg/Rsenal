@@ -28,7 +28,7 @@ envinmr.theme <- function(win.fontfamily = NULL,
                           with.bg = FALSE, 
                           box = "black", 
                           ...) {
-  library(latticeExtra)
+
   theme <- list(background = list(col = if (with.bg) "#D5E2E9" else "transparent"), 
                 plot.line = list(col = "#00526D", lwd = 2.5), 
                 superpose.line = list(col = c("#00526D", "#00A3DB", 

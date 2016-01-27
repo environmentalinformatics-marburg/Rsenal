@@ -23,7 +23,7 @@ histmatchRaster(x, y, ttab = FALSE, minval = NULL, maxval = NULL,
 \item{by}{step size used to build the new historgram
 (if \code{NULL}, 1 for integer master layer, 0.01 for double master layer)}
 
-\item{...}{additional arguments (mask) passed to \code{\link{histmatch}}}
+\item{...}{additional arguments (mask) passed to \code{\link[landsat]{histmatch}}}
 }
 \value{
 if \code{ttab = FALSE} a RasterLayer, if \code{ttab = TRUE} a list
@@ -32,7 +32,7 @@ with components
 \code{newraster} the transformed RasterLayer
 }
 \description{
-this function is a wrapper around \code{\link{histmatch}} for
+this function is a wrapper around \code{\link[landsat]{histmatch}} for
 RasterLayers.
 }
 \examples{
@@ -55,6 +55,6 @@ raw_p + as.layer(densityplot(fixed[], xlim = c(80, 160),
 Tim Appelhans
 }
 \seealso{
-\code{\link{histmatch}}
+\code{\link[landsat]{histmatch}}
 }
 

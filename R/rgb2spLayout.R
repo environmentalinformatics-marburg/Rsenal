@@ -43,8 +43,6 @@ rgb2spLayout <- function(x,
                          quantiles = c(0.02, 0.98),
                          alpha = 1) {
   
-  library(raster)
-  
   if (!isTRUE(class(x) %in% c("RasterBrick", "RasterStack"))) {
     stop("x needs to be of class 'RasterBrick' or 'RasterStack'")
   }

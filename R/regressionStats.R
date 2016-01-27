@@ -57,8 +57,6 @@ regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE) {
                        Rsq = rsq)
   
   if (plot) {
-    library(latticeExtra)
-    
     ## panel.fun modified from 
     ## http://thebiobucket.blogspot.de/2011/04/r-graphs-lattice-use-of-panel-functions.html
     panel.fun <- function(...) {

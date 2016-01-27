@@ -1,39 +1,37 @@
+#' Evaluate performance of a conditional inference tree
+#' 
+#' This function evaluates the performance of a so-called conditional
+#' inference tree (see ?ctree for details) by calculating various scores, 
+#' e.g. accuracy, probability of detection, and false alarm ratio. See
+#' \url{http://cawcr.gov.au/projects/verification/} for further information.
+#' 
+#' @param independ numeric. Column index(es) of independent variable(s).
+#' @param depend numeric. Column index of dependent variable. 
+#' @param data \code{data.frame} with independent and dependent variables.
+#' @param seed integer. Seed required for random number generation, see 
+#' \code{\link{set.seed}}.
+#' @param size integer. Size of the training sample.
+#' @param minbucket integer. Minimum sum of weights in a terminal node.
+#' @param n.cores integer. Number of cores for parallel computing.
+#' @param ... Further arguments passed on to \code{\link{ctree_control}}.
+#' 
+#' @return Model evaluation statistics.
+#' 
+#' @author Florian Detsch
+#' 
+#' @seealso \code{\link{ctree}}, \code{\link{ctree_control}}.
+#' 
+#' @aliases evalTree
+#' @export evalTree
 evalTree <- function(independ = NULL, 
                      depend, 
                      data, 
-                     seed = 10, 
-                     size = 1000,
-                     minbucket = 100,
-                     n.cores = 1,
+                     seed = 10L, 
+                     size = 1000L,
+                     minbucket = 100L,
+                     n.cores = 1L,
                      ...) {
 
-  
-  ##############################################################################
-  ##  
-  ##  This function evaluates the performance of a so-called conditional
-  ##  inference tree (see ?ctree for details) by calculating various scores, 
-  ##  e.g. accuracy, probability of detection, false alarm ratio. See
-  ##  http://cawcr.gov.au/projects/verification/ for further information.
-  ##  
-  ##  Parameters are as follows:
-  ##
-  ##  independ (numeric):   Column number(s) of independent variables.
-  ##  depend (numeric):     Column number of dependent variable. 
-  ##  data (data.frame):    Data frame containing independent and dependent
-  ##                        variables.
-  ##  seed (numeric):       Seed for random number generation.
-  ##  size (numeric):       Size of the training sample.
-  ##  minbucket (numeric):  Numeric vector specifying the minimum sum of weights
-  ##                        in a terminal node.
-  ##  n.cores (numeric):    Number of cores for parallel execution.
-  ##  ...                   Further arguments passed on to ctree_control().
-  ##
-  ##############################################################################
-  
-  # Load required packages
-  lib <- c("doParallel", "party")
-  sapply(lib, function(...) stopifnot(require(..., character.only = T)))
-  
   # Parallelization
   registerDoParallel(cl <- makeCluster(n.cores))
   
@@ -55,6 +53,7 @@ evalTree <- function(independ = NULL,
   }
   
   # Loop through different bucket sizes
+  i <- 1
   out.tree <- foreach(i = minbucket, .packages = "party", 
                       .combine = function(...) {
                         as.data.frame(rbind(...))

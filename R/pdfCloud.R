@@ -35,8 +35,6 @@ pdfCloud <- function(pdf.path, exclude = NULL, nwords = 180,
     stop("please install 'pdftotext'")
   }
 
-  library(tagcloud)
-
   pdflist <- list.files(pdf.path,
                         pattern = glob2rx("*.pdf"),
                         full.names = TRUE,
@@ -81,8 +79,8 @@ pdfCloud <- function(pdf.path, exclude = NULL, nwords = 180,
   if (is.null(wmin)) wmin <- quantile(wgts, probs = 0.6)
 
   set.seed(seed)
-  return(tagcloud(tags, wgts, wmin = wmin,
-                  col = clrs, ...))
+  return(tagcloud::tagcloud(tags, wgts, wmin = wmin,
+                            col = clrs, ...))
 
 }
 

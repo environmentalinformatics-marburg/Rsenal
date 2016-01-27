@@ -23,18 +23,17 @@
 #' \code{\link{extend}}, \code{\link{extent}}
 #' 
 #' @examples
-#' rst <- kiliAerial(rasterize = TRUE, minNumTiles = 4L)
+#' ## initial extent (see ?gmap_hel)
+#' data(gmap_hel)
+#' extent(gmap_hel)
 #' 
-#' extent(rst)
-#' extendByDist(rst, width = 1000)
+#' ## extend by 0.1 degrees
+#' extendByDist(gmap_hel, width = .1)
 #' 
 #' @export extendByDist
 #' @aliases extendByDist
 extendByDist <- function(x, width) {
  
-  ## required package
-  stopifnot(require(raster))
-  
   ## extract extent
   if (class(x) != "Extent")
     x <- extent(x)

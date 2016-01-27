@@ -3,7 +3,7 @@
 #' @description
 #' This is a wrapper function around \code{\link{calcOffsetGridText}} and 
 #' \strong{grid}-based text drawing functions (currently including 
-#' \code{\link{grid.text}} and \code{\link{grid.stext}}) that automatically adds
+#' \code{\link{grid.text}} and \code{grid.stext}) that automatically adds
 #' offset text annotations to a 'trellis' plot.
 #' 
 #' @param x Numeric. A vector containing x coordinates, or a 2-column
@@ -21,7 +21,7 @@
 #' If not supplied, optimal text positions will be determined with respect to 
 #' neighboring locations using \code{\link{thigmophobe}}. 
 #' @param stext Logical. If \code{TRUE}, shadow text will be drawn (see 
-#' \code{\link{grid.stext}}) instead of ordinary \code{\link{grid.text}}.
+#' \code{grid.stext}) instead of ordinary \code{\link{grid.text}}.
 #' @param offset Numeric. The desired offset in normalized parent coordinates
 #' ("npc", see \code{\link{unit}}).
 #' @param ... Further arguments passed on the chosen \strong{grid} text 
@@ -31,16 +31,19 @@
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
+#' \code{\link{grid.text}}, \code{grid.stext} (\strong{gridExtra} package 
+#' version 0.9.1, see \code{system.file("packages/gridExtra_0.9.1.tar.gz", 
+#' package = "Rsenal")}), \code{\link{thigmophobe}}, 
 #' \code{\link{calcOffsetGridText}}.
 #' 
 #' @examples
-#' # bing satellite image of mt. kilimanjaro
+#' \dontrun{
+#' #' bing satellite image of mt. kilimanjaro
 #' rst_kili <- kiliAerial(minNumTiles = 12,
 #'                        projection = "+init=epsg:4326")
 #' spl_kili <- rgb2spLayout(rst_kili, alpha = .8)
 #' 
-#' # kilimanjaro peaks
+#' #' kilimanjaro peaks
 #' kibo <- c(-3.065053, 37.359031)
 #' mawenzi <- c(-3.095436, 37.455061)
 #' shira <- c(-3.038222, 37.210408)
@@ -53,7 +56,7 @@
 #' coordinates(df_peaks) <- ~ x + y
 #' projection(df_peaks) <- "+init=epsg:4326"
 #' 
-#' # visualization
+#' #' visualization
 #' library(latticeExtra)
 #' 
 #' xlim_kili <- c(37.15, 37.55)
@@ -71,26 +74,27 @@
 #' offsetGridText(x = coordinates(df_peaks), labels = c("Kibo", "Mawenzi", "Shira"),  
 #'                xlim = xlim_kili, ylim = ylim_kili, stext = TRUE, offset = .02,
 #'                gp = gpar(fontsize = 20, fontfamily = "Bookman Old Style"))
-#'                               
+#' }
+#'                                
 #' @export offsetGridText
 #' @aliases offsetGridText
 offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL, 
                            pos = NULL, stext = FALSE, offset = .02, ...) {
   
   # install old version of 'gridExtra' package
-  stopifnot(require(gridExtra))
-  if (packageVersion("gridExtra") != "0.9.1") {
+  if (packageVersion("gridExtra") > "0.9.1") {
     cat("Installing 'gridExtra' version 0.9.1 ...\n")
     reinstall <- TRUE
-    detach("package:gridExtra")
+    
+    if ("gridExtra" %in% loadedNamespaces())
+      detach("package:gridExtra", unload = TRUE)
+    
     install.packages(system.file("packages/gridExtra_0.9.1.tar.gz", 
-                                 package = "Rsenal"), repos = NULL)
-    library(gridExtra)
+                                 package = "Rsenal"), 
+                     repos = NULL, quiet = TRUE)
   } else {
     reinstall <- FALSE
   }
-  
-  stopifnot(require(plotrix))
   
   if (is.matrix(x)) {
     y <- x[, 2]
@@ -98,7 +102,7 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
   }
   
   # best label locations (if 'pos' is not supplied)
-  int_loc_lbl <- if (is.null(pos)) thigmophobe(x, y) else pos
+  int_loc_lbl <- if (is.null(pos)) plotrix::thigmophobe(x, y) else pos
   ch_loc_lbl <- pos2just(int_loc_lbl)
   
   # calculate offset point coordinates
@@ -122,7 +126,8 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
   if (reinstall) {
     detach("package:gridExtra", unload = TRUE)
     install.packages(system.file("packages/gridExtra_2.0.0.tar.gz", 
-                                 package = "Rsenal"), repos = NULL)
+                                 package = "Rsenal"), 
+                     repos = NULL, quiet = TRUE)
   }
   
   return(invisible())

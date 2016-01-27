@@ -11,7 +11,7 @@
 #' a vector
 #' 
 #' @author
-#' Tim Appelhans
+#' Tim Appelhans, Florian Detsch
 #' 
 #' @examples
 #' df <- data.frame(a = c(1, 2, 3, 3, 3, 3, 4, 5, 6, 7), 
@@ -25,9 +25,11 @@
 
 getMode <- function(df, col, side = c("lower", "upper")) {
   
-  library(dplyr)
-  
   side <- side[1]
+  
+  if (is.numeric(col))
+    col <- names(df)[col]
+    
   var_count <- dplyr::count_(df, col, sort = TRUE)
   
   mod_vals <- which(var_count$n == max(var_count$n))

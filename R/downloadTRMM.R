@@ -18,11 +18,13 @@
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{download.file}}, \code{\link{getURL}}
+#' \code{\link{download.file}}
 #' 
 #' @examples  
+#' \dontrun{
 #' ## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
 #' downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
+#' }
 #'               
 #' @export downloadTRMM
 #' @aliases downloadTRMM

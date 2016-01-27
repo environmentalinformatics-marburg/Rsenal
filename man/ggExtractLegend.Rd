@@ -19,6 +19,9 @@ from \url{https://stackoverflow.com/questions/13649473/add-a-common-legend-for-c
 }
 \examples{
  
+library(ggplot2)
+library(grid)
+
 p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 
 p_legend <- ggExtractLegend(p)

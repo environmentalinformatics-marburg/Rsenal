@@ -52,6 +52,7 @@ data(volcano)
 plot.new()
 levelplot(volcano, panel = Rsenal:::panel.filledcontour,
           at.contour = seq(100, 200, 20))
+
 }
 \author{
 Tim Appelhans 

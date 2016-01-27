@@ -27,14 +27,16 @@ Download TRMM 3B42 daily binary data for a given time span from the NASA FTP ser
 }
 \examples{
  
+\dontrun{
 ## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
 downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
+}
               
 }
 \author{
 Florian Detsch
 }
 \seealso{
-\code{\link{download.file}}, \code{\link{getURL}}
+\code{\link{download.file}}
 }
 

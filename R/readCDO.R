@@ -23,8 +23,8 @@
 #' file=system.file("ClimateStationData.txt", package="Rsenal")
 #' readCDO(file)
 #' 
-#' @aliases
-#' readCDO
+#' @aliases readCDO
+#' @export readCDO
 
 readCDO=function(file="",data="HourlyGlobal",advanced=TRUE,sep=","){
   ###########

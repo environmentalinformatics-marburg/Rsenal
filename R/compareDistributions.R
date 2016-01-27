@@ -57,8 +57,6 @@ compareDistributions <- function(left,
                                  ylab = "value",
                                  ...) {
   
-  library(latticeExtra)
-  
   left_x <- density(left, ...)$x
   left_y <- -density(left, ...)$y
   right_x <- density(right, ...)$x

@@ -33,6 +33,8 @@ coordinates) and ii) the colorkey is plotted on top of the graph so
 that the main = ... argument can be used to describe the colorkey.
 }
 \examples{
+library(RColorBrewer)
+
 rst <- raster::raster(volcano)
 
 p1 <- spplot(rst)

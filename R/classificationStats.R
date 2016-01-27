@@ -56,10 +56,7 @@ classificationStats <- function(prd, obs, plot=FALSE) {
   
   
   if (plot) {
-    library(latticeExtra)
-    require(reshape2)
-    require(lattice)
-    df_melt=melt(df_all)
+    df_melt <- reshape2::melt(df_all)
     ## panel.fun modified from 
     ## http://thebiobucket.blogspot.de/2011/04/r-graphs-lattice-use-of-panel-functions.html
     panel.fun <- function(...) {

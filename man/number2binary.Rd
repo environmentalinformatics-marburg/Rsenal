@@ -19,7 +19,7 @@ A bit code in fixed-length \code{integer} format or, if \code{to_char}, a
 single \code{character}.
 }
 \description{
-This is a wrapper function around \code{\link{intToBin}} that returns a bit
+This is a wrapper function around \code{\link{intToBits}} that returns a bit
 code in fixed-length integer format. The code is based on an SO post by
 Paul Hiemstra, see \url{https://stackoverflow.com/questions/12088080/how-to-convert-number-into-binary-vector}.
 }
@@ -33,6 +33,6 @@ number2binary(10, no_bits = 4, to_char = TRUE)
 Florian Detsch
 }
 \seealso{
-\code{\link{intToBin}}.
+\code{\link{intToBits}}.
 }
 

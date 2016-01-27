@@ -25,6 +25,8 @@
 #' \code{\link{update.trellis}}, \code{\link{spplot}}
 #' 
 #' @examples
+#' library(RColorBrewer)
+#' 
 #' rst <- raster::raster(volcano)
 #' 
 #' p1 <- spplot(rst)
@@ -47,7 +49,6 @@
 
 envinmrRasterPlot <- function(spplot.obj, rot = 90, col, key.cex = 1,
                               width = 1, height = 0.75, ...) {
-  library(latticeExtra)
   tmp <- update(spplot.obj,
                 scales = list(draw = TRUE, y = list(rot = rot), 
                               alternating = 3), 

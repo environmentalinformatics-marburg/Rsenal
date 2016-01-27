@@ -29,7 +29,7 @@ If not supplied, optimal text positions will be determined with respect to
 neighboring locations using \code{\link{thigmophobe}}.}
 
 \item{stext}{Logical. If \code{TRUE}, shadow text will be drawn (see 
-\code{\link{grid.stext}}) instead of ordinary \code{\link{grid.text}}.}
+\code{grid.stext}) instead of ordinary \code{\link{grid.text}}.}
 
 \item{offset}{Numeric. The desired offset in normalized parent coordinates
 ("npc", see \code{\link{unit}}).}
@@ -40,16 +40,17 @@ drawing function.}
 \description{
 This is a wrapper function around \code{\link{calcOffsetGridText}} and 
 \strong{grid}-based text drawing functions (currently including 
-\code{\link{grid.text}} and \code{\link{grid.stext}}) that automatically adds
+\code{\link{grid.text}} and \code{grid.stext}) that automatically adds
 offset text annotations to a 'trellis' plot.
 }
 \examples{
-# bing satellite image of mt. kilimanjaro
+\dontrun{
+#' bing satellite image of mt. kilimanjaro
 rst_kili <- kiliAerial(minNumTiles = 12,
                        projection = "+init=epsg:4326")
 spl_kili <- rgb2spLayout(rst_kili, alpha = .8)
 
-# kilimanjaro peaks
+#' kilimanjaro peaks
 kibo <- c(-3.065053, 37.359031)
 mawenzi <- c(-3.095436, 37.455061)
 shira <- c(-3.038222, 37.210408)
@@ -62,7 +63,7 @@ df_peaks <- data.frame(peak = c("Kibo", "Mawenzi", "Shira"),
 coordinates(df_peaks) <- ~ x + y
 projection(df_peaks) <- "+init=epsg:4326"
 
-# visualization
+#' visualization
 library(latticeExtra)
 
 xlim_kili <- c(37.15, 37.55)
@@ -80,13 +81,16 @@ downViewport(trellis.vpname(name = "figure"))
 offsetGridText(x = coordinates(df_peaks), labels = c("Kibo", "Mawenzi", "Shira"),  
                xlim = xlim_kili, ylim = ylim_kili, stext = TRUE, offset = .02,
                gp = gpar(fontsize = 20, fontfamily = "Bookman Old Style"))
-                              
+}
+                               
 }
 \author{
 Florian Detsch
 }
 \seealso{
-\code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
+\code{\link{grid.text}}, \code{grid.stext} (\strong{gridExtra} package 
+version 0.9.1, see \code{system.file("packages/gridExtra_0.9.1.tar.gz", 
+package = "Rsenal")}), \code{\link{thigmophobe}}, 
 \code{\link{calcOffsetGridText}}.
 }
 

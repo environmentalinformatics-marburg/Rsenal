@@ -1,7 +1,7 @@
 #' Convert an integer to fixed-length binary format
 #' 
 #' @description
-#' This is a wrapper function around \code{\link{intToBin}} that returns a bit
+#' This is a wrapper function around \code{\link{intToBits}} that returns a bit
 #' code in fixed-length integer format. The code is based on an SO post by
 #' Paul Hiemstra, see \url{https://stackoverflow.com/questions/12088080/how-to-convert-number-into-binary-vector}.
 #' 
@@ -18,7 +18,7 @@
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{intToBin}}.
+#' \code{\link{intToBits}}.
 #' 
 #' @examples
 #' number2binary(10)

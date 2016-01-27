@@ -28,6 +28,6 @@ getMode(df, 2)
 
 }
 \author{
-Tim Appelhans
+Tim Appelhans, Florian Detsch
 }
 

@@ -42,7 +42,7 @@ rgbShadowMask <- function(rgb, n_iter = 1, ...) {
     stop("Argument 'rgb' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
   
   ## 3-by-3 focal matrix
-  mat_w3by3 <- matrix(rep(1, 9), nc = 3)
+  mat_w3by3 <- matrix(rep(1, 9), ncol = 3)
   
   
   ### processing

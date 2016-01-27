@@ -21,11 +21,8 @@
 #' @aliases splitRaster
 splitRaster <- function(file, s = 2, ...) {
   
-  stopifnot(require(rgdal))
-  stopifnot(require(gdalUtils))
-
   # gdalinfo
-  nfo <- GDALinfo(file)
+  nfo <- rgdal::GDALinfo(file)
   
   # pick size of each side
   x <- nfo[2]
@@ -45,7 +42,8 @@ splitRaster <- function(file, s = 2, ...) {
       srcwin <- c(i * x/s, j * y/s, x/s, y/s)
       
       # execute split
-      gdal_translate(file, dst_dataset, srcwin = srcwin, output_Raster = TRUE, ...)
+      gdalUtils::gdal_translate(file, dst_dataset, srcwin = srcwin, 
+                                output_Raster = TRUE, ...)
     })
   })
   

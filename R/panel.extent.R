@@ -28,8 +28,6 @@
 
 panel.extent <- function(ext, ...) {
   
-  library(latticeExtra)
-  
   x <- c(ext@xmin, ext@xmax, ext@xmax, ext@xmin)
   y <- c(ext@ymin, ext@ymin, ext@ymax, ext@ymax)
   

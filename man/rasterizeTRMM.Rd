@@ -22,6 +22,7 @@ Rasterize TRMM 3B42 daily binary data, e.g. previously downloaded via
 }
 \examples{
  
+\dontrun{
 ## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
 fls_trmm <- downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
 
@@ -30,6 +31,7 @@ rst_trmm <- rasterizeTRMM(binary = fls_trmm[1, 1], meta = fls_trmm[1, 2],
                           write_out = FALSE)
                             
 plot(rst_trmm)                                     
+}
               
 }
 \author{

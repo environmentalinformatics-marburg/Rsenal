@@ -24,7 +24,7 @@
 #' For further functions related to model validation see \code{\link{ctab}} and \code{\link{kstat}}
 #' 
 #' @examples
-#' #### Example 1: Calculate the ROC curve from a model of the growth of the town "Marbug". 
+#' #### Example 1: Calculate the ROC curve from a model of the growth of the town "Marburg". 
 #' library(raster)
 #' library(rgdal)
 #' 
@@ -46,12 +46,10 @@
 #' #calculate ROC
 #' roc(pred,obs,mask,th=25)
 #' 
-#' @aliases
-#' roc
-#' 
+#' @aliases roc
+#' @export roc
 
 roc=function(pred,obs,mask=NA,plot=TRUE,th=100) {
-  require(raster)
   if (class(pred)!="RasterLayer"||class(obs)!="RasterLayer"){
     stop ("Input data must be of type 'RasterLayer'")
   }

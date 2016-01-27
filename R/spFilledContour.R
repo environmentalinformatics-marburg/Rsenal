@@ -40,9 +40,9 @@ spFilledContour <- function(x, xlab = "", ylab = "", ...) {
   mat <- raster::as.matrix(flip(x, 2))
 
   #plot.new()
-  levelplot(t(mat), panel = Rsenal:::panel.filledcontour,
-            row.values = as.numeric(unique(coordinates(x)[, 1])),
-            column.values = as.numeric(unique(coordinates(x)[, 2])),
-            xlab = xlab, ylab = ylab, ...)
+  lattice::levelplot(t(mat), panel = panel.filledcontour,
+                     row.values = as.numeric(unique(coordinates(x)[, 1])),
+                     column.values = as.numeric(unique(coordinates(x)[, 2])),
+                     xlab = xlab, ylab = ylab, ...)
   
 }

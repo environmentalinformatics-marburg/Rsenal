@@ -2,13 +2,13 @@
 #' 
 #' @description 
 #' this function approaches the identification of important variables from
-#' \code{\link{rfe}} more conservatively than \code{\link{caret}}. It uses
+#' \code{\link[caret]{rfe}} more conservatively than \strong{caret}. It uses
 #' the standard deviation (or standard error) of the cross-validated error 
 #' metric to identify important variables.
 #' 
-#' @param rfe.model a rfe model. See \code{\link{rfe}}
+#' @param rfe.model a rfe model. See \code{\link[caret]{rfe}}
 #' @param metric the metric to be used. Note this needs to be the metric used 
-#' to calculate the \code{\link{rfe}} model
+#' to calculate the \code{\link[caret]{rfe}} model
 #' @param maximize logical: Is a higher value of the metric favourable
 #'  (e.g metric = Rsquared) or not (e.g metric = RMSE). maximize=TRUE is 
 #'  determined automatically as long as metric is either Rsquared, ROC, Accuracy.

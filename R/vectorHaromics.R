@@ -31,10 +31,8 @@ vectorHarmonics <- function(x,
                             m = 2L,
                             fun = median) {
   
-  stopifnot(require(TSA))
-  
   xts <- ts(x, start = st, end = nd, frequency = frq)
-  har <- harmonic(xts, m = m)
+  har <- TSA::harmonic(xts, m = m)
   mod <- lm(xts ~ har)
   fit <- ts(fitted(mod), start = st, end = nd, frequency = frq)
   fit.med <- apply(matrix(fit, ncol = frq, byrow = TRUE), 2, FUN = fun)

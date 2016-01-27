@@ -25,10 +25,12 @@ add to the initial Raster*, extension is based on native map units, e.g.
 decimal degrees when the projection is EPSG:4326.
 }
 \examples{
-rst <- kiliAerial(rasterize = TRUE, minNumTiles = 4L)
+## initial extent (see ?gmap_hel)
+data(gmap_hel)
+extent(gmap_hel)
 
-extent(rst)
-extendByDist(rst, width = 1000)
+## extend by 0.1 degrees
+extendByDist(gmap_hel, width = .1)
 
 }
 \author{

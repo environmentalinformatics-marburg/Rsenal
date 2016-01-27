@@ -42,8 +42,7 @@
 #' @aliases figureCaption
 
 figureCaption <- function(obj, txt, ...) {
-  library(grid)
-  
+
   d <- sapply(lapply(txt, strwrap, width = 75), paste, collapse="\n")
   
   grid.newpage()

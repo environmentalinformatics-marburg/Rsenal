@@ -17,13 +17,13 @@ trainSeeds(size, number, seed = 357)
 a list of integer seeds
 }
 \description{
-this function creates a list of seeds to be used with \code{\link{trainControl}}
+this function creates a list of seeds to be used with \code{\link[caret]{trainControl}}
 }
 \examples{
 trainSeeds(9, 3)
 
 }
 \author{
-Tim Appelhans (largely taken from the examples of \code{\link{trainControl}})
+Tim Appelhans (largely taken from the examples of \code{\link[caret]{trainControl}})
 }
 

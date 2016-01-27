@@ -28,10 +28,8 @@
 
 panel.map <- function(map.data, col = "transparent", ...) {
   
-  library(maps)
-  
-  mm <- map(map.data, plot = FALSE, fill = TRUE, 
-            col = col)
+  mm <- maps::map(map.data, plot = FALSE, fill = TRUE, 
+                  col = col)
   
   pp <- panel.polygon(mm$x, mm$y, col = col, ...)
   

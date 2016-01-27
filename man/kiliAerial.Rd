@@ -35,12 +35,14 @@ the region.
 }
 \examples{
  
+\dontrun{
 ## download high-resolution image
 img <- kiliAerial(minNumTiles = 12L)
 
 ## create figure
 plotRGB(img)
-              
+}          
+                   
 }
 \author{
 Florian Detsch
@@ -51,6 +53,6 @@ long-term vegetation dynamics from NDVI time series at Mt. Kilimanjaro,
 Tanzania. Under review at \emph{Remote Sensing of Environment}.
 }
 \seealso{
-\code{\link{openmap}}, \code{\link{openproj}, \code{\link{gmap}}}.
+\code{\link{openmap}}, \code{\link{openproj}}, \code{\link{gmap}}.
 }
 

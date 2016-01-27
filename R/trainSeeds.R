@@ -1,7 +1,7 @@
 #' create a list of seeds for trainControl()
 #' 
 #' @description 
-#' this function creates a list of seeds to be used with \code{\link{trainControl}}
+#' this function creates a list of seeds to be used with \code{\link[caret]{trainControl}}
 #' 
 #' @param size the number of models to be evaluated
 #' @param number the number of boot-starpping/cv repeats
@@ -11,7 +11,7 @@
 #' a list of integer seeds
 #' 
 #' @author
-#' Tim Appelhans (largely taken from the examples of \code{\link{trainControl}})
+#' Tim Appelhans (largely taken from the examples of \code{\link[caret]{trainControl}})
 #' 
 #' @examples
 #' trainSeeds(9, 3)

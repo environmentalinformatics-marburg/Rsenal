@@ -8,10 +8,10 @@ plotModelCV(model, metric = model$metric, tuningValue = "Variables",
   xlim = "minmax", ylim = "minmax", sderror = FALSE, grid = TRUE)
 }
 \arguments{
-\item{model}{A rfe or train object. See \code{\link{rfe}} and \code{\link{train}}}
+\item{model}{A rfe or train object. See \code{\link[caret]{rfe}} and \code{\link[caret]{train}}}
 
 \item{metric}{the metric to be used. Note this needs to be the metric used 
-to calculate the \code{\link{rfe}} or  \code{\link{train}} model}
+to calculate the \code{\link[caret]{rfe}} or  \code{\link[caret]{train}} model}
 
 \item{tuningValue}{The tuning value which is depicted on the x axis.
 For rfe models default is "Variables", the number of variables.}
@@ -30,7 +30,7 @@ a trellis object
 }
 \description{
 this function plots variable imporatnce for cross-validated 
-\code{\link{rfe}} variable selection classes or \code{\link{train}} classes.
+\code{\link[caret]{rfe}} variable selection classes or \code{\link[caret]{train}} classes.
  It uses the k cross-validations to compute the mean +/- sd error or 
  standard deviation metric.
 }

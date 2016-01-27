@@ -8,10 +8,10 @@ varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE,
   sderror = TRUE)
 }
 \arguments{
-\item{rfe.model}{a rfe model. See \code{\link{rfe}}}
+\item{rfe.model}{a rfe model. See \code{\link[caret]{rfe}}}
 
 \item{metric}{the metric to be used. Note this needs to be the metric used 
-to calculate the \code{\link{rfe}} model}
+to calculate the \code{\link[caret]{rfe}} model}
 
 \item{maximize}{logical: Is a higher value of the metric favourable
 (e.g metric = Rsquared) or not (e.g metric = RMSE). maximize=TRUE is 
@@ -27,7 +27,7 @@ a character vector of the variable names
 }
 \description{
 this function approaches the identification of important variables from
-\code{\link{rfe}} more conservatively than \code{\link{caret}}. It uses
+\code{\link[caret]{rfe}} more conservatively than \strong{caret}. It uses
 the standard deviation (or standard error) of the cross-validated error 
 metric to identify important variables.
 }

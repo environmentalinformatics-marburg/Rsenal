@@ -25,7 +25,7 @@
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{openmap}}, \code{\link{openproj}, \code{\link{gmap}}}.
+#' \code{\link{openmap}}, \code{\link{openproj}}, \code{\link{gmap}}.
 #' 
 #' @references 
 #' Detsch, F., Otte, I., Appelhans, T., and T. Nauss (2015): Seasonal and 
@@ -33,12 +33,14 @@
 #' Tanzania. Under review at \emph{Remote Sensing of Environment}.
 #' 
 #' @examples  
+#' \dontrun{
 #' ## download high-resolution image
 #' img <- kiliAerial(minNumTiles = 12L)
 #' 
 #' ## create figure
 #' plotRGB(img)
-#'               
+#' }          
+#'                    
 #' @export kiliAerial
 #' @aliases kiliAerial
 kiliAerial <- function(upperLeft, lowerRight, template = NULL, 

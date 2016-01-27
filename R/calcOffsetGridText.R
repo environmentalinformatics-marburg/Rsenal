@@ -67,9 +67,6 @@
 calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL, 
                                xlim = NULL, ylim = NULL, ...) {
   
-  stopifnot(require(plotrix))
-  stopifnot(require(grid))
-  
   if (is.matrix(x)) {
     y <- x[, 2]
     x <- x[, 1]
@@ -87,7 +84,7 @@ calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL,
   num_y_rel <- (y-num_ymin) / num_yrng
     
   # best label locations (if 'pos' is not supplied)
-  int_loc_lbl <- if (is.null(pos)) thigmophobe(num_x_rel, num_y_rel) else pos
+  int_loc_lbl <- if (is.null(pos)) plotrix::thigmophobe(num_x_rel, num_y_rel) else pos
   ch_loc_lbl <- pos2just(int_loc_lbl)
   
   # apply offset to point coordinates

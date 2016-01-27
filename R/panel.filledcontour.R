@@ -32,7 +32,7 @@
 #' plot.new()
 #' levelplot(volcano, panel = Rsenal:::panel.filledcontour,
 #'           at.contour = seq(100, 200, 20))
-
+#'
 panel.filledcontour <- function(x, y, z, 
                                 subscripts,
                                 fill.contours = TRUE,
@@ -46,9 +46,6 @@ panel.filledcontour <- function(x, y, z,
                                 lwd.contours = 1,
                                 draw.labels = TRUE,
                                 ...) {
-  
-  library("gridBase")
-  library("plyr")
   
   z <- matrix(z[subscripts],
               nrow = length(unique(x[subscripts])),

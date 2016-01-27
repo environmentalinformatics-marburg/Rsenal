@@ -20,6 +20,9 @@
 #' \url{https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots}
 #' 
 #' @examples  
+#' library(ggplot2)
+#' library(grid)
+#' 
 #' p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 #' 
 #' p_legend <- ggExtractLegend(p)
@@ -29,9 +32,7 @@
 #' @aliases ggExtractLegend
 ggExtractLegend <- function(...) {
   
-  stopifnot(require(ggplot2))
-  
-  tmp <- ggplot_gtable(ggplot_build(...)) 
+  tmp <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(...)) 
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box") 
   legend <- tmp$grobs[[leg]] 
   
