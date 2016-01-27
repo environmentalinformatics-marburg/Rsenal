@@ -35,24 +35,24 @@
 #' @seealso \code{\link{regressionStats}}
 
 classificationStats <- function(prd, obs, plot=FALSE) {
-  tab=(table(prd,obs))/100
-  TP=tab[1,1]
-  FP=tab[1,2]
-  TN=tab[2,2]
-  FN=tab[2,1]
+  tab <- (table(prd,obs))/100
+  TP <- tab[1,1]
+  FP <- tab[1,2]
+  TN <- tab[2,2]
+  FN <- tab[2,1]
   
-  bias=(TP+FP)/(TP+FN)
-  POD=TP/(TP+FN)
-  PFD=FP/(FP+TN)
-  FAR=FP/(TP+FP)
-  CSI=TP/(TP+FP+FN)
-  ph=((TP+FN)*(TP+FP))/(sum(tab))
-  ETS=(TP-ph)/((TP+FP+FN)-ph)
-  HSS=(TP*TN-FP*FN)/(((TP+FN)*(FN+TN)+(TP+FP)*(FP+TN))/2)
-  HKD=(TP/(TP+FN))-(FP/(FP+TN))
+  bias <- (TP+FP)/(TP+FN)
+  POD <- TP/(TP+FN)
+  PFD <- FP/(FP+TN)
+  FAR <- FP/(TP+FP)
+  CSI <- TP/(TP+FP+FN)
+  ph <- ((TP+FN)*(TP+FP))/(sum(tab))
+  ETS <- (TP-ph)/((TP+FP+FN)-ph)
+  HSS <- (TP*TN-FP*FN)/(((TP+FN)*(FN+TN)+(TP+FP)*(FP+TN))/2)
+  HKD <- (TP/(TP+FN))-(FP/(FP+TN))
   
-  df_all=data.frame(bias,PFD,FAR,POD,CSI,ETS,HSS,HKD)
-  names(df_all)=c("Bias","PFD","FAR","POD","CSI","ETS","HSS","HKD")
+  df_all <- data.frame(bias,PFD,FAR,POD,CSI,ETS,HSS,HKD)
+  names(df_all) <- c("Bias","PFD","FAR","POD","CSI","ETS","HSS","HKD")
   
   
   if (plot) {

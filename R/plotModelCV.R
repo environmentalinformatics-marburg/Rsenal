@@ -48,12 +48,12 @@ plotModelCV <- function(model,
 
   for (i in unique(data$tuningValue)) {
       if(!sderror){
-        sdv<-c(sdv,sd(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
+        sdv <- c(sdv,sd(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
       }
       if(sderror){
-        sdv<-c(sdv,se(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
+        sdv <- c(sdv,se(eval(parse(text=paste("data$",metric)))[data$tuningValue==i]))
       }
-      means<-c(means,mean(eval(parse(text=paste("data$",metric)))
+      means <- c(means,mean(eval(parse(text=paste("data$",metric)))
                           [data$tuningValue==i]))
     }
 
