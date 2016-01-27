@@ -101,7 +101,7 @@ calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL,
     if (ch_jst %in% c("left", "right")) {
       if (ch_jst == "left") {tmp_x <- tmp_x+offset} else {tmp_x <- tmp_x-offset}
     } else {
-      if (ch_jst == "top") {tmp_y <- tmp_y-offset} else {tmp_y <- tmp_y+offset}
+      if (ch_jst == "top") {tmp_y <- tmp_y-offset} else {tmp_y <- tmp_y+offset*1.5}
     }
     
     tmp_mat <- matrix(c(tmp_x, tmp_y), byrow = TRUE, ncol = 2)
