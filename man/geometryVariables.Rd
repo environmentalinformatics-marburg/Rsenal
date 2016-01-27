@@ -7,7 +7,7 @@
 geometryVariables(x)
 }
 \arguments{
-\item{x}{A rasterLayer with any values but where patches are seperated by surrounding NA values}
+\item{x}{A RasterLayer with any values but where patches are seperated by surrounding NA values}
 }
 \value{
 A RasterStacks containing the geoemtry parameters. The names are as following;
@@ -43,15 +43,16 @@ SF2: Shape factor 2
 C3: Circularity 3
 SF3: Shape factor 3
 
-For decription of the indices see list in Borg 1998: Vergleichende Analyse von Formindizes zur Characterisierung 
-von Landschaftsobjekten unter ökologischen Aspekten. 
-Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119
+For decription of the indices see list in Borg 1998: Vergleichende Analyse 
+von Formindizes zur Charakterisierung von Landschaftsobjekten unter 
+oekologischen Aspekten. Zeitschrift fuer Photogrammetrie und Fernerkundung 4: 
+108-119.
 }
 \description{
 This function calculates geoemtry parameters from Raster data.
 }
 \examples{
-RasterLayer<-raster("inst/training.rst")
+RasterLayer<-raster(system.file("training.rst", package = "Rsenal"))
 shape<-geometryVariables(RasterLayer)
 plot(shape)
 
@@ -60,6 +61,6 @@ plot(shape)
 Hanna Meyer
 }
 \seealso{
-\code{SDMTools},  \code{clump}, \code{borg_indices}
+\strong{SDMTools},  \code{clump}, \code{borg_indices}
 }
 

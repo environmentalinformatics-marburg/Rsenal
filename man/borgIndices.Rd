@@ -19,10 +19,10 @@ borgIndices(Ar, Ur, De, Du)
 A RasterStack
 }
 \description{
-used as internal funcction. see \code{?geometry_variables}
-and Borg 1998: Vergleichende Analyse von Formindizes zur Characterisierung 
-von Landschaftsobjekten unter ökologischen Aspekten. 
-Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119.
+used as internal function. see \code{?geometryVariables}
+and Borg 1998: Vergleichende Analyse von Formindizes zur Charakterisierung 
+von Landschaftsobjekten unter oekologischen Aspekten. 
+Zeitschrift fuer Photogrammetrie und Fernerkundung 4: 108-119.
 }
 \author{
 Hanna Meyer

@@ -1,6 +1,6 @@
 #' Calculate selected geometry variables from raster data
 #' @description This function calculates geoemtry parameters from Raster data.
-#' @param x A rasterLayer with any values but where patches are seperated by surrounding NA values
+#' @param x A RasterLayer with any values but where patches are seperated by surrounding NA values
 #' @return A RasterStacks containing the geoemtry parameters. The names are as following;
 #' Patches: The ID of the Patches
 #' Ar: The area of the individual patches
@@ -34,22 +34,24 @@
 #' C3: Circularity 3
 #' SF3: Shape factor 3
 #' 
-#' For decription of the indices see list in Borg 1998: Vergleichende Analyse von Formindizes zur Characterisierung 
-#' von Landschaftsobjekten unter ökologischen Aspekten. 
-#' Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119
+#' For decription of the indices see list in Borg 1998: Vergleichende Analyse 
+#' von Formindizes zur Charakterisierung von Landschaftsobjekten unter 
+#' oekologischen Aspekten. Zeitschrift fuer Photogrammetrie und Fernerkundung 4: 
+#' 108-119.
+#' 
 #' @author Hanna Meyer
-#' @seealso \code{SDMTools},  \code{clump}, \code{borg_indices}
+#' @seealso \strong{SDMTools},  \code{clump}, \code{borg_indices}
 #' @examples
-#' RasterLayer<-raster("inst/training.rst")
+#' RasterLayer<-raster(system.file("training.rst", package = "Rsenal"))
 #' shape<-geometryVariables(RasterLayer)
 #' plot(shape)
 #' 
+#' @export geometryVariables
+#' @aliases geometryVariables
 
 geometryVariables <- function(x){
-     require(SDMTools)
-     require(raster)
      Patches<-clump(x)
-     Stats<-PatchStat(Patches)
+     Stats<-SDMTools::PatchStat(Patches)
      # patch area:
      Area <- reclassify(Patches, cbind(Stats$patchID,Stats$area))
      #shape index:
@@ -77,7 +79,7 @@ geometryVariables <- function(x){
       cp<-Patches
       cp[cp!=i]<-NA
       cpp<-rasterToPolygons(cp,dissolve=TRUE)
-      centroid<-gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
+      centroid<-rgeos::gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
       
       dist<- distanceFromPoints(Patches, centroid)
       dist[is.na(cp)]<-NA

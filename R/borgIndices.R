@@ -1,14 +1,19 @@
 #' Calculate shape indices listed in Borg 1998 
-#' @description used as internal funcction. see \code{?geometry_variables}
-#' and Borg 1998: Vergleichende Analyse von Formindizes zur Characterisierung 
-#' von Landschaftsobjekten unter ökologischen Aspekten. 
-#' Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119.
+#' 
+#' @description used as internal function. see \code{?geometryVariables}
+#' and Borg 1998: Vergleichende Analyse von Formindizes zur Charakterisierung 
+#' von Landschaftsobjekten unter oekologischen Aspekten. 
+#' Zeitschrift fuer Photogrammetrie und Fernerkundung 4: 108-119.
+#' 
 #' @param Ar area of the entities
 #' @param Ur (requires documentation)
 #' @param De Diameter of the inner circle
 #' @param Du Diameter of the outer circle
+#' 
 #' @return A RasterStack
+#' 
 #' @author Hanna Meyer
+#' 
 #' @seealso \code{\link{geometryVariables}}.
 
 

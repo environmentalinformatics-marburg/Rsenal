@@ -3,7 +3,7 @@
 #' @description
 #' This function is intended to calculate the distance between two longitudes 
 #' at a given latitude. If only one longitude location is supplied, the length 
-#' of 1° of longitude is calculated at the given latitude.
+#' of 1 deg of longitude is calculated at the given latitude.
 #' 
 #' @param lon_min \code{numeric}. The starting longitude.
 #' @param lon_max \code{numeric}. The (optional) end longitude. If not supplied, 
@@ -16,8 +16,8 @@
 #' 
 #' @return
 #' The linear distance between the starting and end longitude at the given
-#' latitude or, if argument \code{lon_max} is not supplied, the length of 1° of 
-#' longitude at the given latitude.
+#' latitude or, if argument \code{lon_max} is not supplied, the length of 1 deg 
+#' of longitude at the given latitude.
 #' 
 #' @author
 #' Florian Detsch
