@@ -6,7 +6,22 @@
 \usage{
 pwGen(ndigits, seed = 123)
 }
+\arguments{
+\item{ndigits}{desired number of digits}
+
+\item{seed}{see \code{\link{set.seed}}}
+}
+\value{
+a password.
+}
 \description{
-generate passwords
+generates a password based on a desired number of digits and a random seed.
+}
+\examples{
+pwGen(4, seed = as.numeric(Sys.Date()))
+
+}
+\author{
+Tim Appelhans
 }
 

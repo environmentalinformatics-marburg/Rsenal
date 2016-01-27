@@ -4,6 +4,8 @@
 #' this function plots Raster* objects as filled contours
 #' 
 #' @param x a Raster* object
+#' @param xlab,ylab character axis labels, see \code{\link{xyplot}}
+#' @param ... Further arguments passed on to \code{\link[lattice]{levelplot}}
 #' 
 #' @seealso \code{\link{panel.filledcontour}}
 #' 

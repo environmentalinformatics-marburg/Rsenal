@@ -8,6 +8,10 @@ spFilledContour(x, xlab = "", ylab = "", ...)
 }
 \arguments{
 \item{x}{a Raster* object}
+
+\item{xlab, ylab}{character axis labels, see \code{\link{xyplot}}}
+
+\item{...}{Further arguments passed on to \code{\link[lattice]{levelplot}}}
 }
 \description{
 this function plots Raster* objects as filled contours

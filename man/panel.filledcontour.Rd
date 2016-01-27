@@ -28,11 +28,17 @@ panel.filledcontour(x, y, z, subscripts, fill.contours = TRUE, at,
 
 \item{col.regions}{colour palette for filling}
 
+\item{col}{set of colours passed on to \code{\link{filled.contour}}}
+
 \item{col.contours}{colour of contour lines}
 
-\item{...}{currently not used}
+\item{lty.contours}{linetype of contour lines}
 
-\item{draw.labes}{should labels be drawn along the contour lines?}
+\item{lwd.contours}{size of contours}
+
+\item{draw.labels}{should labels be drawn along the contour lines?}
+
+\item{...}{currently not used}
 }
 \description{
 this panel function will create a smooth fill for a 

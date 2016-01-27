@@ -13,12 +13,18 @@ compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
 
 \item{right}{numeric vector}
 
+\item{add.spread}{logical, whether to plot the spread (q25 to q75 and the median)}
+
+\item{print.stats}{(requires documentation)}
+
+\item{xlim, ylim}{numeric axis limits, see \code{\link{xyplot}}}
+
 \item{clrs}{a character vector of length 2 specifying the colors 
 for the filled density regions}
 
-\item{...}{additional arguments passed to \code{\link{density}}}
+\item{xlab, ylab}{character axis labels, see \code{\link{plot}}}
 
-\item{add.spred}{logical, whether to plot the spread (q25 to q75 and the median)}
+\item{...}{additional arguments passed to \code{\link{density}}}
 }
 \value{
 A trellis object

@@ -10,6 +10,8 @@
 #' @param end character string of ending date and time. Needs to be of 
 #' format "YYYY-mm-dd HH:MM:SS"
 #' @param step the time step of the time series (in seconds)
+#' @param type character. Determines whether to return an object of class 
+#' 'POSIXct' (default) or 'character'.
 #' 
 #' @return
 #' a character vector of datetimes spaced regularly from start to end
@@ -40,7 +42,7 @@ createTimeSeries <- function(start, end, step, type = c("POSIX", "char")) {
   tseries <- seq(from = date.from, to = date.to, by = step)
   
   ## convert to character and write
-  if (type == "char")  tseries <- format(tseries, usetz = F)
+  if (type == "char")  tseries <- format(tseries, usetz = FALSE)
   
   options(op)
   return(tseries)

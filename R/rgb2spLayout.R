@@ -5,6 +5,8 @@
 #' the colorinformation which can be used in the sp.layout argument of spplot 
 #' 
 #' @param x a RasterBrick or RasterStack
+#' @param quantiles lower and upper quantile for value stretching
+#' @param alpha level of transparency
 #' 
 #' @seealso \code{\link{plotRGB}}
 #' 

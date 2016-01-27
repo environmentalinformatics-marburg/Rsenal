@@ -13,8 +13,11 @@
 #' @param contours should contour lines be drawn?
 #' @param at.contours sequence for the contour lines
 #' @param col.regions colour palette for filling
+#' @param col set of colours passed on to \code{\link{filled.contour}}
 #' @param col.contours colour of contour lines
-#' @param draw.labes should labels be drawn along the contour lines?
+#' @param lty.contours linetype of contour lines
+#' @param lwd.contours size of contours
+#' @param draw.labels should labels be drawn along the contour lines?
 #' @param ... currently not used
 #' 
 #' @author

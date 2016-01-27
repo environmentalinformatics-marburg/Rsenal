@@ -4,11 +4,12 @@
 #' von Landschaftsobjekten unter ökologischen Aspekten. 
 #' Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119.
 #' @param Ar area of the entities
+#' @param Ur (requires documentation)
 #' @param De Diameter of the inner circle
 #' @param Du Diameter of the outer circle
 #' @return A RasterStack
 #' @author Hanna Meyer
-#' @seealso \code{?geometryVariables}
+#' @seealso \code{\link{geometryVariables}}.
 
 
 borgIndices<-function(Ar,Ur,De,Du){

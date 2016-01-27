@@ -13,6 +13,7 @@
 #' @param update logical, whether to run \code{update.packages()} after installation
 #' @param MODIS logical, if TRUE MODIS package will be installed from r-forge
 #' @param dep logical, whether dependencies should be onstalled for specified packages
+#' @param ... Currently not used.
 #' 
 #' @author
 #' Tim Appelhans

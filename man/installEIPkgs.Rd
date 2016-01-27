@@ -20,6 +20,8 @@ are already installed and skip their installation}
 \item{MODIS}{logical, if TRUE MODIS package will be installed from r-forge}
 
 \item{dep}{logical, whether dependencies should be onstalled for specified packages}
+
+\item{...}{Currently not used.}
 }
 \description{
 download and install a bunch of packages that we find useful for our 

@@ -10,6 +10,8 @@ getMode(df, col, side = c("lower", "upper"))
 \item{df}{a data frame}
 
 \item{col}{a column name or column number}
+
+\item{side}{(requires documentation)}
 }
 \value{
 a vector

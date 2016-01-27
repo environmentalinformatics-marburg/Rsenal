@@ -6,6 +6,15 @@
 \usage{
 envinmr.theme(win.fontfamily = NULL, with.bg = FALSE, box = "black", ...)
 }
+\arguments{
+\item{win.fontfamily}{character font family.}
+
+\item{with.bg}{logical. If \code{FALSE}, the background is transparent.}
+
+\item{box}{(requires documentation)}
+
+\item{...}{Further arguments passed on to \code{\link{simpleTheme}}.}
+}
 \description{
 This theme is a modified version of \code{\link{theEconomist.theme}}. 
 Especially the regions colour setting has been modified to a 

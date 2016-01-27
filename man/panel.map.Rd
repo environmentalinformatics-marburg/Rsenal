@@ -12,8 +12,6 @@ panel.map(map.data, col = "transparent", ...)
 \item{col}{the colour of the fill}
 
 \item{...}{additional arguments passed on to \code{\link{panel.polygon}}}
-
-\item{fill}{should the polygons be filled?}
 }
 \value{
 A \code{\link{panel.polygon}} object

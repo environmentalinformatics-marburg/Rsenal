@@ -14,6 +14,9 @@ format "YYYY-mm-dd HH:MM:SS"}
 format "YYYY-mm-dd HH:MM:SS"}
 
 \item{step}{the time step of the time series (in seconds)}
+
+\item{type}{character. Determines whether to return an object of class 
+'POSIXct' (default) or 'character'.}
 }
 \value{
 a character vector of datetimes spaced regularly from start to end

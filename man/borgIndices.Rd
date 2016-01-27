@@ -9,6 +9,8 @@ borgIndices(Ar, Ur, De, Du)
 \arguments{
 \item{Ar}{area of the entities}
 
+\item{Ur}{(requires documentation)}
+
 \item{De}{Diameter of the inner circle}
 
 \item{Du}{Diameter of the outer circle}
@@ -26,6 +28,6 @@ Zeitschrift für Photogrammetrie und Fernerkundung 4: 108-119.
 Hanna Meyer
 }
 \seealso{
-\code{?geometryVariables}
+\code{\link{geometryVariables}}.
 }
 

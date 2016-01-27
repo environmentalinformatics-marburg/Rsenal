@@ -5,6 +5,11 @@
 #' Especially the regions colour setting has been modified to a 
 #' conceptually pleasant rainbow colour palette (optimised for temperature).
 #' 
+#' @param win.fontfamily character font family.
+#' @param with.bg logical. If \code{FALSE}, the background is transparent.
+#' @param box (requires documentation)
+#' @param ... Further arguments passed on to \code{\link{simpleTheme}}.
+#' 
 #' @author
 #' Tim Appelhans
 #' 

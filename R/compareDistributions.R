@@ -6,9 +6,12 @@
 #' 
 #' @param left numeric vector
 #' @param right numeric vector
-#' @param add.spred logical, whether to plot the spread (q25 to q75 and the median)
+#' @param add.spread logical, whether to plot the spread (q25 to q75 and the median)
+#' @param print.stats (requires documentation)
+#' @param xlim,ylim numeric axis limits, see \code{\link{xyplot}}
 #' @param clrs a character vector of length 2 specifying the colors 
 #' for the filled density regions
+#' @param xlab,ylab character axis labels, see \code{\link{plot}}
 #' @param ... additional arguments passed to \code{\link{density}}
 #' 
 #' @return

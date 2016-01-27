@@ -8,6 +8,10 @@ rgb2spLayout(x, quantiles = c(0.02, 0.98), alpha = 1)
 }
 \arguments{
 \item{x}{a RasterBrick or RasterStack}
+
+\item{quantiles}{lower and upper quantile for value stretching}
+
+\item{alpha}{level of transparency}
 }
 \description{
 this function takes a RGB image stack/brick and produces a list with

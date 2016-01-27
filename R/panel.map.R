@@ -7,7 +7,6 @@
 #' NOTE: currently only tested for unprojected latlon data.
 #' 
 #' @param map.data the map type - see \code{\link{map}} database argument
-#' @param fill should the polygons be filled?
 #' @param col the colour of the fill
 #' @param ... additional arguments passed on to \code{\link{panel.polygon}} 
 #' 
