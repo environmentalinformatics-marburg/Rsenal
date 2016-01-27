@@ -42,16 +42,16 @@
 #' @author Hanna Meyer
 #' @seealso \strong{SDMTools},  \code{clump}, \code{borg_indices}
 #' @examples
-#' RasterLayer<-raster(system.file("training.rst", package = "Rsenal"))
-#' shape<-geometryVariables(RasterLayer)
+#' RasterLayer <- raster(system.file("training.rst", package = "Rsenal"))
+#' shape <- geometryVariables(RasterLayer)
 #' plot(shape)
 #' 
 #' @export geometryVariables
 #' @aliases geometryVariables
 
 geometryVariables <- function(x){
-     Patches<-clump(x)
-     Stats<-SDMTools::PatchStat(Patches)
+     Patches <- clump(x)
+     Stats <- SDMTools::PatchStat(Patches)
      # patch area:
      Area <- reclassify(Patches, cbind(Stats$patchID,Stats$area))
      #shape index:
@@ -65,38 +65,38 @@ geometryVariables <- function(x){
      #the ratio of the patch perimeter (m) to area (m2)
      perimAreaRatio <- reclassify(Patches, cbind(Stats$patchID,Stats$perim.area.ratio))
      #distance to edge:
-     edges<-boundaries(Patches, type='inner')
-     distEdges<- gridDistance(edges,origin=1) 
-     values(distEdges)[is.na(values(Patches))]<-NA
+     edges <- boundaries(Patches, type='inner')
+     distEdges <- gridDistance(edges,origin=1) 
+     values(distEdges)[is.na(values(Patches))] <- NA
      #innerCircle (largest circle)= maximum distance from edge
-     tmp<-zonal(distEdges,Patches,fun="max")
-     innerCircle<-Patches
-     innerCircle<-reclassify(innerCircle,tmp)
+     tmp <- zonal(distEdges,Patches,fun="max")
+     innerCircle <- Patches
+     innerCircle <- reclassify(innerCircle,tmp)
      ##### outer circle
-     oci<-c()
+     oci <- c()
   
      for (i in 1:max(values(Patches),na.rm=TRUE)){
-      cp<-Patches
-      cp[cp!=i]<-NA
-      cpp<-rasterToPolygons(cp,dissolve=TRUE)
-      centroid<-rgeos::gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
+      cp <- Patches
+      cp[cp!=i] <- NA
+      cpp <- rasterToPolygons(cp,dissolve=TRUE)
+      centroid <- rgeos::gCentroid(cpp, byid=TRUE,id=attributes(cpp)$plotOrder)
       
-      dist<- distanceFromPoints(Patches, centroid)
-      dist[is.na(cp)]<-NA
-      oci[i]<-max(values(dist),na.rm=TRUE)
+      dist <- distanceFromPoints(Patches, centroid)
+      dist[is.na(cp)] <- NA
+      oci[i] <- max(values(dist),na.rm=TRUE)
      }
      outerCircle <- reclassify(Patches, cbind(Stats$patchID,oci))
      outerInnerCircle <- outerCircle-innerCircle
 
   ### Indices listed and/or developed by Borg 98
-    borg<-borgIndices(Ar=Area,Ur=perimeter,De=innerCircle*2,Du=outerCircle*2)
+    borg <- borgIndices(Ar=Area,Ur=perimeter,De=innerCircle*2,Du=outerCircle*2)
     
   
   ##############################################################################  
-     result<-stack(Patches,Area,shapeIndex,coreArea,perimeter,
+     result <- stack(Patches,Area,shapeIndex,coreArea,perimeter,
                    coreAreaIndex, perimAreaRatio,innerCircle,distEdges,outerCircle,
                    outerInnerCircle,borg)
-     names(result)<-c("Patches","Ar","SI","CA",
+     names(result) <- c("Patches","Ar","SI","CA",
                      "Up", "CAI","PAR",
                      "Re","distEdges","Ru","OIC",names(borg))
      return(result)  
