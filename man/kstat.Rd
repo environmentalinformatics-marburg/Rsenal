@@ -93,8 +93,8 @@ The calculation of kappa per category bases on the approach of Fleiss (1981). Do
 #### Example 1: Calculate the indices to compare two Land cover maps
 #load data
 library(raster)
-LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
-LUC2006=raster(system.file("LUC2006.rst", package="Rsenal"))
+LUC1990 <- raster(system.file("LUC1990.rst", package="Rsenal"))
+LUC2006 <- raster(system.file("LUC2006.rst", package="Rsenal"))
 
 #plot to get an impression:
 par(mfrow=c(1,2))
@@ -107,8 +107,8 @@ kstat(LUC1990,LUC2006)
 
 #### Example 2: Calculate the indices to compare a land cover map with a map of ground truth sites
 #load data:
-LUC1990=raster(system.file("LUC1990.rst", package="Rsenal"))
-trainingSites=raster(system.file("training.rst", package="Rsenal"))
+LUC1990 <- raster(system.file("LUC1990.rst", package="Rsenal"))
+trainingSites <- raster(system.file("training.rst", package="Rsenal"))
 
 #plot to get an impression:
 par(mfrow=c(1,2))

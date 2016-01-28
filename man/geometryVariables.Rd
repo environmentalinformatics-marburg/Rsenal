@@ -52,8 +52,8 @@ oekologischen Aspekten. Zeitschrift fuer Photogrammetrie und Fernerkundung 4:
 This function calculates geoemtry parameters from Raster data.
 }
 \examples{
-RasterLayer<-raster(system.file("training.rst", package = "Rsenal"))
-shape<-geometryVariables(RasterLayer)
+RasterLayer <- raster(system.file("training.rst", package = "Rsenal"))
+shape <- geometryVariables(RasterLayer)
 plot(shape)
 
 }

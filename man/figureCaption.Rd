@@ -7,8 +7,8 @@
 figureCaption(obj, txt, ...)
 }
 \arguments{
-\item{obj}{the \link{lattice} or \link{ggplot2} to which the caption 
-should be added}
+\item{obj}{the \strong{lattice} or \strong{ggplot2} object to which the 
+caption should be added}
 
 \item{txt}{the cpation text}
 
@@ -18,7 +18,7 @@ default value for fontsize is 16 pt.}
 }
 \description{
 this function adds a caption to an existing plot object 
-(either \link{lattice} or \link{ggplot2}). \code{\link{strwrap}} 
+(either \strong{lattice} or \strong{ggplot2}). \code{\link{strwrap}} 
 is used to automatically wrap text at column 75. Clipping is off, 
 so long text will continue downward outside the plotting region. 
 Keep this in mind when setting the height of your graphics device.
