@@ -3,7 +3,7 @@
 #' @description
 #' This is a wrapper function around \code{\link{calcOffsetGridText}} and 
 #' \strong{grid}-based text drawing functions (currently including 
-#' \code{\link{grid.text}} and \code{grid.stext}) that automatically adds
+#' \code{\link{grid.text}} and \code{\link{grid.stext}}) that automatically adds
 #' offset text annotations to a 'trellis' plot.
 #' 
 #' @param x Numeric. A vector containing x coordinates, or a 2-column
@@ -31,9 +31,7 @@
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{grid.text}}, \code{grid.stext} (\strong{gridExtra} package 
-#' version 0.9.1, see \code{system.file("packages/gridExtra_0.9.1.tar.gz", 
-#' package = "Rsenal")}), \code{\link{thigmophobe}}, 
+#' \code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
 #' \code{\link{calcOffsetGridText}}.
 #' 
 #' @examples
@@ -80,22 +78,7 @@
 #' @aliases offsetGridText
 offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL, 
                            pos = NULL, stext = FALSE, offset = .02, ...) {
-  
-  # install old version of 'gridExtra' package
-  if (packageVersion("gridExtra") > "0.9.1") {
-    cat("Installing 'gridExtra' version 0.9.1 ...\n")
-    reinstall <- TRUE
-    
-    if ("gridExtra" %in% loadedNamespaces())
-      detach("package:gridExtra", unload = TRUE)
-    
-    install.packages(system.file("packages/gridExtra_0.9.1.tar.gz", 
-                                 package = "Rsenal"), 
-                     repos = NULL, quiet = TRUE)
-  } else {
-    reinstall <- FALSE
-  }
-  
+
   if (is.matrix(x)) {
     y <- x[, 2]
     x <- x[, 1]
@@ -122,14 +105,6 @@ offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL,
                 just = ch_loc_lbl[tmp_cnt], ...)
     }
   }
-  
-  if (reinstall) {
-    detach("package:gridExtra", unload = TRUE)
-    install.packages(system.file("packages/gridExtra_2.0.0.tar.gz", 
-                                 package = "Rsenal"), 
-                     repos = NULL, quiet = TRUE)
-  }
-  
+
   return(invisible())
-      
 }

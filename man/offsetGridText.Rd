@@ -40,7 +40,7 @@ drawing function.}
 \description{
 This is a wrapper function around \code{\link{calcOffsetGridText}} and 
 \strong{grid}-based text drawing functions (currently including 
-\code{\link{grid.text}} and \code{grid.stext}) that automatically adds
+\code{\link{grid.text}} and \code{\link{grid.stext}}) that automatically adds
 offset text annotations to a 'trellis' plot.
 }
 \examples{
@@ -88,9 +88,7 @@ offsetGridText(x = coordinates(df_peaks), labels = c("Kibo", "Mawenzi", "Shira")
 Florian Detsch
 }
 \seealso{
-\code{\link{grid.text}}, \code{grid.stext} (\strong{gridExtra} package 
-version 0.9.1, see \code{system.file("packages/gridExtra_0.9.1.tar.gz", 
-package = "Rsenal")}), \code{\link{thigmophobe}}, 
+\code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
 \code{\link{calcOffsetGridText}}.
 }
 
