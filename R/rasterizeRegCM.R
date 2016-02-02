@@ -20,8 +20,8 @@
 #' @param lat A raster layer containing the latitude coordinates as pixel values
 #' @param lon A raster layer containing the longitude coordinates as pixel values
 #' @param res A Vector containing the target x and y resolution
-#' @param transpose
-#' @param rotate
+#' @param transpose (requires documentation)
+#' @param rotate (requires documentation)
 #' @param targetcrs EPSG code or proj4String of the metric target reference system
 #' 
 #' @return
