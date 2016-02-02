@@ -4,12 +4,14 @@
 \alias{splitRaster}
 \title{Split a Raster object}
 \usage{
-splitRaster(file, s = 2, ...)
+splitRaster(x, s = 2, ...)
 }
 \arguments{
-\item{file}{Character. Filename.}
+\item{x}{Character. File(s) to process.}
 
-\item{s}{Integer. Number of slices \code{file} should be divided into.}
+\item{s}{Integer. Number of slices 'x' should be divided into. Note that the 
+default setting (\code{s = 2}) splits 'x' into four equally sized tiles, i.e. 
+two in x-direction and two in y-direction.}
 
 \item{...}{Further arguments passed on to \code{\link{gdal_translate}}.}
 }
@@ -17,8 +19,9 @@ splitRaster(file, s = 2, ...)
 A list of RasterBrick objects.
 }
 \description{
-Split a Raster* object into a given number of horizontal and vertical slices.
-Inspired by \url{http://java.dzone.com/articles/use-gdal-r-console-split}.
+Split one or multiple \code{Raster*} object(s) into a given number of 
+horizontal and vertical slices. Inspired by 
+\url{http://java.dzone.com/articles/use-gdal-r-console-split}.
 }
 \author{
 Florian Detsch

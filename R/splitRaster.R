@@ -1,11 +1,14 @@
 #' Split a Raster object
 #' 
 #' @description
-#' Split a Raster* object into a given number of horizontal and vertical slices.
-#' Inspired by \url{http://java.dzone.com/articles/use-gdal-r-console-split}. 
+#' Split one or multiple \code{Raster*} object(s) into a given number of 
+#' horizontal and vertical slices. Inspired by 
+#' \url{http://java.dzone.com/articles/use-gdal-r-console-split}. 
 #' 
-#' @param file Character. Filename. 
-#' @param s Integer. Number of slices \code{file} should be divided into.
+#' @param x Character. File(s) to process. 
+#' @param s Integer. Number of slices 'x' should be divided into. Note that the 
+#' default setting (\code{s = 2}) splits 'x' into four equally sized tiles, i.e. 
+#' two in x-direction and two in y-direction.
 #' @param ... Further arguments passed on to \code{\link{gdal_translate}}. 
 #' 
 #' @return
@@ -19,34 +22,38 @@
 #'  
 #' @export splitRaster
 #' @aliases splitRaster
-splitRaster <- function(file, s = 2, ...) {
-  
-  # gdalinfo
-  nfo <- rgdal::GDALinfo(file)
-  
-  # pick size of each side
-  x <- nfo[2]
-  y <- nfo[1]
+splitRaster <- function(x, s = 2, ...) {
   
   # t is nr. of iterations per side
   t <- s - 1   # no. of iterations per side
   
-  ls_split <- lapply(0:t, function(i) {
-    lapply(0:t, function(j) {
-      # output file
-      dst_dataset_prf <- substr(file, 1, nchar(file)-4)
-      dst_dataset_prf <- paste(dst_dataset_prf, i, j, sep = "_")
-      dst_dataset_sff <- substr(file, nchar(file)-3, nchar(file))
-      dst_dataset <- paste0(dst_dataset_prf, dst_dataset_sff)
-      # location of subwindow
-      srcwin <- c(i * x/s, j * y/s, x/s, y/s)
-      
-      # execute split
-      gdalUtils::gdal_translate(file, dst_dataset, srcwin = srcwin, 
-                                output_Raster = TRUE, ...)
+  lst_out <- lapply(1:length(x), function(h) {
+    
+    # gdalinfo
+    nfo <- rgdal::GDALinfo(x[h])
+    
+    # pick size of each side
+    cols <- nfo[2]
+    rows <- nfo[1]
+    
+    ls_split <- lapply(0:t, function(i) {
+      lapply(0:t, function(j) {
+        # output file
+        dst_dataset_prf <- substr(x[h], 1, nchar(x[h])-4)
+        dst_dataset_prf <- paste(dst_dataset_prf, i, j, sep = "_")
+        dst_dataset_sff <- substr(x[h], nchar(x[h])-3, nchar(x[h]))
+        dst_dataset <- paste0(dst_dataset_prf, dst_dataset_sff)
+        # location of subwindow
+        srcwin <- c(i * cols/s, j * rows/s, cols/s, rows/s)
+        
+        # execute split
+        gdalUtils::gdal_translate(x[h], dst_dataset, srcwin = srcwin, 
+                                  output_Raster = TRUE, ...)
+      })
     })
+    
+    unlist(ls_split)
   })
   
-  ls_split <- unlist(ls_split)
-  return(ls_split)
+  return(lst_out)
 }
