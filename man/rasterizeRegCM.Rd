@@ -26,15 +26,15 @@ rasterizeRegCM(x, lat, lon, res = NULL, transpose = TRUE, rotate = c("x",
 A \code{RasterLayer} or \code{RasterStack} object.
 }
 \description{
-The output of RegCM data are (amongst others) a rasters containing the 
-latitude and a longitude coordinates as well as raster of the data values. 
-All raster, however, are not projected but only in column/rows. A simple 
+The output of RegCM data are (amongst others) a rasters containing the
+latitude and a longitude coordinates as well as raster of the data values.
+All raster, however, are not projected but only in column/rows. A simple
 assignment of the lat/lon coordinates to the data is not possible due to
 the irregular spacing between the lat/lon coordinates. Therefore, the data
 must first be converted to spatial points and projected to a metric reference
-system. The values can then be rasterized by creating a template raster of 
-the extent and proj4string of the projected points as well as either 
-(if known) the resolution of the target raster in meter or (if resolution 
+system. The values can then be rasterized by creating a template raster of
+the extent and proj4string of the projected points as well as either
+(if known) the resolution of the target raster in meter or (if resolution
 unknown) the number of columns and rows from the original rasters.
 Note that often Model data need to be rotated and transposed.
 
