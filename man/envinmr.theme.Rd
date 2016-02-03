@@ -16,13 +16,13 @@ envinmr.theme(win.fontfamily = NULL, with.bg = FALSE, box = "black", ...)
 \item{...}{Further arguments passed on to \code{\link{simpleTheme}}.}
 }
 \description{
-This theme is a modified version of \code{\link{theEconomist.theme}}. 
-Especially the regions colour setting has been modified to a 
+This theme is a modified version of \code{\link{theEconomist.theme}}.
+Especially the regions colour setting has been modified to a
 conceptually pleasant rainbow colour palette (optimised for temperature).
 }
 \examples{
 library(lattice)
-levelplot(matrix(rnorm(10000), 100, 100), 
+levelplot(matrix(rnorm(10000), 100, 100),
           par.settings = envinmr.theme(), at = seq(-5, 5, 0.1))
 
 }
