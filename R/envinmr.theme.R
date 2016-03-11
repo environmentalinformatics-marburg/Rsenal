@@ -7,7 +7,7 @@
 #'
 #' @param win.fontfamily character font family.
 #' @param with.bg logical. If \code{FALSE}, the background is transparent.
-#' @param box (requires documentation)
+#' @param box colour of the box around the main plot and, if present, the color key
 #' @param ... Further arguments passed on to \code{\link{simpleTheme}}.
 #'
 #' @author

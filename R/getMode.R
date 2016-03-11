@@ -5,7 +5,7 @@
 #' 
 #' @param df a data frame
 #' @param col a column name or column number
-#' @param side (requires documentation)
+#' @param side in case of a tie, which side should be returned
 #' 
 #' @return
 #' a vector
@@ -14,10 +14,11 @@
 #' Tim Appelhans, Florian Detsch
 #' 
 #' @examples
-#' df <- data.frame(a = c(1, 2, 3, 3, 3, 3, 4, 5, 6, 7), 
-#'                  b = c("a", "b", "c", "d", "e", "e", "e", "e", "f", "g"))
+#' df <- data.frame(a = c(1, 2, 2, 2, 3, 3, 3, 4, 5, 6, 7), 
+#'                  b = c("a", "b", "c", "c", "d", "e", "e", "e", "e", "f", "g"))
 #' 
 #' getMode(df, "a")
+#' getMode(df, "a", "upper")
 #' getMode(df, 2)
 #' 
 #' @export getMode
@@ -27,8 +28,7 @@ getMode <- function(df, col, side = c("lower", "upper")) {
   
   side <- side[1]
   
-  if (is.numeric(col))
-    col <- names(df)[col]
+  if (is.numeric(col)) col <- names(df)[col]
     
   var_count <- dplyr::count_(df, col, sort = TRUE)
   
