@@ -4,10 +4,10 @@
 \alias{rgb2YCbCr}
 \title{Convert from RGB to YCbCr color space}
 \usage{
-rgb2YCbCr(rgb, r = 1, g = 2, b = 3)
+rgb2YCbCr(x, r = 1, g = 2, b = 3)
 }
 \arguments{
-\item{rgb}{A \code{RasterStack} or \code{RasterBrick} object. 3
+\item{x}{A \code{RasterStack} or \code{RasterBrick} object. 3
 bands are mandatory (usually red, green and blue).}
 
 \item{r}{Integer, defaults to '1'. Index of the red channel.}

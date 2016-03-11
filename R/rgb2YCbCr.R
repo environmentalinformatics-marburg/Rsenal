@@ -3,7 +3,7 @@
 #' @description
 #' This function transforms a RGB \code{Raster*} object to YCbCr color space.  
 #' 
-#' @param rgb A \code{RasterStack} or \code{RasterBrick} object. 3
+#' @param x A \code{RasterStack} or \code{RasterBrick} object. 3
 #' bands are mandatory (usually red, green and blue).
 #' @param r Integer, defaults to '1'. Index of the red channel. 
 #' @param g Integer, defaults to '2'. Index of the green channel. 
@@ -28,21 +28,21 @@
 #' 
 #' @export rgb2YCbCr
 #' @aliases rgb2YCbCr
-rgb2YCbCr <- function(rgb, r = 1, g = 2, b = 3) {
+rgb2YCbCr <- function(x, r = 1, g = 2, b = 3) {
   
   ### prerequisites
   
   ## compatibility check
-  if (nlayers(rgb) < 3)
-    stop("Argument 'rgb' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
+  if (nlayers(x) < 3)
+    stop("Argument 'x' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
   
   
   ### processing
   
   ## red, green and blue bands
-  r <- rgb[[r]]
-  g <- rgb[[g]]
-  b <- rgb[[b]]
+  r <- x[[r]]
+  g <- x[[g]]
+  b <- x[[b]]
   
   ## luminance
   y <- 16 + (65.481 * r + 128.553 * g + 24.966 * b)

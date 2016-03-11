@@ -4,13 +4,13 @@
 \alias{rgbShadowMask}
 \title{Shadow mask from RGB (satellite) imagery}
 \usage{
-rgbShadowMask(rgb, n_iter = 1, ...)
+rgbShadowMask(x, n = 1L, ...)
 }
 \arguments{
-\item{rgb}{A \code{RasterStack} or \code{RasterBrick} object. 3
+\item{x}{A \code{RasterStack} or \code{RasterBrick} object. 3
 bands are mandatory (usually red, green and blue).}
 
-\item{n_iter}{Integer, defaults to '1'. Number of iterations to distinguish 
+\item{n}{Integer, defaults to '1'. Number of iterations to distinguish 
 between shadow and non-shadow pixels. The more iterations, the fewer shadow 
 pixels will remain.}
 

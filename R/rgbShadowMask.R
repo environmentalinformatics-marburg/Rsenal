@@ -3,9 +3,9 @@
 #' @description
 #' This function builds a shadow mask from a RGB \code{Raster*} object.  
 #' 
-#' @param rgb A \code{RasterStack} or \code{RasterBrick} object. 3
+#' @param x A \code{RasterStack} or \code{RasterBrick} object. 3
 #' bands are mandatory (usually red, green and blue).
-#' @param n_iter Integer, defaults to '1'. Number of iterations to distinguish 
+#' @param n Integer, defaults to '1'. Number of iterations to distinguish 
 #' between shadow and non-shadow pixels. The more iterations, the fewer shadow 
 #' pixels will remain.
 #' @param ... Further arguments passed on to \code{\link{rgb2YCbCr}}.
@@ -33,13 +33,13 @@
 #' 
 #' @export rgbShadowMask
 #' @aliases rgbShadowMask
-rgbShadowMask <- function(rgb, n_iter = 1, ...) {
+rgbShadowMask <- function(x, n = 1L, ...) {
 
   ### prerequisites
   
   ## compatibility check
-  if (nlayers(rgb) < 3)
-    stop("Argument 'rgb' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
+  if (raster::nlayers(x) < 3)
+    stop("Argument 'x' needs to be a Raster* object with at least 3 layers (usually red, green and blue).")
   
   ## 3-by-3 focal matrix
   mat_w3by3 <- matrix(rep(1, 9), ncol = 3)
@@ -48,31 +48,31 @@ rgbShadowMask <- function(rgb, n_iter = 1, ...) {
   ### processing
   
   ## rgb to ycbcr color space
-  rst_ycbcr <- rgb2YCbCr(rgb = rgb, ...)
+  rst_ycbcr <- rgb2YCbCr(x = x, ...)
   
   ## initial threshold
   y <- rst_ycbcr[[1]]
-  num_mu_y <- mean(y[])
-  num_sd_y <- sd(y[])
+  num_mu_y <- mean(y[], na.rm = TRUE)
+  num_sd_y <- sd(y[], na.rm = TRUE)
   num_trsh <- num_mu_y - num_sd_y
   
   ## rejection of focal means based on calculated threshold
-  rst_fcl_mu <- focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
+  rst_fcl_mu <- raster::focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
   rst_fcl_mu[rst_fcl_mu[] < num_trsh] <- 0
   rst_fcl_mu[rst_fcl_mu[] > 0] <- 1
 
   ## iteratively identify shadow
-  if (n_iter > 0) {
-    for (i in 1:n_iter) {
+  if (n > 0) {
+    for (i in 1:n) {
       
       ## modified threshold
       y_msk <- y[rst_fcl_mu[] == 0]
-      num_mu_y_msk <- mean(y_msk)
-      num_sd_y_msk <- sd(y_msk)
+      num_mu_y_msk <- mean(y_msk, na.rm = TRUE)
+      num_sd_y_msk <- sd(y_msk, na.rm = TRUE)
       num_trsh_msk <- num_mu_y_msk - num_sd_y_msk
       
       ## rejection of focal means based on modified threshold
-      rst_fcl_mu_msk <- focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
+      rst_fcl_mu_msk <- raster::focal(y, w = mat_w3by3, fun = mean, na.rm = TRUE, pad = TRUE)
       rst_fcl_mu_msk[rst_fcl_mu_msk[] < num_trsh_msk] <- 0
       rst_fcl_mu_msk[rst_fcl_mu_msk[] > 0] <- 1
       
