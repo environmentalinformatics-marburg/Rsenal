@@ -50,7 +50,7 @@ ffs <- function (predictors,
                  seed = 100,
                  runParallel = FALSE){
   require(caret)
-  if(allowParallel){
+  if(runParallel){
     require(doParallel)
     cl <- makeCluster(detectCores())
     registerDoParallel(cl)
