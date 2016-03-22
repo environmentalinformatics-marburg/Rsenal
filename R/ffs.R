@@ -38,7 +38,6 @@
 #' @export ffs
 #' @aliases ffs
 
-
 ffs <- function (predictors, 
                  response, 
                  method = "rf",
@@ -55,8 +54,8 @@ ffs <- function (predictors,
     cl <- makeCluster(detectCores())
     registerDoParallel(cl)
   }
-  
-  
+  n <- length(names(predictors))
+  acc <- 0
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
   isBetter <- function (actmodelperf,bestmodelperf,maximize=maximize){
@@ -73,6 +72,9 @@ ffs <- function (predictors,
                    trControl=trControl,
                    tuneLength = tuneLength,
                    tuneGrid = tuneGrid)
+    acc <- acc+1
+    print(paste0("maxmimum number of models that still need to be trained: ",
+                 (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
     ### compare the model with the currently best model
     actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
     if (i == 1){
@@ -96,7 +98,6 @@ ffs <- function (predictors,
       message(paste0("Note: No increase in performance found using more than ",
                      length(startvars), " variables"))
       return(bestmodel)
-      
       break()
     }
     for (i in 1:length(nextvars)){
@@ -112,11 +113,13 @@ ffs <- function (predictors,
         bestmodelperf <- actmodelperf 
         bestmodel <- model
       }
+      acc <- acc+1
+      print(paste0("maxmimum number of models that still need to be trained: ",
+                   (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
     }
   }
   if(runParallel){
     stopCluster(cl)
   }
   return(bestmodel)
-  
 }

@@ -34,8 +34,6 @@
 #' @export bss
 #' @aliases bss
 
-
-
 bss <- function (predictors, 
                  response, 
                  method = "rf",
@@ -46,7 +44,6 @@ bss <- function (predictors,
                  tuneGrid = NULL,
                  seed = 100,
                  runParallel = FALSE){
-  
   require(caret)
   if(runParallel){
     require(doParallel)
@@ -59,10 +56,10 @@ bss <- function (predictors,
     ifelse (!maximize, return(actmodelperf < bestmodelperf),
             return(actmodelperf > bestmodelperf))
   }  
-  
   testgrid <- expand.grid(lapply(seq_along(names(predictors)), c, 0))
   testgrid <- testgrid[-which(rowSums(testgrid==0)>=(length(names(predictors))-1)),]
-  for (i in 1:nrow(testgrid)){
+  acc <- 0
+   for (i in 1:nrow(testgrid)){
     set.seed(seed)
     model <- train(predictors[,unlist(testgrid[i,])],
                    response,method=method,trControl=trControl,
@@ -78,6 +75,9 @@ bss <- function (predictors,
         bestmodel <- model
       }
     }
+    acc <- acc+1
+    print(paste0("models that still need to be trained: ",
+                 2^n-(n+1) - acc))
   }
   if(runParallel){
     stopCluster(cl)
