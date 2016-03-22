@@ -8,7 +8,7 @@ ffs(predictors, response, method = "rf",
   metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
   maximize = ifelse(metric == "RMSE", FALSE, TRUE),
   trControl = trainControl(), tuneLength = 3, tuneGrid = NULL,
-  seed = 100)
+  seed = 100, runParallel = FALSE)
 }
 \arguments{
 \item{predictors}{see \code{\link{train}}}
@@ -28,6 +28,8 @@ ffs(predictors, response, method = "rf",
 \item{tuneGrid}{see \code{\link{train}}}
 
 \item{seed}{A random number}
+
+\item{runParallel}{Logical}
 }
 \value{
 A list of class train

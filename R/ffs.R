@@ -9,6 +9,7 @@
 #' @param tuneLength see \code{\link{train}}
 #' @param tuneGrid see \code{\link{train}}
 #' @param seed A random number
+#' @param runParallel Logical
 #' @return A list of class train
 #' @details Models with two predictors are first trained using all possible 
 #' pairs of predictor variables. The best model of these initial models is kept.
@@ -46,8 +47,16 @@ ffs <- function (predictors,
                  trControl = trainControl(),
                  tuneLength = 3,
                  tuneGrid = NULL,
-                 seed = 100){
+                 seed = 100,
+                 runParallel = FALSE){
   require(caret)
+  if(allowParallel){
+    require(doParallel)
+    cl <- makeCluster(detectCores())
+    registerDoParallel(cl)
+  }
+  
+  
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
   isBetter <- function (actmodelperf,bestmodelperf,maximize=maximize){
@@ -105,7 +114,9 @@ ffs <- function (predictors,
       }
     }
   }
-  
+  if(runParallel){
+    stopCluster(cl)
+  }
   return(bestmodel)
   
 }
