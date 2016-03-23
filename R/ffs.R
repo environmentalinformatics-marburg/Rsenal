@@ -5,6 +5,8 @@
 #' @param method see \code{\link{train}}
 #' @param metric see \code{\link{train}}
 #' @param maximize see \code{\link{train}}
+#' @param withinSD Logical Models are only selected if they are better than the 
+#' currently best models SD
 #' @param trControl see \code{\link{train}}
 #' @param tuneLength see \code{\link{train}}
 #' @param tuneGrid see \code{\link{train}}
@@ -20,6 +22,9 @@
 #' 
 #' The internal cross validation can be run in parallel. See information
 #' on parallel processing of carets train functions for details.
+#' 
+#' Using withinSE will favour models with less variables and
+#' probably shorten the calculation time 
 #' 
 #' @note This validation is particulary suitable for 
 #' leave-one-station-out cross validations where variable selection
@@ -43,6 +48,7 @@ ffs <- function (predictors,
                  method = "rf",
                  metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
                  maximize = ifelse(metric == "RMSE", FALSE, TRUE),
+                 withinSD = TRUE,
                  trControl = trainControl(),
                  tuneLength = 3,
                  tuneGrid = NULL,
@@ -58,9 +64,15 @@ ffs <- function (predictors,
   acc <- 0
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
-  isBetter <- function (actmodelperf,bestmodelperf,maximize=maximize){
-    ifelse (!maximize, return(actmodelperf < bestmodelperf),
-            return(actmodelperf > bestmodelperf))
+  isBetter <- function (actmodelperf,bestmodelperf,bestmodelperfSD=NULL,maximize=maximize,
+                        withinSD=withinSD){
+    if(withinSD){
+      ifelse (!maximize, return(actmodelperf < bestmodelperf-bestmodelperfSD),
+              return(actmodelperf > bestmodelperf+bestmodelperfSD))
+    }else{
+      ifelse (!maximize, return(actmodelperf < bestmodelperf),
+              return(actmodelperf > bestmodelperf))
+    }
   }
   #### chose initial best model from all combinations of two variables
   twogrid <- t(data.frame(combn(names(predictors),2)))
@@ -72,20 +84,30 @@ ffs <- function (predictors,
                    trControl=trControl,
                    tuneLength = tuneLength,
                    tuneGrid = tuneGrid)
-    acc <- acc+1
-    print(paste0("maxmimum number of models that still need to be trained: ",
-                 (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
     ### compare the model with the currently best model
     actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
+    if(withinSD){
+      actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
+        which(model$results[,names(model$results)==metric]==actmodelperf)]
+    }
     if (i == 1){
       bestmodelperf <- actmodelperf
+      if(withinSD){
+        bestmodelperfSD <- actmodelperfSD
+      }
       bestmodel <- model
     } else{
-      if (isBetter(actmodelperf,bestmodelperf,maximize=maximize)){
+      if (isBetter(actmodelperf,bestmodelperf,maximize=maximize,withinSD=FALSE)){
         bestmodelperf <- actmodelperf 
+        if(withinSD){
+          bestmodelperfSD <- actmodelperfSD
+        }
         bestmodel <- model
       }
     }
+    acc <- acc+1
+    print(paste0("maxmimum number of models that still need to be trained: ",
+                 (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
   }
   #### increase the number of predictors by one (try all combinations) 
   #and test if model performance increases
@@ -109,8 +131,16 @@ ffs <- function (predictors,
                      tuneLength = tuneLength,
                      tuneGrid = tuneGrid)
       actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
-      if(isBetter(actmodelperf,bestmodelperf,maximize=maximize)){
+      if(withinSD){
+        actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
+          which(model$results[,names(model$results)==metric]==actmodelperf)]
+      }
+      if(isBetter(actmodelperf,bestmodelperf,bestmodelperfSD,
+                  maximize=maximize,withinSD=withinSD)){
         bestmodelperf <- actmodelperf 
+        if(withinSD){
+          bestmodelperfSD <- actmodelperfSD
+        }
         bestmodel <- model
       }
       acc <- acc+1

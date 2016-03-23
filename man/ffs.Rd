@@ -6,7 +6,7 @@
 \usage{
 ffs(predictors, response, method = "rf",
   metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
-  maximize = ifelse(metric == "RMSE", FALSE, TRUE),
+  maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = TRUE,
   trControl = trainControl(), tuneLength = 3, tuneGrid = NULL,
   seed = 100, runParallel = FALSE)
 }
@@ -20,6 +20,9 @@ ffs(predictors, response, method = "rf",
 \item{metric}{see \code{\link{train}}}
 
 \item{maximize}{see \code{\link{train}}}
+
+\item{withinSD}{Logical Models are only selected if they are better than the 
+currently best models SD}
 
 \item{trControl}{see \code{\link{train}}}
 
@@ -47,6 +50,9 @@ variables increases the model performance when added to the current best model.
 
 The internal cross validation can be run in parallel. See information
 on parallel processing of carets train functions for details.
+
+Using withinSE will favour models with less variables and
+probably shorten the calculation time
 }
 \note{
 This validation is particulary suitable for 
