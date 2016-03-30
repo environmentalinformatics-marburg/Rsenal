@@ -15,7 +15,8 @@ compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
 
 \item{add.spread}{logical, whether to plot the spread (q25 to q75 and the median)}
 
-\item{print.stats}{(requires documentation)}
+\item{print.stats}{logical, whether to print summary statistics for each 
+distribution}
 
 \item{xlim, ylim}{numeric axis limits, see \code{\link{xyplot}}}
 

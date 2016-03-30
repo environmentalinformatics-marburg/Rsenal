@@ -3,6 +3,7 @@
 export(bss)
 export(bumpVersion)
 export(calcOffsetGridText)
+export(charCloud)
 export(classificationStats)
 export(compareDistributions)
 export(createTimeSeries)

@@ -11,7 +11,7 @@ getMode(df, col, side = c("lower", "upper"))
 
 \item{col}{a column name or column number}
 
-\item{side}{(requires documentation)}
+\item{side}{in case of a tie, which side should be returned}
 }
 \value{
 a vector
@@ -20,10 +20,11 @@ a vector
 this function computes the modal value of a specified column of a data frame
 }
 \examples{
-df <- data.frame(a = c(1, 2, 3, 3, 3, 3, 4, 5, 6, 7), 
-                 b = c("a", "b", "c", "d", "e", "e", "e", "e", "f", "g"))
+df <- data.frame(a = c(1, 2, 2, 2, 3, 3, 3, 4, 5, 6, 7), 
+                 b = c("a", "b", "c", "c", "d", "e", "e", "e", "e", "f", "g"))
 
 getMode(df, "a")
+getMode(df, "a", "upper")
 getMode(df, 2)
 
 }

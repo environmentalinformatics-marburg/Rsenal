@@ -11,7 +11,7 @@ envinmr.theme(win.fontfamily = NULL, with.bg = FALSE, box = "black", ...)
 
 \item{with.bg}{logical. If \code{FALSE}, the background is transparent.}
 
-\item{box}{(requires documentation)}
+\item{box}{colour of the box around the main plot and, if present, the color key}
 
 \item{...}{Further arguments passed on to \code{\link{simpleTheme}}.}
 }
