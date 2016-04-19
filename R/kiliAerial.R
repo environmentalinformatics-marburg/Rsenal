@@ -9,7 +9,7 @@
 #' @param upperLeft,lowerRight 'numeric'. Upper-left (lower-right) bounding box 
 #' coordinates passed on to \code{\link{openmap}}. If not supplied and 
 #' 'template' is missing, the returned image defaults to the extent of the study 
-#' area covered in \strong{Detsch et al. (under review)}.
+#' area covered in \strong{Detsch et al. (2016)}.
 #' @param template 'Extent' object, or any object that is compatible with 
 #' \code{\link{extent}}. 
 #' @param projection 'character', defaults to "+init=epsg:21037". Output projection
@@ -28,9 +28,10 @@
 #' \code{\link{openmap}}, \code{\link{openproj}}, \code{\link{gmap}}.
 #' 
 #' @references 
-#' Detsch, F., Otte, I., Appelhans, T., and T. Nauss (2015): Seasonal and 
-#' long-term vegetation dynamics from NDVI time series at Mt. Kilimanjaro, 
-#' Tanzania. Under review at \emph{Remote Sensing of Environment}.
+#' Detsch F, Otte I, Appelhans T, Nauss T (2016) Seasonal and long-term 
+#' vegetation dynamics from 1-km GIMMS-based NDVI time series at Mt. 
+#' Kilimanjaro, Tanzania. Remote Sensing of Environment 178: 70-83. Available 
+#' online at \url{http://dx.doi.org/10.1016/j.rse.2016.03.007}.
 #' 
 #' @examples  
 #' \dontrun{
