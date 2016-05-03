@@ -8,7 +8,7 @@ ffs(predictors, response, method = "rf",
   metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
   maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = TRUE,
   trControl = trainControl(), tuneLength = 3, tuneGrid = NULL,
-  seed = 100, runParallel = FALSE)
+  seed = 100, runParallel = FALSE, ...)
 }
 \arguments{
 \item{predictors}{see \code{\link{train}}}
@@ -33,6 +33,10 @@ currently best models SD}
 \item{seed}{A random number}
 
 \item{runParallel}{Logical}
+
+\item{...}{arguments passed to the classification or regression routine 
+(such as randomForest). Errors will occur if values for tuning parameters are 
+passed here.}
 }
 \value{
 A list of class train

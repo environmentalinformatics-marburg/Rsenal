@@ -12,6 +12,9 @@
 #' @param tuneGrid see \code{\link{train}}
 #' @param seed A random number
 #' @param runParallel Logical
+#' @param ... arguments passed to the classification or regression routine 
+#' (such as randomForest). Errors will occur if values for tuning parameters are 
+#' passed here.
 #' @return A list of class train
 #' @details Models with two predictors are first trained using all possible 
 #' pairs of predictor variables. The best model of these initial models is kept.
@@ -53,7 +56,8 @@ ffs <- function (predictors,
                  tuneLength = 3,
                  tuneGrid = NULL,
                  seed = 100,
-                 runParallel = FALSE){
+                 runParallel = FALSE,
+                 ...){
   require(caret)
   if(runParallel){
     require(doParallel)
