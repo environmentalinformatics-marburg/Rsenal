@@ -42,10 +42,10 @@ installEIPkgs <- function(cran.pkgs = NULL,
                    "leaflet", "mapview", "RNiftyReg", "png", "jpeg", 
                    "jsonlite", "foreach", "gimms", "satellite", "htmltools", 
                    "lubridate", "modiscloud", "MODISTools", "grid", "ncdf", 
-                   "ncdf4", "OpenStreetMap", "party", "randomForest",
-                   "rasterVis", "RColorBrewer", "Rcpp", "remote", "rgl", 
-                   "spacetime", "spatial.tools", "stargazer", "stringr", 
-                   "TSA", "vcd", "xts", "zoo", "bfast", "httpuv", "shiny") 
+                   "ncdf4", "party", "randomForest", "rasterVis", 
+                   "RColorBrewer", "Rcpp", "remote", "rgl", "spacetime", 
+                   "spatial.tools", "stargazer", "stringr", "TSA", "vcd", "xts", 
+                   "zoo", "bfast", "httpuv", "shiny") 
   }
   
   if (check) {

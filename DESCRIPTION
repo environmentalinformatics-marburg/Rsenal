@@ -32,7 +32,6 @@ Imports:
     lattice, 
     latticeExtra,
     maps,
-    OpenStreetMap,
     parallel,
     party,
     plotrix,
