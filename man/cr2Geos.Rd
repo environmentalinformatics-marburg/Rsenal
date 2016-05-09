@@ -4,13 +4,14 @@
 \alias{cr2Geos}
 \title{column/row coordinates to geos projection}
 \usage{
-cr2Geos(cr, COFF = 1856, ColumnDirGridStep = 3000.40316581726)
+cr2Geos(x, COFF = 1856, ColumnDirGridStep = 3000.40316581726)
 }
 \arguments{
-\item{cr}{Numeric value representing the column/row coordinate of a MSG image}
+\item{x}{RasterLayer or RasterStack of the msg data where extent is defined in
+column/row coordinates}
 }
 \value{
-Numeric value representing the column/row coordinate in Geos projection
+RasterLayer or RasterStack in Geos projection
 }
 \description{
 Converts column/row coordinates of MSG images to geos projection.
@@ -18,7 +19,7 @@ For HRV use COFF=5566 and ColumnDirGridStep=1000.13434886932 instead of the
 default values.
 }
 \examples{
-cr2Geos(2325)
+cr2Geos(raster(extent(2200, 3000, 2450, 3050)))
 
 }
 \author{
