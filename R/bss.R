@@ -50,6 +50,7 @@ bss <- function (predictors,
     cl <- makeCluster(detectCores())
     registerDoParallel(cl)
   }
+  n <- length(names(predictors))
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
   isBetter <- function (actmodelperf,bestmodelperf,maximize=maximize){
