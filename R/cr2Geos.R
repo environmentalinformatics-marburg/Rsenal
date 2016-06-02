@@ -6,6 +6,8 @@
 #' default values.
 #' @param x RasterLayer or RasterStack of the msg data where extent is defined in
 #'  column/row coordinates
+#' @param COFF see description
+#' @param ColumnDirGridStep see description
 #' @return
 #' RasterLayer or RasterStack in Geos projection
 #'

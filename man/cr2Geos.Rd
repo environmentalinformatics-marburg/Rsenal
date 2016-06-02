@@ -9,6 +9,10 @@ cr2Geos(x, COFF = 1856, ColumnDirGridStep = 3000.40316581726)
 \arguments{
 \item{x}{RasterLayer or RasterStack of the msg data where extent is defined in
 column/row coordinates}
+
+\item{COFF}{see description}
+
+\item{ColumnDirGridStep}{see description}
 }
 \value{
 RasterLayer or RasterStack in Geos projection

@@ -66,7 +66,7 @@ A computational time expesnsive alternative is the best subset
 selection (\code{\link{bss}}).
 }
 \examples{
-#' \dontrun{
+ \dontrun{
 data(iris)
 ffsmodel <- ffs(iris[,1:4],iris$Species)
 ffsmodel$finalModel$xNames

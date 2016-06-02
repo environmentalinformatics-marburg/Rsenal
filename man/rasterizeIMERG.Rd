@@ -15,7 +15,10 @@ rasterizeIMERG(x, layer = "precipitationCal")
 A \code{RasterLayer}
 }
 \description{
-
+Data can be downloaded in HDF5 from 
+http://pmm.nasa.gov/data-access/downloads/gpm
+This function mainly follows the description for ArcGIS provided by the NASA: 
+http://disc.sci.gsfc.nasa.gov/recipes/?q=recipes/How-to-Import-HDF5-formatted-IMERG-GPM-Precipitation-Data-into-ArcGIS
 }
 \author{
 Hanna Meyer

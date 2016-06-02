@@ -38,7 +38,7 @@
 #' @seealso \code{\link{train}},  \code{\link{bss}}, 
 #' \code{\link{trainControl}},\code{\link{rfe}}
 #' @examples
-#' #' \dontrun{
+#'  \dontrun{
 #' data(iris)
 #' ffsmodel <- ffs(iris[,1:4],iris$Species)
 #' ffsmodel$finalModel$xNames

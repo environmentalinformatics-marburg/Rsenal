@@ -26,7 +26,7 @@
 #' @seealso \code{\link{train}},  \code{\link{ffs}}, 
 #' \code{\link{trainControl}},\code{\link{rfe}}
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' data(iris)
 #' bssmodel <- bss(iris[,1:4],iris$Species)
 #' bssmodel$finalModel$xNames

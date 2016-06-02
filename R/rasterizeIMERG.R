@@ -1,7 +1,10 @@
 #' Rasterize GPM IMERG data
 #'
 #' @description
-#
+#' Data can be downloaded in HDF5 from 
+#' http://pmm.nasa.gov/data-access/downloads/gpm
+#' This function mainly follows the description for ArcGIS provided by the NASA: 
+#' http://disc.sci.gsfc.nasa.gov/recipes/?q=recipes/How-to-Import-HDF5-formatted-IMERG-GPM-Precipitation-Data-into-ArcGIS
 #'
 #' @param x Filename of the IMERG HDF5 file
 #' @param layer IMERG layer name

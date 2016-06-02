@@ -52,7 +52,7 @@ A more time efficient alternative is the forward feature selection
  (\code{\link{ffs}}).
 }
 \examples{
-#' \dontrun{
+\dontrun{
 data(iris)
 bssmodel <- bss(iris[,1:4],iris$Species)
 bssmodel$finalModel$xNames
