@@ -12,7 +12,7 @@
 #' RasterLayer or RasterStack in Geos projection
 #'
 #' @author
-#' Hanna Meyer and Johannes Drönner
+#' Hanna Meyer and Johannes Droenner
 #' @examples
 #' cr2Geos(raster(extent(2200, 3000, 2450, 3050)))
 #' 
