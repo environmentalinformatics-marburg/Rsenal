@@ -4,12 +4,14 @@
 \alias{classificationStats}
 \title{calculate prediction performance statistics for classification models}
 \usage{
-classificationStats(prd, obs, plot = FALSE)
+classificationStats(prd, obs, prob = NULL, plot = FALSE)
 }
 \arguments{
 \item{prd}{factor vector of predicted values with two levels}
 
 \item{obs}{factor vector of observed values with two levels}
+
+\item{prob}{optional. Predicted probabilities for the first class}
 
 \item{plot}{logical, whether to produce a visualisation of the results.
 Defaults to FALSE}
@@ -21,9 +23,7 @@ and \code{plot} - a trellis plot object.
 }
 \description{
 this function calculates prediction performance statistics
-between vectors of predicted and observed values, namely
-coefficient of determination (Rsq), root mean squared error (RMSE), 
-mean error (ME), mean absolute error (MAE). Users may also create 
+between vectors of predicted and observed values. Users may also create 
 a dotplot visualising the results.
 }
 \examples{

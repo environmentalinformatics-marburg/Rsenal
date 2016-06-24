@@ -2,13 +2,12 @@
 #' 
 #' @description
 #' this function calculates prediction performance statistics
-#' between vectors of predicted and observed values, namely
-#' coefficient of determination (Rsq), root mean squared error (RMSE), 
-#' mean error (ME), mean absolute error (MAE). Users may also create 
+#' between vectors of predicted and observed values. Users may also create 
 #' a dotplot visualising the results.
 #' 
 #' @param prd factor vector of predicted values with two levels
 #' @param obs factor vector of observed values with two levels
+#' @param prob optional. Predicted probabilities for the first class
 #' @param plot logical, whether to produce a visualisation of the results.
 #' Defaults to FALSE
 #' 
@@ -34,7 +33,7 @@
 #' @aliases classificationStats
 #' @seealso \code{\link{regressionStats}}
 
-classificationStats <- function(prd, obs, plot=FALSE) {
+classificationStats <- function(prd, obs, prob=NULL, plot=FALSE) {
   tab <- (table(prd,obs))/100
   TP <- tab[1,1]
   FP <- tab[1,2]
@@ -50,10 +49,15 @@ classificationStats <- function(prd, obs, plot=FALSE) {
   ETS <- (TP-ph)/((TP+FP+FN)-ph)
   HSS <- (TP*TN-FP*FN)/(((TP+FN)*(FN+TN)+(TP+FP)*(FP+TN))/2)
   HKD <- (TP/(TP+FN))-(FP/(FP+TN))
-  
+  if (!is.null(prob)){
+    require(pROC)
+    AUC <- as.numeric(roc(obs,prob)$auc)
+    df_all <- data.frame(bias,PFD,FAR,POD,CSI,ETS,HSS,HKD,AUC)
+    names(df_all) <- c("Bias","PFD","FAR","POD","CSI","ETS","HSS","HKD","AUC")
+  }else{
   df_all <- data.frame(bias,PFD,FAR,POD,CSI,ETS,HSS,HKD)
   names(df_all) <- c("Bias","PFD","FAR","POD","CSI","ETS","HSS","HKD")
-  
+  }
   
   if (plot) {
     df_melt <- reshape2::melt(df_all)
