@@ -12,16 +12,26 @@
 #' 
 #' @examples 
 #' pwGen(4, seed = as.numeric(Sys.Date()))
-#' 
-#' @export pwGen
-#' @aliases pwGen
 
-pwGen <- function(ndigits, seed = 123) {
-  
-  set.seed(seed)
+pwGen <- function(ndigits, seed = 123, master = NULL) {
   
   specials <- c("!", "_", "?", "+", "-", "=", ">", "<", "#")
-  pw <- sample(c(letters, specials, 0:9, LETTERS), ndigits)
-  cat(pw, "\n", sep = "")
+  
+  if (is.null(master)) {
+    set.seed(seed)
+    pw <- sample(c(letters, specials, 0:9, LETTERS), ndigits)
+    cat(pw, "\n", sep = "")
+  } else {
+    master_seed <- readLines(master)[1]
+    ms <- strsplit(master_seed, " ")[[1]]
+    
+    int <- lapply(seq(ms), function(i) strtoi(ms[i], 36))
+    if (anyNA(int)) stop("bad master key")
+    
+    mi <- Reduce("+", int)
+    set.seed(seed + mi)
+    pw <- sample(c(letters, specials, 0:9, LETTERS), ndigits)
+    cat(pw, "\n", sep = "")
+  }
   
 }
