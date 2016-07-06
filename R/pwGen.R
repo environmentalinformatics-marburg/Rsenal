@@ -15,7 +15,7 @@
 
 pwGen <- function(ndigits, seed = 123, master = NULL) {
   
-  specials <- c("!", "_", "?", "+", "-", "=", ">", "<", "#")
+  specials <- c("!", "_", "?", "+", "-", "=", "@", "&", "$", "%", "#")
   
   if (is.null(master)) {
     set.seed(seed)
@@ -25,13 +25,17 @@ pwGen <- function(ndigits, seed = 123, master = NULL) {
     master_seed <- readLines(master)[1]
     ms <- strsplit(master_seed, " ")[[1]]
     
-    int <- lapply(seq(ms), function(i) strtoi(ms[i], 36))
+    int <- lapply(seq(ms), function(i) {
+      if (nchar(ms[i]) > 6) ms[i] <- substr(ms[i], 1, 6)
+      sqrt(strtoi(ms[i], 36))
+    })
     if (anyNA(int)) stop("bad master key")
     
-    mi <- Reduce("+", int)
+    mi <- as.integer(round(Reduce("+", int)))
     set.seed(seed + mi)
     pw <- sample(c(letters, specials, 0:9, LETTERS), ndigits)
     cat(pw, "\n", sep = "")
   }
   
 }
+  
