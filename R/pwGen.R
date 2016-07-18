@@ -12,7 +12,9 @@
 #' 
 #' @examples 
 #' pwGen(4, seed = as.numeric(Sys.Date()))
-
+#' 
+#' @export pwGen
+#' @name pwGen
 pwGen <- function(ndigits, seed = 123, master = NULL) {
   
   specials <- c("!", "_", "?", "+", "-", "=", "@", "&", "$", "%", "#")

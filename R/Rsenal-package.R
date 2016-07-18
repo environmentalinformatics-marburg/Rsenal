@@ -29,6 +29,8 @@
 #' @importFrom dplyr count_
 #' @importFrom gdalUtils gdal_translate
 #' @importFrom ggplot2 ggplot_gtable ggplot_build
+#' @importFrom graphics .filled.contour legend par plot.window
+#' @importFrom grDevices cm.colors colorRampPalette hcl
 #' @importFrom landsat histmatch
 #' @importFrom maps map
 #' @importFrom plotrix thigmophobe
@@ -38,8 +40,11 @@
 #' @importFrom rgeos gCentroid
 #' @importFrom roxygen2 roxygenize
 #' @importFrom SDMTools PatchStat
+#' @importFrom stats as.formula fitted integrate lm median na.exclude sd splinefun ts
 #' @importFrom tagcloud tagcloud
 #' @importFrom TSA harmonic
+#' @importFrom utils combn download.file glob2rx install.packages installed.packages modifyList read.csv update.packages
+#'
 #' @useDynLib Rsenal
 NULL
 #' 

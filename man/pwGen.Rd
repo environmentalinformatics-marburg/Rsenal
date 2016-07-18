@@ -19,6 +19,7 @@ generates a password based on a desired number of digits and a random seed.
 }
 \examples{
 pwGen(4, seed = as.numeric(Sys.Date()))
+
 }
 \author{
 Tim Appelhans
