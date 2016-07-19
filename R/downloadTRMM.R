@@ -7,7 +7,7 @@ if ( !isGeneric("downloadTRMM") ) {
 #' 
 #' @description
 #' Download TRMM 3B42 daily or 3-hourly data for a given time span from the NASA 
-#' FTP servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
+#' FTP servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3}).
 #' 
 #' @param begin \code{POSIXlt} or \code{character}, starting time.
 #' @param end Same as \code{begin}, end time.
