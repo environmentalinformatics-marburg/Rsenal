@@ -4,13 +4,15 @@
 \alias{figureCaption}
 \title{Add a caption to a lattice or ggplot2 object}
 \usage{
-figureCaption(obj, txt, ...)
+figureCaption(obj, txt, width = 75L, ...)
 }
 \arguments{
 \item{obj}{the \strong{lattice} or \strong{ggplot2} object to which the 
 caption should be added}
 
 \item{txt}{the cpation text}
+
+\item{width}{target column for wrapping lines, see \code{\link{strwrap}}}
 
 \item{...}{additional parameters passed on to \code{\link{gpar}}. These 
 can be used to adjust the fontsize, fontfamily etc. Note that the 

@@ -11,6 +11,7 @@
 #' @param obj the \strong{lattice} or \strong{ggplot2} object to which the 
 #' caption should be added
 #' @param txt the cpation text
+#' @param width target column for wrapping lines, see \code{\link{strwrap}}
 #' @param ... additional parameters passed on to \code{\link{gpar}}. These 
 #' can be used to adjust the fontsize, fontfamily etc. Note that the 
 #' default value for fontsize is 16 pt.
@@ -41,9 +42,9 @@
 #' @export figureCaption
 #' @aliases figureCaption
 
-figureCaption <- function(obj, txt, ...) {
+figureCaption <- function(obj, txt, width = 75L, ...) {
 
-  d <- sapply(lapply(txt, strwrap, width = 75), paste, collapse="\n")
+  d <- sapply(lapply(txt, strwrap, width = width), paste, collapse="\n")
   
   grid.newpage()
   
