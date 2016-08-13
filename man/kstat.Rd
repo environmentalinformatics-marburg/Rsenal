@@ -7,14 +7,14 @@
 kstat(a, b, mask = "", perCategory = TRUE)
 }
 \arguments{
-\item{a}{An object of type "raster" containing categorical data}
+\item{a}{A vector or an object of type "raster" containing categorical data}
 
-\item{b}{An object of type "raster" containing categorical data. 
+\item{b}{A vector or an object of type "raster" containing categorical data. 
 Must be of the same dimensions as a.}
 
-\item{mask}{A string vector of category numbers which are are to be 
+\item{mask}{if a,b is a RasterLayer: A string vector of category numbers which are are to be 
 ignored in the calculations. The numbers must be identical to the 
-values of the input rasters.}
+values of the input rasters. (optional)}
 
 \item{perCategory}{If TRUE indices are calculated per category in 
 addition to overall indices.}

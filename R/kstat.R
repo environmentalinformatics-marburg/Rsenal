@@ -1,11 +1,11 @@
 #' Similarity of categorical maps
 #' 
-#' @param a An object of type "raster" containing categorical data
-#' @param b An object of type "raster" containing categorical data. 
+#' @param a A vector or an object of type "raster" containing categorical data
+#' @param b A vector or an object of type "raster" containing categorical data. 
 #' Must be of the same dimensions as a.
-#' @param mask A string vector of category numbers which are are to be 
+#' @param mask if a,b is a RasterLayer: A string vector of category numbers which are are to be 
 #' ignored in the calculations. The numbers must be identical to the 
-#' values of the input rasters.
+#' values of the input rasters. (optional)
 #' @param perCategory If TRUE indices are calculated per category in 
 #' addition to overall indices.
 #'                                                                                                                                        
@@ -173,10 +173,16 @@ kstat <- function(a,b,mask="",perCategory=TRUE) {
 	}
   ##################################################################################################
   #Initialise
+	if (class(a)=="RasterLayer"){
+	
   if (any(dim(a)!=dim(b))){
     stop ("Dimensions of a and b do not match!")
   }
   ct <- ctab(a,b,mask=mask)
+	}else{
+	  ct <- table(a,b)
+	}
+  
 	result <- list()
   #reclass to calculate kappa per category
 	cttmp <- ct
