@@ -9,16 +9,21 @@
 #' Defaults to "patch"
 #' @param pkg.repo path to package repository folder. Default is current
 #' working directory
+#' @param news the NEWS file of the repo (assumed to be in top level path). 
+#' If this exists, the first line of that file will be rewritten 
+#' to be "<packagename> <major.minor.patch>"
 #'
 #' @author
 #' Tim Appelhans
 #'
 #' @export bumpVersion
 #' @name bumpVersion
-bumpVersion <- function(element = "patch", pkg.repo= ".") {
+bumpVersion <- function(element = "patch", pkg.repo= ".", 
+                        news = file.path(pkg.repo, "NEWS")) {
 
   ### DESCRIPTION file
   desc <- readLines(paste(pkg.repo, "DESCRIPTION", sep = "/"))
+  
   old.ver <- substr(desc[grep("Version*", desc)], 10,
                     nchar(desc[grep("Version*", desc)]))
 
@@ -55,4 +60,11 @@ bumpVersion <- function(element = "patch", pkg.repo= ".") {
   writeLines(pkg.doc, paste(pkg.repo, "man",
                             paste(pkg.name, "-package.Rd", sep = ""),
                             sep = "/"))
+
+  ## NEWS
+  if (file.exists(news)) {
+    newsfile <- readLines(news)
+    newsfile[1] <- paste(pkg.name, new.ver)
+    writeLines(newsfile, news)
+  }
 }
