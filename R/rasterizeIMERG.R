@@ -26,5 +26,6 @@ rasterizeIMERG <- function (x, layer="precipitationCal"){
   result <- t(result)
   extent(result) <- c(-180,180,-90,90)
   result[result<0] <- NA
+  result <- flip(result,2)
   return(result)
 }
