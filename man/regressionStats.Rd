@@ -4,7 +4,8 @@
 \alias{regressionStats}
 \title{calculate prediction performance statistics}
 \usage{
-regressionStats(prd, obs, adj.rsq = TRUE, plot = FALSE)
+regressionStats(prd, obs, adj.rsq = TRUE, plot = FALSE,
+  method = "pearson")
 }
 \arguments{
 \item{prd}{numeric vector of predicted values}

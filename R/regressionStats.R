@@ -13,6 +13,8 @@
 #' Defaults to TRUE
 #' @param plot logical, whether to produce a visualisation of the results.
 #' Defaults to FALSE
+#' @param method character. Method to use for correlation. See \code{?cor.test}
+#' for details.
 #' 
 #' @return
 #' If \code{plot = FALSE} (the default), a data frame. 
@@ -20,7 +22,7 @@
 #' and \code{plot} - a trellis plot object.
 #' 
 #' @author
-#' Tim Appelhans
+#' Tim Appelhans, Hanna Meyer
 #' 
 #' @examples
 #' ## create predictions with high accuracy (identical mean), 
@@ -42,11 +44,13 @@
 #' @export regressionStats
 #' @aliases regressionStats
 
-regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE) {
+regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE,
+                            method="pearson") {
   
   mod <- lm(prd ~ obs)
   if(adj.rsq) rsq <- summary(mod)$adj.r.squared else
     rsq <- summary(mod)$r.squared
+  cor <- cor.test(obs,prd,method=method,exact=FALSE)$estimate
   
   df_all <- data.frame(ME = mean(prd - obs, na.rm = TRUE),
                        ME.se = se(prd - obs),
@@ -54,7 +58,9 @@ regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE) {
                        MAE.se = se(abs(prd - obs)),
                        RMSE = sqrt(mean((prd - obs)^2, na.rm = TRUE)),
                        RMSE.se = se((prd - obs)^2),
-                       Rsq = rsq)
+                       Rsq = rsq,
+                       cor=cor[[1]])
+  names(df_all)[names(df_all)=="cor"] <- names(cor) #adapt rho/tau depending on method
   
   if (plot) {
     ## panel.fun modified from 
