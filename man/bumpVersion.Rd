@@ -4,7 +4,8 @@
 \alias{bumpVersion}
 \title{bump package 'Version:' and 'Date:' in DESCRIPTION file}
 \usage{
-bumpVersion(element = "patch", pkg.repo = ".")
+bumpVersion(element = "patch", pkg.repo = ".", news = file.path(pkg.repo,
+  "NEWS"))
 }
 \arguments{
 \item{element}{character - one of "major", "minor", "patch" to be bumped.
@@ -12,6 +13,10 @@ Defaults to "patch"}
 
 \item{pkg.repo}{path to package repository folder. Default is current
 working directory}
+
+\item{news}{the NEWS file of the repo (assumed to be in top level path). 
+If this exists, the first line of that file will be rewritten 
+to be "<packagename> <major.minor.patch>"}
 }
 \description{
 this function let's you bump the version number and creation date of
