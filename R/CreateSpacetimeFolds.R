@@ -53,8 +53,8 @@ CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10){
       cvindices_train[[i]]<- which(!x[,spacevar]%in%spacefolds[[i]])
     }
     if(!is.na(timevar)&is.na(spacevar)){
-      cvindices_test[[i]]<- which(x[,timevar]%in%spacefolds[[i]])
-      cvindices_train[[i]]<- which(!x[,timevar]%in%spacefolds[[i]])
+      cvindices_test[[i]]<- which(x[,timevar]%in%timefolds[[i]])
+      cvindices_train[[i]]<- which(!x[,timevar]%in%timefolds[[i]])
     }
   }
   return(list("index"=cvindices_train,"indexOut"=cvindices_test))
