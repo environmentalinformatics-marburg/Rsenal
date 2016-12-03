@@ -1,5 +1,5 @@
 #' Create Space-time Folds
-#' @description Split space-time data into folds
+#' @description Create spatial, temporal or spatio-temporal Folds for cross validation
 #' @param x data.frame containing spatio-temporal data
 #' @param spacevar Character indicating which column of x identifies the 
 #' spatial units (e.g. ID of weather stations)
@@ -12,7 +12,6 @@
 #' @return A list that contains a list for model training and a list for 
 #' model validation that can directly be used as "index" and "indexOut" in
 #' caret's train function
-#' @details 
 #' @author Hanna Meyer
 #' @examples
 #'  \dontrun{

@@ -17,6 +17,9 @@ Defaults to TRUE}
 
 \item{plot}{logical, whether to produce a visualisation of the results.
 Defaults to FALSE}
+
+\item{method}{character. Method to use for correlation. See \code{?cor.test}
+for details.}
 }
 \value{
 If \code{plot = FALSE} (the default), a data frame. 
@@ -49,6 +52,6 @@ result
 
 }
 \author{
-Tim Appelhans
+Tim Appelhans, Hanna Meyer
 }
 
