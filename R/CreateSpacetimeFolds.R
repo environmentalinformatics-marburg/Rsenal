@@ -27,12 +27,14 @@
 #' @aliases CreateSpacetimeFolds
 
 CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10){
-  if (is.factor(x[,spacevar])){
+  if (!is.na(spacevar)){
+    if(is.factor(x[,spacevar])){
     x[,spacevar] <- as.character(x[,spacevar])
-  }
-  if (is.factor(x[,timevar])){
+  }}
+  if (!is.na(timevar)){
+    if(is.factor(x[,timevar])){
     x[,timevar] <- as.character(x[,timevar])
-  }
+  }}
   require(caret)
   #split space into k folds
   if(!is.na(spacevar)){
