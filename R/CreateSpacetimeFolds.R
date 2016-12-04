@@ -27,23 +27,15 @@
 #' @aliases CreateSpacetimeFolds
 
 CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10){
-  if (!is.na(spacevar)){
-    if(is.factor(x[,spacevar])){
-    x[,spacevar] <- as.character(x[,spacevar])
-  }}
-  if (!is.na(timevar)){
-    if(is.factor(x[,timevar])){
-    x[,timevar] <- as.character(x[,timevar])
-  }}
   require(caret)
   #split space into k folds
   if(!is.na(spacevar)){
-  spacefolds <- lapply(createFolds(unique(x[,spacevar]),k),function(y){
+  spacefolds <- lapply(createFolds(1:length(unique(x[,spacevar])),k),function(y){
     unique(x[,spacevar])[y]})
   }
   #split time into k folds
   if(!is.na(timevar)){
-  timefolds <- lapply(createFolds(unique(x[,timevar]),k),function(y){
+  timefolds <- lapply(createFolds(1:length(unique(x[,timevar])),k),function(y){
     unique(x[,timevar])[y]})
   }
   # combine space and time folds
