@@ -26,15 +26,17 @@
 #' @export CreateSpacetimeFolds
 #' @aliases CreateSpacetimeFolds
 
-CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10){
+CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10,seed=100){
   require(caret)
   #split space into k folds
   if(!is.na(spacevar)){
+    set.seed(seed)
   spacefolds <- lapply(createFolds(1:length(unique(x[,spacevar])),k),function(y){
     unique(x[,spacevar])[y]})
   }
   #split time into k folds
   if(!is.na(timevar)){
+    set.seed(seed)
   timefolds <- lapply(createFolds(1:length(unique(x[,timevar])),k),function(y){
     unique(x[,timevar])[y]})
   }
