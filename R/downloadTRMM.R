@@ -1,24 +1,29 @@
-#' Download TRMM 3B42 daily data
+#' Download TRMM 3B42 Daily Data
 #' 
 #' @description
-#' Download TRMM 3B42 daily binary data for a given time span from the NASA FTP servers 
-#' (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_daily/}).
+#' Download TRMM 3B42 daily NetCDF files for a given time span from the NASA FTP 
+#' servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_Daily.7/}).
 #' 
-#' @param begin Date or character. Desired start date.
-#' @param end Date or character. Desired end date.
-#' @param dsn Character. Target directory for file download. If not supplied, 
-#' this defaults to the current working directory. 
-#' @param format Character. See \code{\link{as.Date}}.
-#' @param ... Further arguments. Currently not used. 
+#' @param begin,end Start and end date as \code{Date} or \code{character}. 
+#' @param dsn \code{character}. Download folder, defaults to the current working 
+#' directory. 
+#' @param xml \code{logical}, defaults to \code{FALSE}. If \code{TRUE}, .xml 
+#' files associated with each .nc4 file are also downloaded to 'dsn'.
+#' @param overwrite \code{logical}, defaults to \code{FALSE}. Determines whether 
+#' existing files are overwritten. 
+#' @param cores \code{integer}. Number of cores for parallel processing. Note 
+#' that this takes only effect if a sufficiently fast internet connection is 
+#' available.
+#' @param ... Additional arguments passed to \code{\link{as.Date}}.
 #' 
 #' @return
-#' A vector of filepaths.
+#' A \code{character} vector of filepaths.
 #' 
 #' @author
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{download.file}}
+#' \code{\link{download.file}}.
 #' 
 #' @examples  
 #' \dontrun{
@@ -28,51 +33,39 @@
 #'               
 #' @export downloadTRMM
 #' @aliases downloadTRMM
-downloadTRMM <- function(begin, end, dsn = ".", format = "%Y-%m-%d") {
+downloadTRMM <- function(begin, end, dsn = ".", xml = FALSE, overwrite = FALSE, 
+                         cores = 1L, ...) {
   
   ## transform 'begin' and 'end' to 'Date' object if necessary
-  if (!class(begin) == "Date")
-    begin <- as.Date(begin, format = format)
+  if (!inherits(begin, "Date"))
+    begin <- as.Date(begin, ...)
   
-  if (!class(end) == "Date")
-    end <- as.Date(end, format = format)
+  if (!inherits(end, "Date"))
+    end <- as.Date(end, ...)
   
   ## trmm ftp server
-  ch_url <-"ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_daily/"
+  ftp <-"ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_Daily.7"
   
-  ## loop over daily sequence
-  ls_fls_out <- lapply(seq(begin, end, 1), function(i) {
-    
-    # year and julian day
-    tmp_ch_yr <- strftime(i, format = "%Y")
-    tmp_ch_dy <- strftime(i, format = "%j")
-    
-    # trmm date format
-    tmp_dt <- strftime(i+1, format = "%Y.%m.%d")
-    
-    # list files available on server
-    tmp_ch_url <- paste(ch_url, tmp_ch_yr, tmp_ch_dy, "", sep = "/")
-    
-    tmp_ch_fls <- tmp_ch_fls_out <- character(2L)
-    for (j in 1:2) {
-      tmp_ch_fls[j] <- paste0("3B42_daily.", tmp_dt, ".7", 
-                              ifelse(j == 1, ".bin", ".bin.xml"))
-      
-      tmp_ch_fls[j] <- paste(tmp_ch_url, tmp_ch_fls[j], sep = "/")
-      tmp_ch_fls_out[j] <- paste(dsn, basename(tmp_ch_fls[j]), sep = "/")
-      
-      download.file(tmp_ch_fls[j], tmp_ch_fls_out[j], mode = "wb")
-    }
+  ## online and offline target files
+  sqc <- seq(begin, end, "day")
 
-    # return data frame with *.bin and *.xml filenames
-    tmp_id_xml <- grep("xml", tmp_ch_fls_out)
-    data.frame(bin = tmp_ch_fls_out[-tmp_id_xml], 
-               xml = tmp_ch_fls_out[tmp_id_xml], 
-               stringsAsFactors = FALSE)
-    
-  })
+  onl <- strftime(sqc, "%Y/%m/3B42_Daily.%Y%m%d.7.nc4")
+  onl <- paste(ftp, onl, sep = "/")
+  if (xml) onl <- sort(c(onl, paste0(onl, ".xml")))
+
+  ofl <- paste(dsn, basename(onl), sep = "/")
   
-  ## join and return names of processed files
-  ch_fls_out <- do.call("rbind",ls_fls_out)
-  return(ch_fls_out)
+  ## parallelization
+  cl <- parallel::makePSOCKcluster(cores)
+  parallel::clusterExport(cl, c("onl", "ofl", "overwrite"), 
+                          envir = environment())
+  on.exit(parallel::stopCluster(cl))
+  
+  ## download
+  parallel::parSapply(cl, 1:length(onl), function(i) {
+    if (!file.exists(ofl[i]) | overwrite)
+      jnk <- utils::download.file(onl[i], ofl[i], mode = "wb")
+    
+    return(ofl[i])
+  })
 }

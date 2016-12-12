@@ -2,28 +2,35 @@
 % Please edit documentation in R/downloadTRMM.R
 \name{downloadTRMM}
 \alias{downloadTRMM}
-\title{Download TRMM 3B42 daily data}
+\title{Download TRMM 3B42 Daily Data}
 \usage{
-downloadTRMM(begin, end, dsn = ".", format = "\%Y-\%m-\%d")
+downloadTRMM(begin, end, dsn = ".", xml = FALSE, overwrite = FALSE,
+  cores = 1L, ...)
 }
 \arguments{
-\item{begin}{Date or character. Desired start date.}
+\item{begin, end}{Start and end date as \code{Date} or \code{character}.}
 
-\item{end}{Date or character. Desired end date.}
+\item{dsn}{\code{character}. Download folder, defaults to the current working 
+directory.}
 
-\item{dsn}{Character. Target directory for file download. If not supplied, 
-this defaults to the current working directory.}
+\item{xml}{\code{logical}, defaults to \code{FALSE}. If \code{TRUE}, .xml 
+files associated with each .nc4 file are also downloaded to 'dsn'.}
 
-\item{format}{Character. See \code{\link{as.Date}}.}
+\item{overwrite}{\code{logical}, defaults to \code{FALSE}. Determines whether 
+existing files are overwritten.}
 
-\item{...}{Further arguments. Currently not used.}
+\item{cores}{\code{integer}. Number of cores for parallel processing. Note 
+that this takes only effect if a sufficiently fast internet connection is 
+available.}
+
+\item{...}{Additional arguments passed to \code{\link{as.Date}}.}
 }
 \value{
-A vector of filepaths.
+A \code{character} vector of filepaths.
 }
 \description{
-Download TRMM 3B42 daily binary data for a given time span from the NASA FTP servers 
-(\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_daily/}).
+Download TRMM 3B42 daily NetCDF files for a given time span from the NASA FTP 
+servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_Daily.7/}).
 }
 \examples{
  
@@ -37,6 +44,6 @@ downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
 Florian Detsch
 }
 \seealso{
-\code{\link{download.file}}
+\code{\link{download.file}}.
 }
 
