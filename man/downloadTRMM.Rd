@@ -2,13 +2,17 @@
 % Please edit documentation in R/downloadTRMM.R
 \name{downloadTRMM}
 \alias{downloadTRMM}
-\title{Download TRMM 3B42 Daily Data}
+\title{Download TRMM 3B42 Data}
 \usage{
-downloadTRMM(begin, end, dsn = ".", xml = FALSE, overwrite = FALSE,
-  cores = 1L, ...)
+downloadTRMM(begin, end, type = c("daily", "3-hourly"), dsn = ".",
+  xml = FALSE, overwrite = FALSE, cores = 1L, ...)
 }
 \arguments{
 \item{begin, end}{Start and end date as \code{Date} or \code{character}.}
+
+\item{type}{\code{character}. Temporal resolution of downloaded TRMM data. 
+Currently available options are \code{"daily"} (default) and 
+\code{"3-hourly"}.}
 
 \item{dsn}{\code{character}. Download folder, defaults to the current working 
 directory.}
@@ -23,20 +27,25 @@ existing files are overwritten.}
 that this takes only effect if a sufficiently fast internet connection is 
 available.}
 
-\item{...}{Additional arguments passed to \code{\link{as.Date}}.}
+\item{...}{In case 'begin' and/or 'end' are \code{character} objects, 
+additional arguments passed to \code{\link{as.Date}}.}
 }
 \value{
-A \code{character} vector of filepaths.
+A \code{character} vector of local filepaths.
 }
 \description{
-Download TRMM 3B42 daily NetCDF files for a given time span from the NASA FTP 
-servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42_Daily.7/}).
+Download TRMM 3B42 daily (NetCDF) or 3-hourly (HDF) files for a given time 
+span from the NASA FTP servers 
+(\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
 }
 \examples{
  
 \dontrun{
-## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
+## download TRMM 3B42 daily data from Jan 1 to Jan 5, 2015
 downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
+
+## same for 3-hourly data
+downloadTRMM(begin = "2015-01-01", end = "2015-01-05", type = "3-hourly")
 }
               
 }
