@@ -22,6 +22,6 @@ cr2Geos(2325)
 
 }
 \author{
-Hanna Meyer and Johannes Drönner
+Hanna Meyer and Johannes Droenner
 }
 

@@ -9,7 +9,7 @@
 #' Numeric value representing the column/row coordinate in Geos projection
 #'
 #' @author
-#' Hanna Meyer and Johannes Drönner
+#' Hanna Meyer and Johannes Droenner
 #' @examples
 #' cr2Geos(2325)
 #' 
