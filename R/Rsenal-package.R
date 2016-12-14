@@ -27,7 +27,7 @@
 #' @importFrom devtools build
 #' @importFrom dismo gmap
 #' @importFrom dplyr count_
-#' @importFrom gdalUtils gdal_translate
+#' @importFrom gdalUtils gdal_translate get_subdatasets
 #' @importFrom ggplot2 ggplot_gtable ggplot_build
 #' @importFrom landsat histmatch
 #' @importFrom maps map

@@ -54,8 +54,27 @@ rasterizeTRMMhdf <- function(x, SDSstring = "111111", ext = NULL, cores = 1L,
     
     lst <- vector("list", length(SDSstring))
     for (j in 1:length(SDSstring)) {
-      lst[[j]] <- if (SDSstring[j] == 1) raster::raster(sds[j]) else NULL
+      lst[[j]] <- if (SDSstring[j] == 1) {
+        
+        # windows operating system
+        if (Sys.info()[["sysname"]] == "Windows") {
+          trl <- gsub(".HDF", ".tif", x[i])
+          gdalUtils::gdal_translate(sds[j], dst_dataset = trl, 
+                                    output_Raster = TRUE) * 1
+
+        # all other operating systems (currently tested on linux only)            
+        } else {
+          raster::raster(sds[j])
+        }
+      } else {
+        NULL
+      }
     }
+    
+    # delete temporary raster file (windows only)
+    if (Sys.info()[["sysname"]] == "Windows" & exists("trl"))
+      jnk <- file.remove(trl)
+      
     rst <- raster::stack(lst)
     
     # assign spatial information
