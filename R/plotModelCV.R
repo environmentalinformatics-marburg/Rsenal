@@ -66,16 +66,19 @@ plotModelCV <- function(model,
   }
 
   if(metric=="Rsquared"){metric="R-squared"}
-  xyplot(means~unique(data$tuningValue),
-         ylim=ylim,
-         xlim=xlim,
+  means <- means[order(unique(data$tuningValue))]
+  uniquevals <- unique(data$tuningValue)
+  uniquevals <- uniquevals[order(uniquevals)]
+  
+  xyplot(means~uniquevals,
+         #     ylim=ylim,
+         #    xlim=xlim,
          xlab=tuningValue,
          ylab=paste0(metric," (Cross-Validation)"),
          panel = function(x, y, ...){
-           panel.polygon(c(unique(data$tuningValue),rev(unique(data$tuningValue))),
+           panel.polygon(c(uniquevals,rev(uniquevals)),
                          c(means+sdv, rev(means-sdv)), col="grey80", 
                          border=FALSE)
            panel.xyplot(x,y,type=c("b","g"),col="black",pch=16, grid=grid)
-         }
-  )
+         })
 }
