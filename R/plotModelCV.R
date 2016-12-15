@@ -71,8 +71,8 @@ plotModelCV <- function(model,
   uniquevals <- uniquevals[order(uniquevals)]
   
   xyplot(means~uniquevals,
-         #     ylim=ylim,
-         #    xlim=xlim,
+              ylim=ylim,
+             xlim=xlim,
          xlab=tuningValue,
          ylab=paste0(metric," (Cross-Validation)"),
          panel = function(x, y, ...){
