@@ -22,12 +22,12 @@
 #' 
 #' @import methods raster sp rgdal 
 #' @import RColorBrewer lattice latticeExtra grid gridBase gridExtra
-#' @import hflights party satellite
+#' @import caret hflights party satellite
 #' @import parallel doParallel foreach
 #' @importFrom devtools build
 #' @importFrom dismo gmap
 #' @importFrom dplyr count_
-#' @importFrom gdalUtils gdal_translate
+#' @importFrom gdalUtils gdal_translate get_subdatasets
 #' @importFrom ggplot2 ggplot_gtable ggplot_build
 #' @importFrom graphics .filled.contour legend par plot.window
 #' @importFrom grDevices cm.colors colorRampPalette hcl
@@ -40,7 +40,7 @@
 #' @importFrom rgeos gCentroid
 #' @importFrom roxygen2 roxygenize
 #' @importFrom SDMTools PatchStat
-#' @importFrom stats as.formula fitted integrate lm median na.exclude sd splinefun ts
+#' @importFrom stats as.formula cor.test fitted integrate lm median na.exclude sd splinefun ts
 #' @importFrom tagcloud tagcloud
 #' @importFrom TSA harmonic
 #' @importFrom utils combn download.file glob2rx install.packages installed.packages modifyList read.csv update.packages

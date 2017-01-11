@@ -1,183 +1,121 @@
-if ( !isGeneric("downloadTRMM") ) {
-  setGeneric("downloadTRMM", function(begin, ...)
-    standardGeneric("downloadTRMM"))
-}
-
-#' Download TRMM 3B42 data
+#' Download TRMM 3B42 Data
 #' 
 #' @description
-#' Download TRMM 3B42 daily or 3-hourly data for a given time span from the NASA 
-#' FTP servers (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3}).
+#' Download TRMM 3B42 daily (NetCDF) or 3-hourly (HDF) files for a given time 
+#' span from the NASA FTP servers 
+#' (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
 #' 
-#' @param begin \code{POSIXlt} or \code{character}, starting time.
-#' @param end Same as \code{begin}, end time.
-#' @param type \code{character}, data repetition cycle. Currently available 
-#' options are "daily" (default) and "3-hourly".
-#' @param dsn \code{character}, target folder for file download. Defaults to the 
-#' current working directory if not specified otherwise. 
-#' @param format \code{character}, see \code{\link{strptime}}.
+#' @param begin,end Start and end date as \code{Date} or \code{character}. 
+#' @param type \code{character}. Temporal resolution of downloaded TRMM data. 
+#' Currently available options are \code{"daily"} (default) and 
+#' \code{"3-hourly"}.
+#' @param dsn \code{character}. Download folder, defaults to the current working 
+#' directory. 
+#' @param xml \code{logical}, defaults to \code{FALSE}. If \code{TRUE}, .xml 
+#' files associated with each .nc4 file are also downloaded to 'dsn'.
+#' @param overwrite \code{logical}, defaults to \code{FALSE}. Determines whether 
+#' existing files are overwritten. 
+#' @param cores \code{integer}. Number of cores for parallel processing. Note 
+#' that this takes only effect if a sufficiently fast internet connection is 
+#' available.
+#' @param ... In case 'begin' and/or 'end' are \code{character} objects, 
+#' additional arguments passed to \code{\link{as.Date}}.
 #' 
 #' @return
-#' A \code{data.frame} with downloaded .bin (or .Z for 3-hourly data) and .xml 
-#' filepaths.
+#' A \code{character} vector of local filepaths.
 #' 
 #' @author
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{strptime}}, \code{\link{download.file}}.
+#' \code{\link{download.file}}.
 #' 
 #' @examples  
 #' \dontrun{
-#' ## download TRMM 3B42 daily data from Jan 1 to Jan 3, 2015
-#' downloadTRMM(begin = "2015-01-01", end = "2015-01-03")
+#' ## download TRMM 3B42 daily data from Jan 1 to Jan 5, 2015
+#' downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
 #' 
-#' ## same for 3-hourly data, from noon to noon
-#' downloadTRMM(begin = "2015-01-01 12:00", end = "2015-01-03 12:00", 
-#'              type = "3-hourly", format = "%Y-%m-%d %H:%M")
-
+#' ## same for 3-hourly data
+#' downloadTRMM(begin = "2015-01-01", end = "2015-01-05", type = "3-hourly")
 #' }
 #'               
 #' @export downloadTRMM
-#' @name downloadTRMM
-NULL
-
-################################################################################
-### function using 'character' input -----
-#' @aliases downloadTRMM,character-method
-#' @rdname downloadTRMM
-setMethod("downloadTRMM",
-          signature(begin = "character"),
-          function(begin, end, type = c("daily", "3-hourly"), 
-                   dsn = getwd(), format = "%Y-%m-%d") {
+#' @aliases downloadTRMM
+downloadTRMM <- function(begin, end, type = c("daily", "3-hourly"), 
+                         dsn = ".", xml = FALSE, overwrite = FALSE, 
+                         cores = 1L, ...) {
   
   ## transform 'begin' and 'end' to 'Date' object if necessary
-  begin <- strptime(begin, format = format)
-  end <- strptime(end, format = format)
-
-  downloadTRMM(begin = begin, end = end, type = type[1], dsn = dsn)
-})
+  if (!inherits(begin, "Date"))
+    begin <- as.Date(begin, ...)
   
+  if (!inherits(end, "Date"))
+    end <- as.Date(end, ...)
   
-################################################################################
-### function using 'POSIXlt' input -----
-#' @aliases downloadTRMM,POSIXlt-method
-#' @rdname downloadTRMM
-setMethod("downloadTRMM",
-          signature(begin = "POSIXlt"),
-          function(begin, end, type = c("daily", "3-hourly"), dsn = getwd()) {
-
-  ## tile server
-  ftp <- trmmServer(type = type[1])
+  ## create online and offline target files
+  onl <- getTRMMFiles(begin, end, type, xml)
+  ofl <- paste(dsn, basename(onl), sep = "/")
   
-  ## download daily data
-  if (type[1] == "daily") {
-    do.call("rbind", lapply(seq(as.Date(begin), as.Date(end), 1), function(i) {
-      
-      # trmm date naming convention
-      drs <- paste0(ftp, strftime(i, format = "%Y/%j/"))
-      nms <- strftime(i + 1, format = "%Y.%m.%d")
-      
-      # list files available on server
-      fls <- fls_out <- character(2L)
-      
-      for (j in 1:2) {
-        fls[j] <- paste0(drs, "3B42_daily.", nms, ".7", 
-                         ifelse(j == 1, ".bin", ".bin.xml"))
-        fls_out[j] <- paste0(dsn, "/", basename(fls[j]))
-        
-        # if required, download current file  
-        if (!file.exists(fls_out[j]))
-          download.file(fls[j], fls_out[j], mode = "wb")
-      }
-      
-      # return data frame with *.bin and *.xml filenames
-      xml <- grep("xml", fls_out)
-      data.frame(bin = fls_out[-xml], xml = fls_out[xml], 
-                 stringsAsFactors = FALSE)
-    }))
+  ## parallelization
+  cl <- parallel::makePSOCKcluster(cores)
+  parallel::clusterExport(cl, c("onl", "ofl", "overwrite"), 
+                          envir = environment())
+  on.exit(parallel::stopCluster(cl))
+  
+  ## download
+  parallel::parSapply(cl, 1:length(onl), function(i) {
+    if (!file.exists(ofl[i]) | overwrite)
+      jnk <- utils::download.file(onl[i], ofl[i], mode = "wb")
     
-  ## download 3-hourly data  
+    return(ofl[i])
+  })
+}
+
+
+### helper function to create TRMM daily or 3-hourly filenames -----
+
+getTRMMFiles <- function(begin, end, type = c("daily", "3-hourly"), 
+                         xml = FALSE) {
+
+  ## trmm ftp server
+  ftp <- "ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/"
+  
+  ## daily product
+  if (type[1] == "daily") {  
+    
+    # online filepath to daily files
+    ftp <- paste0(ftp, "TRMM_3B42_Daily.7")
+    
+    # create target filenames
+    sqc <- seq(begin, end, "day")
+    
+    onl <- strftime(sqc, "%Y/%m/3B42_Daily.%Y%m%d.7.nc4")
+    onl <- paste(ftp, onl, sep = "/")
+    if (xml) onl <- sort(c(onl, paste0(onl, ".xml")))
+   
+  ## 3-hourly product   
   } else if (type[1] == "3-hourly") {
-
-    # 3-hourly sequence
-    hrs <- c(seq(3, 21, 3), 0)
     
-    # loop over single days
-    dys <- if (strftime(end, "%H") != "00") { 
-      seq(as.Date(begin), as.Date(end), 1)
-    } else {
-      seq(as.Date(begin), as.Date(end) - 1, 1)
-    }
+    # online filepath to 3-hourly files
+    ftp <- paste0(ftp, "TRMM_3B42.7/")
+
+    # create target folder structure
+    begin <- as.POSIXct(paste(begin, "00:00:00"))
+    end <- as.POSIXct(paste(end, "21:00:00"))
+    sqc <- seq(begin, end, "3 hours")
     
-    do.call("rbind", lapply(dys, function(i) {
-      drs <- paste0(ftp, strftime(i, format = "%Y/%j/"))
+    ftp <- paste0(ftp, strftime(sqc, "%Y/%j"))
+    
+    ## create target filenames
+    sqc <- sqc + 3 * 60 * 60
+    onl <- paste0(ftp, strftime(sqc, "/3B42.%Y%m%d.%H.7.HDF"))
 
-      ## start day
-      if (i == as.Date(begin)) {
-        
-        nxt <- hrs - as.integer(strftime(begin, "%H"))
-        
-        # before midnight
-        if (any(nxt < 0)) {
-          nxt <- which(nxt >= 0)[1]
-          hr3 <- seq(strptime(paste(i, hrs[nxt]), format = "%Y-%m-%d %H"), 
-                     strptime(paste(i + 1, hrs[length(hrs)]), format = "%Y-%m-%d %H"), 
-                     "3 hours")
-          
-        # midnight    
-        } else {
-          nxt <- length(hrs)
-          hr3 <- strptime(paste(i + 1, hrs[length(hrs)]), format = "%Y-%m-%d %H")
-        }
-      
-      ## end day    
-      } else if (i == as.Date(end) | 
-                 (i == as.Date(end) - 1 & strftime(end, "%H") == "00")) {
-        
-        lst <- hrs - as.integer(strftime(end, "%H"))
-        
-        # before midnight
-        if (any(lst < 0)) {
-          lst <- which(lst > 0)[1] - 1
-          hr3 <- seq(strptime(paste(i, hrs[1]), format = "%Y-%m-%d %H"), 
-                     strptime(paste(i, hrs[lst]), format = "%Y-%m-%d %H"), 
-                     "3 hours")
-          
-        # midnight  
-        } else {
-          hr3 <- seq(strptime(paste(i, hrs[1]), format = "%Y-%m-%d %H"), 
-                     strptime(paste(i + 1, hrs[length(lst)]), format = "%Y-%m-%d %H"), 
-                     "3 hours")
-        }
-        
-      ## intermediary day  
-      } else {
-        hr3 <- seq(strptime(paste(i, "03"), format = "%Y-%m-%d %H"), 
-                   strptime(paste(i + 1, hrs[length(hrs)]), format = "%Y-%m-%d %H"), 
-                   "3 hours")
-      }
-        
-      fls <- paste0("3B42.", strftime(hr3, format = "%Y%m%d.%H.7.HDF"))
-      fls_Z <- paste0(drs, fls, ".Z")
-      fls_xml <- paste0(drs, fls, ".xml")
-      
-      fls_out_Z <- paste0(dsn, "/", basename(fls_Z))
-      fls_out_xml <- paste0(dsn, "/", basename(fls_xml))
-      
-      for (j in seq(fls)) {
-        if (!file.exists(fls_out_Z[j]))
-          download.file(fls_Z[j], fls_out_Z[j], mode = "wb")
-        
-        if (!file.exists(fls_out_xml[j]))
-        download.file(fls_xml[j], fls_out_xml[j], mode = "wb")
-      }
-      
-      # return data frame with *.Z and *.xml filenames
-      data.frame(Z = fls_out_Z, xml = fls_out_xml, 
-                 stringsAsFactors = FALSE)
-      
-
-    }))
+    if (xml) onl <- sort(c(onl, paste0(onl, ".xml")))
+    
+  ## product not available  
+  } else {
+    stop("Specified product not available, see ?downloadTRMM for available options.\n")
   }
-})
+ 
+  return(onl)   
+}

@@ -2,45 +2,50 @@
 % Please edit documentation in R/rasterizeTRMM.R
 \name{rasterizeTRMM}
 \alias{rasterizeTRMM}
-\title{Rasterize TRMM 3B42 binary data}
+\title{Rasterize TRMM 3B42 Data}
 \usage{
-rasterizeTRMM(binary, meta, write_out = TRUE)
+rasterizeTRMM(x, ...)
 }
 \arguments{
-\item{binary}{Character. TRMM binary file (*.bin).}
+\item{x}{\code{character}. TRMM 3B42 file(s). Currently supported filetypes 
+are .bin and .HDF. Note that \code{\link{rasterizeTRMMbin}} takes one file 
+only.}
 
-\item{meta}{Character. Corresponding metadata file (*.xml).}
-
-\item{write_out}{Logical. Enables output storage.}
+\item{...}{Additional arguments passed to \code{\link{rasterizeTRMMbin}} or 
+\code{\link{rasterizeTRMMhdf}}.}
 }
 \value{
-A \code{RasterLayer} object.
+\itemize{
+\item{\strong{.bin files}: A single \code{RasterLayer} object.}
+\item{\strong{.HDF files}: A \code{list} of \code{Raster*} objects.}
+}
 }
 \description{
-Rasterize TRMM 3B42 daily binary data, e.g. previously downloaded via 
-\code{\link{downloadTRMM}}.
+Rasterize TRMM 3B42 .bin or .HDF files.
 }
 \examples{
  
 \dontrun{
-## download TRMM 3B42 data from Jan 1 to Jan 5, 2015
-fls_trmm <- downloadTRMM(begin = "2015-01-01", end = "2015-01-05")
+## download 3-hourly TRMM 3B42 data from Jan 1, 2015
+fls <- downloadTRMM(begin = "2015-01-01", end = "2015-01-01", 
+                    type = "3-hourly")
+fls[1]                     
 
 ## rasterize
-rst_trmm <- rasterizeTRMM(binary = fls_trmm[1, 1], meta = fls_trmm[1, 2], 
-                          write_out = FALSE)
-                            
-plot(rst_trmm)                                     
+library(rworldmap)
+eth <- subset(countriesCoarse, ADMIN == "Ethiopia")
+rst <- rasterizeTRMM(fls, ext = eth)
+
+## visualize
+plot(rst[[1]])
 }
-              
+
 }
 \author{
 Florian Detsch
 }
-\references{
-\url{https://stat.ethz.ch/pipermail/r-sig-geo/attachments/20110913/5ece92b0/attachment.pl}
-}
 \seealso{
-\code{\link{readBin}}, \code{\link{downloadTRMM}}
+\code{\link{downloadTRMM}}, \code{\link{readBin}}, 
+\code{\link{rasterizeTRMMbin}}, \code{\link{rasterizeTRMMhdf}}.
 }
 
