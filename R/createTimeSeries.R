@@ -20,8 +20,10 @@
 #' ## 24 hrs
 #' createTimeSeries("1990-01-01 00:00:00", "1990-01-01 23:00:00", step = 60 * 60)
 #' 
+#' \dontrun{
 #' ## 365 days
 #' createTimeSeries("1990-01-01 00:00:00", "1990-12-31 23:00:00", step = 60 * 60 * 24)
+#' }
 #' 
 #' @export createTimeSeries
 

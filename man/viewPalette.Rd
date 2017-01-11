@@ -17,6 +17,7 @@ viewPalette(col, border = "transparent", name = "")
 This will create a plot of a color ramp
 }
 \examples{
+\dontrun{
 library(colorspace)
 library(viridisLite)
 
@@ -34,6 +35,7 @@ out <- lapply(seq(clrs), function(i) {
 })
 
 latticeCombineGrid(out)
+}
 
 }
 \author{

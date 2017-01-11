@@ -18,10 +18,12 @@
 #' \code{\link{read.table}}
 #' 
 #' @examples
+#' \dontrun{
 #' #### Example 1: Read a table of hourly global data downloaded using advanced download option
 #' 
 #' file=system.file("ClimateStationData.txt", package="Rsenal")
 #' readCDO(file)
+#' }
 #' 
 #' @aliases readCDO
 #' @export readCDO

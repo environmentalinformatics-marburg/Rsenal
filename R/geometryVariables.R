@@ -42,9 +42,11 @@
 #' @author Hanna Meyer
 #' @seealso \strong{SDMTools},  \code{clump}, \code{borg_indices}
 #' @examples
+#' \dontrun{
 #' RasterLayer <- raster(system.file("training.rst", package = "Rsenal"))
 #' shape <- geometryVariables(RasterLayer)
 #' plot(shape)
+#' }
 #' 
 #' @export geometryVariables
 #' @aliases geometryVariables

@@ -11,6 +11,7 @@
 #' Tim Appelhans
 #'
 #' @examples
+#' \dontrun{
 #' library(colorspace)
 #' library(viridisLite)
 #' 
@@ -28,6 +29,7 @@
 #' })
 #' 
 #' latticeCombineGrid(out)
+#' }
 #'
 #' @export viewPalette
 #' @aliases viewPalette
