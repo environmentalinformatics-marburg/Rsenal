@@ -32,7 +32,6 @@ Imports:
     lattice, 
     latticeExtra,
     maps,
-    OpenStreetMap,
     parallel,
     party,
     plotrix,
@@ -48,6 +47,8 @@ Imports:
     TSA,
     leaflet, 
     Rcpp (>= 0.11.3)
+Suggests:
+    OpenStreetMap
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 SystemRequirements: GNU make

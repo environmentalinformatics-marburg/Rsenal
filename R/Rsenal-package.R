@@ -31,7 +31,6 @@
 #' @importFrom ggplot2 ggplot_gtable ggplot_build
 #' @importFrom landsat histmatch
 #' @importFrom maps map
-#' @importFrom OpenStreetMap openmap openproj
 #' @importFrom plotrix thigmophobe
 #' @importFrom plyr round_any
 #' @importFrom Rcpp sourceCpp

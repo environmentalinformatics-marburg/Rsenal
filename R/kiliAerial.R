@@ -1,31 +1,35 @@
-#' Retrieve an (aerial) image of Mt. Kilimanjaro
+#' Retrieve a Bing (or Google) Maps Aerial Image
 #' 
 #' @description
-#' Based on functionalities offered by the R \bold{OpenStreetMap} package, 
-#' this function per default retrieves a Bing aerial image centered on Mt. 
-#' Kilimanjaro, Tanzania, that is aligned with the 8-km GIMMS NDVI grid covering 
-#' the region.
+#' Retrieve a Bing Maps aerial image centered on the Kilimanjaro region, 
+#' Tanzania, by default. This image is aligned with the 1/12-degree AVHRR GIMMS 
+#' NDVI grid covering the region. As an alternative, image retrieval is also 
+#' available through Google Maps which is also switched on automatically if the 
+#' \strong{OpenStreetMap} package is not available. 
 #' 
-#' @param upperLeft,lowerRight 'numeric'. Upper-left (lower-right) bounding box 
-#' coordinates passed on to \code{\link{openmap}}. If not supplied and 
-#' 'template' is missing, the returned image defaults to the extent of the study 
-#' area covered in \strong{Detsch et al. (2016)}.
-#' @param template 'Extent' object, or any object that is compatible with 
-#' \code{\link{extent}}. 
-#' @param projection 'character', defaults to "+init=epsg:21037". Output projection
-#' of the retrieved image, see \code{\link{openproj}}.
-#' @param type 'character', defaults to "bing". Tile server from which to get the
-#' map. 
-#' @param ... Further arguments passed on to \code{\link{openmap}}. 
+#' @param upperLeft,lowerRight \code{numeric}. Bounding box coordinates in the 
+#' form \code{c(lat, long)}. If not specified and 'template' is missing, the 
+#' resulting image defaults to the spatial extent of the study area covered in 
+#' \strong{Detsch et al. (2016; see References)}.
+#' @param template \code{Extent}, or any object from which an \code{Extent} can 
+#' be extracted, see \code{\link[raster]{crop}}. 
+#' @param projection \code{character}, defaults to \code{"+init=epsg:4326"} 
+#' (\url{http://spatialreference.org/ref/epsg/wgs-84/}). Desired coordinate 
+#' reference system of the retrieved image.
+#' @param type \code{character}. Tile server from which to download data. 
+#' Currently available options are \code{"bing"} (default; only valid if 
+#' \strong{OpenStreetMap} is available) and \code{google}. 
+#' @param ... Additional arguments passed to \code{OpenStreetMap::openmap}. 
 #' 
 #' @return
-#' An RGB 'RasterStack' object.
+#' A 3-layered (i.e., RGB) \code{RasterStack} object.
 #' 
 #' @author
 #' Florian Detsch
 #' 
 #' @seealso
-#' \code{\link{openmap}}, \code{\link{openproj}}, \code{\link{gmap}}.
+#' \code{openmap} and \code{openproj} in \strong{OpenStreetMap}, 
+#' \code{\link{gmap}}.
 #' 
 #' @references 
 #' Detsch F, Otte I, Appelhans T, Nauss T (2016) Seasonal and long-term 
@@ -35,17 +39,14 @@
 #' 
 #' @examples  
 #' \dontrun{
-#' ## download high-resolution image
-#' img <- kiliAerial(minNumTiles = 12L)
-#' 
-#' ## create figure
+#' img <- kiliAerial(minNumTiles = 12L, projection = "+init=epsg:21037")
 #' plotRGB(img)
 #' }          
 #'                    
 #' @export kiliAerial
-#' @aliases kiliAerial
+#' @name kiliAerial
 kiliAerial <- function(upperLeft, lowerRight, template = NULL, 
-                       projection = "+init=epsg:21037", 
+                       projection = "+init=epsg:4326", 
                        type = c("bing", "google"),
                        ...) {
  
@@ -54,8 +55,9 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
     template <- raster::extent(readRDS(system.file("extdata/gimms_grid.rds", 
                                                    package = "Rsenal")))
   
-  ## data retrieval via openstreetmap
-  if (type[1] == "bing") {
+  ## data retrieval via openstreetmap (if available)
+  if (type[1] == "bing" & 
+      requireNamespace("OpenStreetMap", quietly = TRUE)) {
     if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
     if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
     
@@ -71,6 +73,9 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
     
   ## data retrieval via google
   } else {
+    
+    if (!requireNamespace("OpenStreetMap", quietly = TRUE))
+      warning("Package 'OpenStreetMap' is not available. Retrieving image from Google Maps...\n")
     
     if (!(missing("upperLeft") & missing("lowerRight")))
       template <- raster::extent(upperLeft[2], lowerRight[2], 
