@@ -34,8 +34,8 @@ additional arguments passed to \code{\link{as.Date}}.}
 A \code{character} vector of local filepaths.
 }
 \description{
-Download TRMM 3B42 daily (NetCDF) or 3-hourly (HDF) files for a given time 
-span from the NASA FTP servers 
+Download TRMM 3B42 version 7 daily (NetCDF) or 3-hourly (HDF) files for a 
+given time span from the NASA FTP servers 
 (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
 }
 \examples{
@@ -51,6 +51,11 @@ downloadTRMM(begin = "2015-01-01", end = "2015-01-05", type = "3-hourly")
 }
 \author{
 Florian Detsch
+}
+\references{
+MacRitchie K (2015) README Document for the Tropical Rainfall Measurement 
+Mission (TRMM). Available online from 
+\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42.7/doc/TRMM_Readme_v3.pdf}.
 }
 \seealso{
 \code{\link{download.file}}.

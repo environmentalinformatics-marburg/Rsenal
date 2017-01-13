@@ -1,8 +1,8 @@
 #' Download TRMM 3B42 Data
 #' 
 #' @description
-#' Download TRMM 3B42 daily (NetCDF) or 3-hourly (HDF) files for a given time 
-#' span from the NASA FTP servers 
+#' Download TRMM 3B42 version 7 daily (NetCDF) or 3-hourly (HDF) files for a 
+#' given time span from the NASA FTP servers 
 #' (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
 #' 
 #' @param begin,end Start and end date as \code{Date} or \code{character}. 
@@ -29,6 +29,11 @@
 #' 
 #' @seealso
 #' \code{\link{download.file}}.
+#' 
+#' @references 
+#' MacRitchie K (2015) README Document for the Tropical Rainfall Measurement 
+#' Mission (TRMM). Available online from 
+#' \url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42.7/doc/TRMM_Readme_v3.pdf}.
 #' 
 #' @examples  
 #' \dontrun{
@@ -64,10 +69,38 @@ downloadTRMM <- function(begin, end, type = c("daily", "3-hourly"),
   
   ## download
   parallel::parSapply(cl, 1:length(onl), function(i) {
-    if (!file.exists(ofl[i]) | overwrite)
-      jnk <- utils::download.file(onl[i], ofl[i], mode = "wb")
     
-    return(ofl[i])
+    # if target file exists and overwrite is disabled, return local file
+    ofl1 <- ofl[i]; ofl2 <- gsub("7.HDF$", "7A.HDF", ofl[i])
+    if (any(file.exists(ofl1, ofl2)) & !overwrite) 
+      return(c(ofl1, ofl2)[which(file.exists(ofl1, ofl2))])
+      
+    # else try to download version-7
+    if (!file.exists(ofl[i]) | overwrite)
+      jnk1 <- try(utils::download.file(onl[i], ofl1, mode = "wb"), silent = TRUE)
+    
+    # if download of version-7 failed, try version-7a
+    if (inherits(jnk1, "try-error")) {
+      file.remove(ofl[i])
+      jnk2 <- try(utils::download.file(gsub("7.HDF$", "7A.HDF", onl[i]), ofl2, 
+                                       mode = "wb"), silent = TRUE)
+    }
+    
+    # if version-7 was found
+    if (!inherits(jnk1, "try-error")) {
+      return(ofl1)
+    # else if version-7a was found  
+    } else if (inherits(jnk1, "try-error") & exists("jnk2")) {
+      if (!inherits(jnk2, "try-error")) {
+        return(ofl2)
+      } else {
+        return(invisible())
+      }
+    # else throw warning  
+    } else {
+      warning("Couldn't find file ", onl[i], " (or *7A.HDF). Moving on to next file ...\n")
+      return(invisible())
+    }
   })
 }
 
@@ -108,6 +141,14 @@ getTRMMFiles <- function(begin, end, type = c("daily", "3-hourly"),
     
     ## create target filenames
     sqc <- sqc + 3 * 60 * 60
+    
+    # vrs <- ifelse(as.Date(sqc) >= as.Date("2000-01-01") & 
+    #                 as.Date(sqc) <= as.Date("2010-10-01"), "7A", "7")
+    # 
+    # onl <- do.call("c", lapply(1:length(sqc), function(i) {
+    #   paste0(ftp, strftime(sqc[i], paste0("/3B42.%Y%m%d.%H.", vrs[i], ".HDF")))
+    # }))
+    
     onl <- paste0(ftp, strftime(sqc, "/3B42.%Y%m%d.%H.7.HDF"))
 
     if (xml) onl <- sort(c(onl, paste0(onl, ".xml")))
