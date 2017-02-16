@@ -71,10 +71,9 @@ for (i in 1:nrow(df))
             just = pos2just(thigmophobe(coordinates(df)))[i])
               
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{grid.text}}, \code{\link{text}}, \code{\link{thigmophobe}}
 }
-
+\author{
+Florian Detsch
+}

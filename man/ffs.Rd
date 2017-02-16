@@ -72,11 +72,10 @@ ffsmodel <- ffs(iris[,1:4],iris$Species)
 ffsmodel$finalModel$xNames
 }
 }
-\author{
-Hanna Meyer
-}
 \seealso{
 \code{\link{train}},  \code{\link{bss}}, 
 \code{\link{trainControl}},\code{\link{rfe}}
 }
-
+\author{
+Hanna Meyer
+}

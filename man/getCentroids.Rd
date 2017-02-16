@@ -16,10 +16,9 @@ A numeric matrix of x and y coordinates.
 Determine a polygon's centroid based on information stored in slot 'labpt'.
 Taken from \url{http://linkedscience.org/tools/sparql-package-for-r/tutorial-part-ii-calculating-deforestation-per-state/}.
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{SpatialPolygons}}, \code{\link{SpatialPolygonsDataFrame}}
 }
-
+\author{
+Florian Detsch
+}

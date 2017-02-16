@@ -21,4 +21,3 @@ create a color palette using hcl color space
 \author{
 Tim Appelhans
 }
-

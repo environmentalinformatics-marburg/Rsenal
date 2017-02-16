@@ -14,4 +14,3 @@ data frame of KiLi FOR1246 Habitats and respective elevations
 \details{
 Note, the Habitats are ordered according to their mean elevation
 }
-

@@ -58,4 +58,3 @@ levelplot(volcano, panel = Rsenal:::panel.filledcontour,
 Tim Appelhans 
 (modified from: http://grokbase.com/t/r/r-help/089fhk4km2/r-creating-smooth-color-regions-with-panel-contourplot)
 }
-

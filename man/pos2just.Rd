@@ -29,10 +29,9 @@ pos <- sample(1:4, 5, replace = TRUE)
 pos2just(pos)
               
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{text}}, \code{\link{grid.text}}
 }
-
+\author{
+Florian Detsch
+}

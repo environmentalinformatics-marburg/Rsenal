@@ -2,8 +2,8 @@
 % Please edit documentation in R/Rsenal-package.R
 \docType{package}
 \name{Rsenal-package}
-\alias{Rsenal}
 \alias{Rsenal-package}
+\alias{Rsenal}
 \title{Rsenal: magic functions for things various}
 \description{
 an Rsenal of functions by Environmentalinformatics Marburg
@@ -25,4 +25,3 @@ Hanna Meyer, Spaska Forteva, Thomas Nauss, Stefan Woellauer\cr
 \emph{Maintainer:} Tim Appelhans \email{tim.appelhans@gmail.com}
 }
 \keyword{package}
-

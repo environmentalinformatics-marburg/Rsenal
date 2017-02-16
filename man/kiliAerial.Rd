@@ -44,9 +44,6 @@ plotRGB(img)
 }          
                    
 }
-\author{
-Florian Detsch
-}
 \references{
 Detsch F, Otte I, Appelhans T, Hemp A, Nauss T (2016) Seasonal and long-term 
 vegetation dynamics from 1-km GIMMS-based NDVI time series at Mt. 
@@ -57,4 +54,6 @@ online at \url{http://dx.doi.org/10.1016/j.rse.2016.03.007}.
 \code{openmap} and \code{openproj} in \strong{OpenStreetMap}, 
 \code{\link{gmap}}.
 }
-
+\author{
+Florian Detsch
+}

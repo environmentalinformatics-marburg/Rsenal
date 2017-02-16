@@ -26,10 +26,9 @@ levelplot(matrix(rnorm(10000), 100, 100),
           par.settings = envinmr.theme(), at = seq(-5, 5, 0.1))
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{theEconomist.theme}}
 }
-
+\author{
+Tim Appelhans
+}

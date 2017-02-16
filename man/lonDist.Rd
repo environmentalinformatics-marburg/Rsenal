@@ -37,4 +37,3 @@ lonDist(lon_min = 0, lat = 0)
 \author{
 Florian Detsch
 }
-

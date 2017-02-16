@@ -123,9 +123,6 @@ kstat(LUC1990,trainingSites,mask="0")
 #http://giswerk.org/doku.php?id=people:c:creudenbach:alpenwerk:achtunglawine
 
 }
-\author{
-Hanna Meyer
-}
 \references{
 Cohen, J., (1960): A coefficient of agreement for nominal scales, Educational and Psychological Measurements, 20: 37-46.
 Fleiss, J.L., (1981): Statistical Methods for Rates and Proportions (2nd edition). John Wiley and Sons, New York, NY, 321 pp.
@@ -138,4 +135,6 @@ Pontius, R.G., Jr., and Millones, M. (2011): Death to Kappa: Birth of Quantity D
 \seealso{
 For returning only the contingency table see \code{\link{ctab}}.
 }
-
+\author{
+Hanna Meyer
+}

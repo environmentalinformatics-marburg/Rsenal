@@ -23,10 +23,9 @@ Split one or multiple \code{Raster*} object(s) into a given number of
 horizontal and vertical slices. Inspired by 
 \url{http://java.dzone.com/articles/use-gdal-r-console-split}.
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{gdal_translate}}, \code{\link{GDALinfo}}
 }
-
+\author{
+Florian Detsch
+}
