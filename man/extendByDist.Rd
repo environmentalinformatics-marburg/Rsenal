@@ -33,9 +33,10 @@ extent(gmap_hel)
 extendByDist(gmap_hel, width = .1)
 
 }
-\seealso{
-\code{\link{extend}}, \code{\link{extent}}
-}
 \author{
 Florian Detsch
 }
+\seealso{
+\code{\link{extend}}, \code{\link{extent}}
+}
+

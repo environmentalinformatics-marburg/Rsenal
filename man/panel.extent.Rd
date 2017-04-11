@@ -32,3 +32,4 @@ spplot(rst) + layer(panel.extent(ex))
 \author{
 Tim Appelhans
 }
+

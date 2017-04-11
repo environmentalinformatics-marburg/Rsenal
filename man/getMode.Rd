@@ -31,3 +31,4 @@ getMode(df, 2)
 \author{
 Tim Appelhans, Florian Detsch
 }
+

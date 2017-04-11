@@ -54,9 +54,10 @@ plot(trainingSites,main="Training sites (Ground truth)")
 ctab(LUC1990,trainingSites,mask="0")
 
 }
-\seealso{
-For calculation of kappa indices see \code{\link{kstat}}
-}
 \author{
 Hanna Meyer
 }
+\seealso{
+For calculation of kappa indices see \code{\link{kstat}}
+}
+

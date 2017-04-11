@@ -34,9 +34,10 @@ inference tree (see ?ctree for details) by calculating various scores,
 e.g. accuracy, probability of detection, and false alarm ratio. See
 \url{http://cawcr.gov.au/projects/verification/} for further information.
 }
-\seealso{
-\code{\link{ctree}}, \code{\link{ctree_control}}.
-}
 \author{
 Florian Detsch
 }
+\seealso{
+\code{\link{ctree}}, \code{\link{ctree_control}}.
+}
+

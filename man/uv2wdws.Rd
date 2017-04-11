@@ -32,9 +32,10 @@ uv <- wdws2uv(wd, ws)
 uv2wdws(uv[, 1], uv[, 2]) 
 
 }
-\seealso{
-\code{\link{wdws2uv}}
-}
 \author{
 Tim Appelhans
 }
+\seealso{
+\code{\link{wdws2uv}}
+}
+

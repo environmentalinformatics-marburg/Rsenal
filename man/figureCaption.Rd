@@ -49,3 +49,4 @@ figureCaption(p2, "Fig. 2: Some color coded random numbers.",
 \author{
 Tim Appelhans
 }
+

@@ -41,3 +41,4 @@ latticeCombineGrid(out)
 \author{
 Tim Appelhans
 }
+

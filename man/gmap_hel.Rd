@@ -17,3 +17,4 @@ For a more detailed description of the applied analysis, please refer to
 \url{https://www.researchgate.net/publication/281716190_Unsupervised_classification_of_Google_maps_imagery_in_R} 
 (accessed on January 27, 2016).
 }
+

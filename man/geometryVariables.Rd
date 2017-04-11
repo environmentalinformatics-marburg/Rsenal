@@ -59,9 +59,10 @@ plot(shape)
 }
 
 }
-\seealso{
-\strong{SDMTools},  \code{clump}, \code{borg_indices}
-}
 \author{
 Hanna Meyer
 }
+\seealso{
+\strong{SDMTools},  \code{clump}, \code{borg_indices}
+}
+

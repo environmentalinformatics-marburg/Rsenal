@@ -33,9 +33,10 @@ gmap_hel_veg <- vvi(gmap_hel)
 plot(gmap_hel_veg, col = brewer.pal(5, "BrBG"), alpha = .5, add = TRUE)
 
 }
-\references{
-Planetary Habitability Laboratory (2015): Visible Vegetation Index (VVI). Available online via \url{http://phl.upr.edu/projects/visible-vegetation-index-vvi}.
-}
 \author{
 Florian Detsch, Tim Appelhans
 }
+\references{
+Planetary Habitability Laboratory (2015): Visible Vegetation Index (VVI). Available online via \url{http://phl.upr.edu/projects/visible-vegetation-index-vvi}.
+}
+

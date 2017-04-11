@@ -6,14 +6,13 @@ Date: 2017-01-11
 Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer,
     Spaska Forteva, Thomas Nauss
 Maintainer: Florian Detsch <florian.detsch@staff.uni-marburg.de>
-Description: 
-    A compilation of R functions which we find useful for our day-to-day
-    business. Note that you are dealing with work in progress here, so we 
-    assume no liability.
+Description: A compilation of R functions which we find useful for our day-to-
+    day business. Note that you are dealing with work in progress here, so we assume
+    no liability.
 License: GPL (>=3) | file LICENSE
 Depends:
     methods,
-    raster, 
+    raster,
     sp,
     rgdal
 Imports:
@@ -25,37 +24,37 @@ Imports:
     foreach,
     gdalUtils,
     ggplot2,
-    graphics, 
+    graphics,
     grDevices,
-    grid, 
+    grid,
     gridBase,
     gridExtra,
     hflights,
     landsat,
-    lattice, 
+    lattice,
     latticeExtra,
     maps,
     parallel,
     party,
     plotrix,
     plyr,
-    RColorBrewer, 
+    RColorBrewer,
     reshape2,
     rgeos,
     roxygen2,
     satellite,
     scales,
-    SDMTools, 
+    SDMTools,
     tagcloud,
     TSA,
     utils,
-    leaflet, 
+    leaflet,
     Rcpp (>= 0.11.3)
 Suggests:
     colorspace,
     igraph,
-    OpenStreetMap, 
+    OpenStreetMap,
     viridisLite
 LinkingTo: Rcpp
-RoxygenNote: 6.0.1
+RoxygenNote: 5.0.1
 SystemRequirements: GNU make

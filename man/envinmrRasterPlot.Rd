@@ -52,9 +52,10 @@ p3
 latticeCombineGrid(list(p2, p1, p3))
 
 }
-\seealso{
-\code{\link{update.trellis}}, \code{\link{spplot}}
-}
 \author{
 Tim Appelhans
 }
+\seealso{
+\code{\link{update.trellis}}, \code{\link{spplot}}
+}
+

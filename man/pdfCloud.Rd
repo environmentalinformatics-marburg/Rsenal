@@ -38,9 +38,10 @@ this function creates a wordcloud by converting a bunch of pdf files to
 txt files. Optionally, a file with common words to be excluded can be 
 supplied. See \code{\link{tagcloud}} for details on the cloud building.
 }
-\seealso{
-\code{\link{tagcloud}}
-}
 \author{
 Tim Appelhans
 }
+\seealso{
+\code{\link{tagcloud}}
+}
+

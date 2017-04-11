@@ -33,9 +33,10 @@ readCDO(file)
 }
 
 }
-\seealso{
-\code{\link{read.table}}
-}
 \author{
 Hanna Meyer
 }
+\seealso{
+\code{\link{read.table}}
+}
+

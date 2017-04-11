@@ -28,12 +28,13 @@ p_legend <- ggExtractLegend(p)
 grid.draw(p_legend)
               
 }
+\author{
+Florian Detsch
+}
 \references{
 \url{https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots}
 }
 \seealso{
 \code{\link{ggplot}}, \code{\link{ggplot_gtable}}
 }
-\author{
-Florian Detsch
-}
+

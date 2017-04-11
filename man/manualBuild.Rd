@@ -27,9 +27,10 @@ manualBuild()
 }
 
 }
-\seealso{
-\code{\link{roxygenize}}, \code{\link[devtools]{build}},\code{\link{install.packages}}.
-}
 \author{
 Florian Detsch
 }
+\seealso{
+\code{\link{roxygenize}}, \code{\link[devtools]{build}},\code{\link{install.packages}}.
+}
+

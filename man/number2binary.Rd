@@ -29,9 +29,10 @@ number2binary(10, no_bits = 4)
 number2binary(10, no_bits = 4, to_char = TRUE)
 
 }
-\seealso{
-\code{\link{intToBits}}.
-}
 \author{
 Florian Detsch
 }
+\seealso{
+\code{\link{intToBits}}.
+}
+

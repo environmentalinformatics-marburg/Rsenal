@@ -49,6 +49,9 @@ downloadTRMM(begin = "2015-01-01", end = "2015-01-05", type = "3-hourly")
 }
               
 }
+\author{
+Florian Detsch
+}
 \references{
 MacRitchie K (2015) README Document for the Tropical Rainfall Measurement 
 Mission (TRMM). Available online from 
@@ -57,6 +60,4 @@ Mission (TRMM). Available online from
 \seealso{
 \code{\link{download.file}}.
 }
-\author{
-Florian Detsch
-}
+

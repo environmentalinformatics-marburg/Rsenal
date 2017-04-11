@@ -37,9 +37,10 @@ result$plot
 result$stats
 
 }
-\seealso{
-\code{\link{regressionStats}}
-}
 \author{
 Hanna Meyer and Tim Appelhans
 }
+\seealso{
+\code{\link{regressionStats}}
+}
+

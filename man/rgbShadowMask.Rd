@@ -33,12 +33,13 @@ plot(gmap_hel_wsh, axes = FALSE, legend = FALSE,
      col = c(rev(brewer.pal(9, "Greys"))), alpha = .25, add = TRUE)
 
 }
+\author{
+Florian Detsch, Tim Appelhans
+}
 \references{
 Deb, K. and Suny, A.H. (2014): Shadow Detection and Removal Based on YCbCr Color Space. Smart Computing Review 4, 23-33, doi:10.6029/smartcr.2014.01.003.
 }
 \seealso{
 \code{\link{rgb2YCbCr}}
 }
-\author{
-Florian Detsch, Tim Appelhans
-}
+

@@ -26,3 +26,4 @@ modeInteger(x)
 \author{
 Tim Appelhans
 }
+

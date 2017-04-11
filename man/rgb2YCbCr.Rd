@@ -31,9 +31,10 @@ plot(b_ycbcr,
      main = c("luminance", "blue-yellow chrominance", "green-red chrominance"))
 
 }
-\references{
-Deb, K. and Suny, A.H. (2014): Shadow Detection and Removal Based on YCbCr Color Space. Smart Computing Review 4, 23-33, doi:10.6029/smartcr.2014.01.003.
-}
 \author{
 Florian Detsch, Tim Appelhans
 }
+\references{
+Deb, K. and Suny, A.H. (2014): Shadow Detection and Removal Based on YCbCr Color Space. Smart Computing Review 4, 23-33, doi:10.6029/smartcr.2014.01.003.
+}
+

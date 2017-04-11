@@ -34,9 +34,10 @@ ioa(a, c)
 ioa(d, e)
 
 }
-\references{
-Matloff N. (2011), The Art of R Programming (and page 49 therein).
-}
 \author{
 Norman Matloff
 }
+\references{
+Matloff N. (2011), The Art of R Programming (and page 49 therein).
+}
+

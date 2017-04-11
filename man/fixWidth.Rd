@@ -27,3 +27,4 @@ fixWidth(c(1, 20, 300, 4000, 50000), 5)
 \author{
 Tim Appelhans
 }
+

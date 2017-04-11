@@ -28,3 +28,4 @@ standardFocalWindow(n = 5, center = 1)
 \author{
 Tim Appelhans
 }
+
