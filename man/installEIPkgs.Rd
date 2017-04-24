@@ -2,34 +2,41 @@
 % Please edit documentation in R/installEIPkgs.R
 \name{installEIPkgs}
 \alias{installEIPkgs}
-\title{download and install packages for envin-umr}
+\title{Download and install packages for envin-umr}
 \usage{
 installEIPkgs(cran.pkgs = NULL, git.pkgs = NULL, check = TRUE,
-  update = FALSE, MODIS = FALSE, dep = TRUE, ...)
+  update = FALSE, ...)
 }
 \arguments{
-\item{cran.pkgs}{character vector of packages to be installed from CRAN}
+\item{cran.pkgs}{\code{character} vector of packages to be installed from 
+CRAN.}
 
-\item{git.pkgs}{character vector of packages to be installed from GitHub (not yet implemented)}
+\item{git.pkgs}{\code{character} vector of packages to be installed from 
+GitHub (not yet implemented).}
 
-\item{check}{logical, whether to check if any packages specified in \code{cran.pkgs}
-are already installed and skip their installation}
+\item{check}{\code{logical}, determines whether to check if any packages 
+specified in 'cran.pkgs' are already installed and skip their installation.}
 
-\item{update}{logical, whether to run \code{update.packages()} after installation}
+\item{update}{\code{logical}, determines whether to run 
+\code{\link{update.packages}} after installation.}
 
-\item{MODIS}{logical, if TRUE MODIS package will be installed from r-forge}
-
-\item{dep}{logical, whether dependencies should be onstalled for specified packages}
-
-\item{...}{Currently not used.}
+\item{...}{Additional arguments passed to \code{\link{install.packages}}.}
 }
 \description{
-download and install a bunch of packages that we find useful for our 
-day-to-day workflow. If \code{cran.pkgs = NULL} a standard list of 
-packages will be downloaded and installed. If you supply a character
+Download and install a bunch of packages that we find useful for our 
+day-to-day workflow. If \code{cran.pkgs = NULL} (default), a standard list of 
+packages will be downloaded and installed. If you supply a \code{character}
 vector of packages, these wil be installed instead.
 }
-\author{
-Tim Appelhans
+\examples{
+\dontrun{
+installEIPkgs()
 }
 
+}
+\seealso{
+\code{\link{install.packages}}, \code{\link{install_github}}.
+}
+\author{
+Tim Appelhans, Florian Detsch
+}
