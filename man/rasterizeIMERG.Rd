@@ -23,4 +23,3 @@ http://disc.sci.gsfc.nasa.gov/recipes/?q=recipes/How-to-Import-HDF5-formatted-IM
 \author{
 Hanna Meyer
 }
-

@@ -21,4 +21,3 @@ se(a)
 \author{
 Tim Appelhans
 }
-

@@ -33,4 +33,3 @@ spplot(rst) + layer(panel.map("world"))
 \author{
 Tim Appelhans
 }
-

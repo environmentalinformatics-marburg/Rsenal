@@ -38,10 +38,9 @@ this function creates a wordcloud based on a character string.
 Optionally, a file with common words to be excluded can be 
 supplied. See \code{\link{tagcloud}} for details on the cloud building.
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{tagcloud}}
 }
-
+\author{
+Tim Appelhans
+}

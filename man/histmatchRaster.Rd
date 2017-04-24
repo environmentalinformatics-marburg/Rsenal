@@ -51,10 +51,9 @@ raw_p + as.layer(densityplot(fixed[], xlim = c(80, 160),
                  plot.points = FALSE, col = "black", lty = 2))
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link[landsat]{histmatch}}
 }
-
+\author{
+Tim Appelhans
+}

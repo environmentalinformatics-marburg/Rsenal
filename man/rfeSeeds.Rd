@@ -26,4 +26,3 @@ rfeSeeds(1:9, 3)
 \author{
 Tim Appelhans (largely taken from the examples of \code{\link[caret]{rfeControl}})
 }
-

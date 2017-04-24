@@ -5,7 +5,7 @@
 \title{bump package 'Version:' and 'Date:' in DESCRIPTION file}
 \usage{
 bumpVersion(element = "patch", pkg.repo = ".", news = file.path(pkg.repo,
-  "NEWS"))
+  "NEWS.md"))
 }
 \arguments{
 \item{element}{character - one of "major", "minor", "patch" to be bumped.
@@ -26,4 +26,3 @@ Supported versioning system is major.minor.patch
 \author{
 Tim Appelhans
 }
-

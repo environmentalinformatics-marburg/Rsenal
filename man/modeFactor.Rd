@@ -28,4 +28,3 @@ modeFactor(hflights$FlightNum)
 \author{
 Tim Appelhans
 }
-

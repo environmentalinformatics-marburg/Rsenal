@@ -41,4 +41,3 @@ must be set in rfe training
 \author{
 Hanna Meyer, Tim Appelhans
 }
-

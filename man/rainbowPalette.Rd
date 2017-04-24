@@ -26,4 +26,3 @@ pal <- function(col, border = "transparent", ...) {
 pal(rainbowPalette(1000))
 
 }
-
