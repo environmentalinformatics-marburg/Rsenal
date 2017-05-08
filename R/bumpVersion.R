@@ -2,16 +2,22 @@
 #'
 #' @description
 #' this function let's you bump the version number and creation date of
-#' your package's DESCRIPTION file.
+#' your package's DESCRIPTION file. Additionally, it bumps the version 
+#' numbers of a NEWS.md file and automatically generates a corresponding 
+#' plain NEWS file (for R-help pages). 
 #' Supported versioning system is major.minor.patch
 #'
 #' @param element character - one of "major", "minor", "patch" to be bumped.
 #' Defaults to "patch"
 #' @param pkg.repo path to package repository folder. Default is current
-#' working directory
-#' @param news the NEWS file of the repo (assumed to be in top level path). 
+#' working directory (".")
+#' @param news the NEWS.md file of the repo (assumed to be in top level path). 
 #' If this exists, the first line of that file will be rewritten 
-#' to be "<packagename> <major.minor.patch>"
+#' to be "<packagename> <major.minor.patch>". Note that the current implementation 
+#' assumes that the NEWS file is in .md format, thus NEWS.md. A plain NEWS
+#' file (for R-help pages) will be generated automatically.
+#' @param plain_news whether to generate a plain NEWS file in the package
+#' root directory from the NEWS.md file supplied to argument \code{news}.
 #'
 #' @author
 #' Tim Appelhans
@@ -40,12 +46,12 @@ bumpVersion <- function(element = "patch", pkg.repo= ".",
   new.v <- new.v[1] * 100 + new.v[2] * 10 + new.v[3]
   old <- old[1] * 100 + old[2] * 10 + old[3]
 
-  desc[grep(glob2rx("Version*"), desc)] <- paste("Version: ", new.ver, sep = "")
-  desc[grep(glob2rx("Date*"), desc)] <- paste("Date:", Sys.Date(), sep = " ")
+  desc[grep(glob2rx("Version*"), desc)] <- paste0("Version: ", new.ver)
+  desc[grep(glob2rx("Date*"), desc)] <- paste0("Date: ", Sys.Date())
 
   writeLines(desc, paste(pkg.repo, "DESCRIPTION", sep = "/"))
 
-  ### pkg.name-package.Rd file
+  ### pkg.name-package.Rd file - if present
   pkg.name <- substr(desc[grep(glob2rx("Package:*"), desc)], 10,
                      nchar(desc[grep(glob2rx("Package:*"), desc)]))
 

@@ -5,22 +5,29 @@
 \title{bump package 'Version:' and 'Date:' in DESCRIPTION file}
 \usage{
 bumpVersion(element = "patch", pkg.repo = ".", news = file.path(pkg.repo,
-  "NEWS.md"))
+  "NEWS.md"), plain_news = TRUE)
 }
 \arguments{
 \item{element}{character - one of "major", "minor", "patch" to be bumped.
 Defaults to "patch"}
 
 \item{pkg.repo}{path to package repository folder. Default is current
-working directory}
+working directory (".")}
 
-\item{news}{the NEWS file of the repo (assumed to be in top level path). 
+\item{news}{the NEWS.md file of the repo (assumed to be in top level path). 
 If this exists, the first line of that file will be rewritten 
-to be "<packagename> <major.minor.patch>"}
+to be "<packagename> <major.minor.patch>". Note that the current implementation 
+assumes that the NEWS file is in .md format, thus NEWS.md. A plain NEWS
+file (for R-help pages) will be generated automatically.}
+
+\item{plain_news}{whether to generate a plain NEWS file in the package
+root directory from the NEWS.md file supplied to argument \code{news}.}
 }
 \description{
 this function let's you bump the version number and creation date of
-your package's DESCRIPTION file.
+your package's DESCRIPTION file. Additionally, it bumps the version 
+numbers of a NEWS.md file and automatically generates a corresponding 
+plain NEWS file (for R-help pages). 
 Supported versioning system is major.minor.patch
 }
 \author{
