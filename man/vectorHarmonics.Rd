@@ -30,10 +30,9 @@ This is a wrapper function around \code{\link{harmonic}} from
 the \code{TSA} package that constructs harmonic functions for fitting a
 harmonic trend model.
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{harmonic}}
 }
-
+\author{
+Tim Appelhans
+}

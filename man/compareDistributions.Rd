@@ -61,4 +61,3 @@ compareDistributions(rnorm(1000, 2, 5), rnorm(1000, -5, 4),
 \author{
 Tim Appelhans
 }
-

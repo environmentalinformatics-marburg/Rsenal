@@ -41,11 +41,10 @@ plot(rst[[1]])
 }
 
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{downloadTRMM}}, \code{\link{readBin}}, 
 \code{\link{rasterizeTRMMbin}}, \code{\link{rasterizeTRMMhdf}}.
 }
-
+\author{
+Florian Detsch
+}

@@ -55,10 +55,9 @@ plot(mask,main="Mask: Urban area 1990")
 roc(pred,obs,mask,th=25)
 
 }
-\author{
-Hanna Meyer
-}
 \seealso{
 For further functions related to model validation see \code{\link{ctab}} and \code{\link{kstat}}
 }
-
+\author{
+Hanna Meyer
+}

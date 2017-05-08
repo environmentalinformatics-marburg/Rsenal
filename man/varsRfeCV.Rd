@@ -34,4 +34,3 @@ metric to identify important variables.
 \author{
 Hanna Meyer, Tim Appelhans
 }
-

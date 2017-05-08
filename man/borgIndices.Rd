@@ -24,10 +24,9 @@ and Borg 1998: Vergleichende Analyse von Formindizes zur Charakterisierung
 von Landschaftsobjekten unter oekologischen Aspekten. 
 Zeitschrift fuer Photogrammetrie und Fernerkundung 4: 108-119.
 }
-\author{
-Hanna Meyer
-}
 \seealso{
 \code{\link{geometryVariables}}.
 }
-
+\author{
+Hanna Meyer
+}

@@ -58,11 +58,10 @@ bssmodel <- bss(iris[,1:4],iris$Species)
 bssmodel$finalModel$xNames
 }
 }
-\author{
-Hanna Meyer
-}
 \seealso{
 \code{\link{train}},  \code{\link{ffs}}, 
 \code{\link{trainControl}},\code{\link{rfe}}
 }
-
+\author{
+Hanna Meyer
+}

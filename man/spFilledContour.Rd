@@ -37,10 +37,9 @@ spFilledContour(x = meuse_rst)
 
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{panel.filledcontour}}
 }
-
+\author{
+Tim Appelhans
+}

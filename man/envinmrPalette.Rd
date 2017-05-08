@@ -26,10 +26,9 @@ p2 <- envinmrRasterPlot(p1, col.regions = envinmrPalette(100))
 p2
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{colorRampPalette}}
 }
-
+\author{
+Tim Appelhans
+}

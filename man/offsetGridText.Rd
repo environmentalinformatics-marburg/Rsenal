@@ -84,11 +84,10 @@ offsetGridText(x = coordinates(df_peaks), labels = c("Kibo", "Mawenzi", "Shira")
 }
                                
 }
-\author{
-Florian Detsch
-}
 \seealso{
 \code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
 \code{\link{calcOffsetGridText}}.
 }
-
+\author{
+Florian Detsch
+}

@@ -38,10 +38,9 @@ p <- latticeCombineLayer(plist)
 print(p)
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{as.layer}}
 }
-
+\author{
+Tim Appelhans
+}

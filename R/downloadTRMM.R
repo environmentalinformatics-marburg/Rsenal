@@ -3,7 +3,7 @@
 #' @description
 #' Download TRMM 3B42 version 7 daily (NetCDF) or 3-hourly (HDF) files for a 
 #' given time span from the NASA FTP servers 
-#' (\url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/}).
+#' (\url{https://disc3.nascom.nasa.gov/data/TRMM_L3/}).
 #' 
 #' @param begin,end Start and end date as \code{Date} or \code{character}. 
 #' @param type \code{character}. Temporal resolution of downloaded TRMM data. 
@@ -33,7 +33,7 @@
 #' @references 
 #' MacRitchie K (2015) README Document for the Tropical Rainfall Measurement 
 #' Mission (TRMM). Available online from 
-#' \url{ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/TRMM_3B42.7/doc/TRMM_Readme_v3.pdf}.
+#' \url{https://disc3.nascom.nasa.gov/data/TRMM_L3/TRMM_3B42.7/doc/TRMM_Readme_v6.pdf}.
 #' 
 #' @examples  
 #' \dontrun{

@@ -24,9 +24,6 @@ Rasterize a single TRMM 3B42 binary file (.bin).
 ## see ?rasterizeTRMM
 
 }
-\author{
-Florian Detsch
-}
 \references{
 GES DISC (2010) Readme for TRMM Product 3B42 (v6). Available online: 
 \url{ftp://ftp.iap.ac.cn/ftp/ds107_TRMM-3B42_0.25_3hour_hdf/TRMM_3B42_readme.htm}.
@@ -34,4 +31,6 @@ GES DISC (2010) Readme for TRMM Product 3B42 (v6). Available online:
 \seealso{
 \code{\link{readBin}}, \code{\link{downloadTRMM}}.
 }
-
+\author{
+Florian Detsch
+}

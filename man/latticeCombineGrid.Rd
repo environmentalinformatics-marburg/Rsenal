@@ -61,10 +61,9 @@ p2 <- latticeCombineGrid(plist, layout = c(1, 3))
 print(p2)
 
 }
-\author{
-Tim Appelhans
-}
 \seealso{
 \code{\link{c.trellis}}
 }
-
+\author{
+Tim Appelhans
+}

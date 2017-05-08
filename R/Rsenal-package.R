@@ -45,6 +45,9 @@
 #' @importFrom TSA harmonic
 #' @importFrom utils combn download.file glob2rx install.packages installed.packages modifyList read.csv update.packages
 #'
+#' @rawNamespace if (.Platform$OS.type=="windows") importFrom(grDevices,windowsFonts)
+#' @rawNamespace useDynLib(Rsenal, .registration = TRUE)
+#'
 #' @useDynLib Rsenal
 NULL
 #' 
