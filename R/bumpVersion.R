@@ -19,7 +19,8 @@
 #' @export bumpVersion
 #' @name bumpVersion
 bumpVersion <- function(element = "patch", pkg.repo= ".", 
-                        news = file.path(pkg.repo, "NEWS.md")) {
+                        news = file.path(pkg.repo, "NEWS.md"),
+                        plain_news = TRUE) {
 
   ### DESCRIPTION file
   desc <- readLines(paste(pkg.repo, "DESCRIPTION", sep = "/"))
@@ -65,6 +66,10 @@ bumpVersion <- function(element = "patch", pkg.repo= ".",
   if (file.exists(news)) {
     newsfile <- readLines(news)
     newsfile[1] <- paste("##", pkg.name, new.ver)
-    writeLines(newsfile, news)
+    writeLines(newsfile, con = news)
+    if (basename(news) == "NEWS.md") {
+      nfl = gsub("## ", "", newsfile)
+      writeLines(nfl, con = gsub(".md", "", news))
+    }
   }
 }
