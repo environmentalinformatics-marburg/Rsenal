@@ -2,24 +2,29 @@
 % Please edit documentation in R/pwGen.R
 \name{pwGen}
 \alias{pwGen}
-\title{generate passwords}
+\title{Generate Passwords}
 \usage{
 pwGen(ndigits, seed = 123, master = NULL)
 }
 \arguments{
-\item{ndigits}{desired number of digits}
+\item{ndigits}{Desired number of digits as \code{integer}.}
 
-\item{seed}{see \code{\link{set.seed}}}
+\item{seed}{See \code{\link{set.seed}}}
+
+\item{master}{Path to .mk master file for static password creation.}
 }
 \value{
-a password.
+A password.
 }
 \description{
-generates a password based on a desired number of digits and a random seed.
+Generates a password based on a desired number of digits and a random seed.
 }
 \examples{
 pwGen(4, seed = as.numeric(Sys.Date()))
 
+}
+\seealso{
+\code{\link{set.seed}}.
 }
 \author{
 Tim Appelhans

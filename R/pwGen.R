@@ -1,14 +1,17 @@
-#' generate passwords
+#' Generate Passwords
 #' 
-#' generates a password based on a desired number of digits and a random seed.
+#' Generates a password based on a desired number of digits and a random seed.
 #' 
-#' @param ndigits desired number of digits
-#' @param seed see \code{\link{set.seed}}
+#' @param ndigits Desired number of digits as \code{integer}.
+#' @param seed See \code{\link{set.seed}}
+#' @param master Path to .mk master file for static password creation.
 #' 
-#' @return a password.
+#' @return A password.
 #' 
 #' @author 
 #' Tim Appelhans
+#' 
+#' @seealso \code{\link{set.seed}}.
 #' 
 #' @examples 
 #' pwGen(4, seed = as.numeric(Sys.Date()))
