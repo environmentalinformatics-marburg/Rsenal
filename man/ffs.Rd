@@ -22,7 +22,7 @@ ffs(predictors, response, method = "rf",
 \item{maximize}{see \code{\link{train}}}
 
 \item{withinSD}{Logical Models are only selected if they are better than the 
-currently best models SD}
+currently best models Standard error}
 
 \item{trControl}{see \code{\link{train}}}
 

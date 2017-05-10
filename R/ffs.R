@@ -6,7 +6,7 @@
 #' @param metric see \code{\link{train}}
 #' @param maximize see \code{\link{train}}
 #' @param withinSD Logical Models are only selected if they are better than the 
-#' currently best models SD
+#' currently best models Standard error
 #' @param trControl see \code{\link{train}}
 #' @param tuneLength see \code{\link{train}}
 #' @param tuneGrid see \code{\link{train}}
@@ -91,8 +91,15 @@ ffs <- function (predictors,
     ### compare the model with the currently best model
     actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
     if(withinSD){
-      actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
-        which(model$results[,names(model$results)==metric]==actmodelperf)]
+      #sd:
+      #actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
+      #  which(model$results[,names(model$results)==metric]==actmodelperf)]
+      #se:
+      actmodelperfSD <- Rsenal::se(
+        sapply(unique(model$resample$Resample),
+               FUN=function(x){mean(model$resample[model$resample$Resample==x,
+                                                   metric])}))
+      
     }
     if (i == 1){
       bestmodelperf <- actmodelperf
