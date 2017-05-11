@@ -143,9 +143,15 @@ ffs <- function (predictors,
                      tuneGrid = tuneGrid)
       actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
       if(withinSD){
-        actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
-          which(model$results[,names(model$results)==metric]==actmodelperf)]
-      }
+        #actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
+        #  which(model$results[,names(model$results)==metric]==actmodelperf)]
+      
+        actmodelperfSD <- Rsenal::se(
+          sapply(unique(model$resample$Resample),
+                 FUN=function(x){mean(model$resample[model$resample$Resample==x,
+                                                     metric])}))
+        
+        }
       if(isBetter(actmodelperf,bestmodelperf,bestmodelperfSD,
                   maximize=maximize,withinSD=withinSD)){
         bestmodelperf <- actmodelperf 
