@@ -111,7 +111,7 @@ getTRMMFiles <- function(begin, end, type = c("daily", "3-hourly"),
                          xml = FALSE) {
 
   ## trmm ftp server
-  ftp <- "ftp://disc3.nascom.nasa.gov/data/s4pa/TRMM_L3/"
+  ftp <- "https://disc3.nascom.nasa.gov/data/TRMM_L3/"
   
   ## daily product
   if (type[1] == "daily") {  
