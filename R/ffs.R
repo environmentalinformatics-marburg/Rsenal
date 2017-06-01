@@ -111,7 +111,7 @@ ffs <- function (predictors,
       }
       bestmodel <- model
     } else{
-      if (isBetter(actmodelperf,bestmodelperf,maximize=maximize,withinSD=FALSE)){
+      if (isBetter(actmodelperf,bestmodelperf,maximization=maximize,withinSE=FALSE)){
         bestmodelperf <- actmodelperf 
         if(withinSD){
           bestmodelperfSD <- actmodelperfSD
@@ -156,7 +156,7 @@ ffs <- function (predictors,
         
         }
       if(isBetter(actmodelperf,bestmodelperf,bestmodelperfSD,
-                  maximize=maximize,withinSD=withinSD)){
+                  maximization=maximize,withinSE=withinSD)){
         bestmodelperf <- actmodelperf 
         if(withinSD){
           bestmodelperfSD <- actmodelperfSD
