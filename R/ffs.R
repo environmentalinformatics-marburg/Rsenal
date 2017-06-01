@@ -68,15 +68,18 @@ ffs <- function (predictors,
   acc <- 0
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
-  isBetter <- function (actmodelperf,bestmodelperf,bestmodelperfSD=NULL,maximize=maximize,
-                        withinSD=withinSD){
-    if(withinSD){
-      ifelse (!maximize, return(actmodelperf < bestmodelperf-bestmodelperfSD),
-              return(actmodelperf > bestmodelperf+bestmodelperfSD))
+  isBetter <- function (actmodelperf,bestmodelperf,
+                        bestmodelperfSD=NULL,
+                        maximization=maximize,
+                        withinSE=withinSD){
+    if(withinSE){
+      result <- ifelse (!maximization, actmodelperf < bestmodelperf-bestmodelperfSD,
+              actmodelperf > bestmodelperf+bestmodelperfSD)
     }else{
-      ifelse (!maximize, return(actmodelperf < bestmodelperf),
-              return(actmodelperf > bestmodelperf))
+      result <- ifelse (!maximization, actmodelperf < bestmodelperf,
+              actmodelperf > bestmodelperf)
     }
+    return(result)
   }
   #### chose initial best model from all combinations of two variables
   twogrid <- t(data.frame(combn(names(predictors),2)))
