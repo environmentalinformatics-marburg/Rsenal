@@ -26,7 +26,8 @@
 #' @export CreateSpacetimeFolds
 #' @aliases CreateSpacetimeFolds
 
-CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,k=10,seed=100){
+CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,
+                                 k=10,seed=sample(1:1000, 1)){
   require(caret)
   #split space into k folds
   if(!is.na(spacevar)){

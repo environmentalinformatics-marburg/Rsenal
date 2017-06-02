@@ -51,11 +51,11 @@ ffs <- function (predictors,
                  method = "rf",
                  metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
                  maximize = ifelse(metric == "RMSE", FALSE, TRUE),
-                 withinSD = TRUE,
+                 withinSD = FALSE,
                  trControl = trainControl(),
                  tuneLength = 3,
                  tuneGrid = NULL,
-                 seed = 100,
+                 seed = sample(1:1000, 1),
                  runParallel = FALSE,
                  ...){
   require(caret)
@@ -70,8 +70,8 @@ ffs <- function (predictors,
   if(!maximize) evalfunc <- function(x){min(x,na.rm=T)}
   isBetter <- function (actmodelperf,bestmodelperf,
                         bestmodelperfSD=NULL,
-                        maximization=maximize,
-                        withinSE=withinSD){
+                        maximization=FALSE,
+                        withinSE=FALSE){
     if(withinSE){
       result <- ifelse (!maximization, actmodelperf < bestmodelperf-bestmodelperfSD,
               actmodelperf > bestmodelperf+bestmodelperfSD)
