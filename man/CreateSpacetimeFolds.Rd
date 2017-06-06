@@ -4,7 +4,8 @@
 \alias{CreateSpacetimeFolds}
 \title{Create Space-time Folds}
 \usage{
-CreateSpacetimeFolds(x, spacevar = NA, timevar = NA, k = 10, seed = 100)
+CreateSpacetimeFolds(x, spacevar = NA, timevar = NA, k = 10,
+  seed = sample(1:1000, 1))
 }
 \arguments{
 \item{x}{data.frame containing spatio-temporal data}

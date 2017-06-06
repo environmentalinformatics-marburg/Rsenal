@@ -6,9 +6,9 @@
 \usage{
 ffs(predictors, response, method = "rf",
   metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
-  maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = TRUE,
+  maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = FALSE,
   trControl = trainControl(), tuneLength = 3, tuneGrid = NULL,
-  seed = 100, runParallel = FALSE, ...)
+  seed = sample(1:1000, 1), runParallel = FALSE, ...)
 }
 \arguments{
 \item{predictors}{see \code{\link{train}}}
@@ -39,7 +39,10 @@ currently best models Standard error}
 passed here.}
 }
 \value{
-A list of class train
+A list of class train. Beside of the usual train contentm
+the object contains the vector "selectedvars" and "selectedvars_perf"
+that give the order of the variables selected as well as their corresponding
+performance (starting from the first two variables)
 }
 \description{
 A simple forward feature selection algorithm
@@ -69,7 +72,8 @@ selection (\code{\link{bss}}).
  \dontrun{
 data(iris)
 ffsmodel <- ffs(iris[,1:4],iris$Species)
-ffsmodel$finalModel$xNames
+ffsmodel$selectedvars
+ffsmodel$selectedvars_perf 
 }
 }
 \seealso{

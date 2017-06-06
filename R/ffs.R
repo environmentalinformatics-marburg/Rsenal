@@ -50,7 +50,7 @@
 #' @export ffs
 #' @aliases ffs
 
-ffs2 <- function (predictors, 
+ffs <- function (predictors, 
                  response, 
                  method = "rf",
                  metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
