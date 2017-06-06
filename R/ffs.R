@@ -15,7 +15,10 @@
 #' @param ... arguments passed to the classification or regression routine 
 #' (such as randomForest). Errors will occur if values for tuning parameters are 
 #' passed here.
-#' @return A list of class train
+#' @return A list of class train. Beside of the usual train contentm
+#' the object contains the vector "selectedvars" and "selectedvars_perf"
+#' that give the order of the variables selected as well as their corresponding
+#' performance (starting from the first two variables)
 #' @details Models with two predictors are first trained using all possible 
 #' pairs of predictor variables. The best model of these initial models is kept.
 #' On the basis of this best model the predictor variables are iteratively
@@ -41,12 +44,13 @@
 #'  \dontrun{
 #' data(iris)
 #' ffsmodel <- ffs(iris[,1:4],iris$Species)
-#' ffsmodel$finalModel$xNames
+#' ffsmodel$selectedvars
+#' ffsmodel$selectedvars_perf 
 #' }
 #' @export ffs
 #' @aliases ffs
 
-ffs <- function (predictors, 
+ffs2 <- function (predictors, 
                  response, 
                  method = "rf",
                  metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
@@ -61,7 +65,7 @@ ffs <- function (predictors,
   require(caret)
   if(runParallel){
     require(doParallel)
-    cl <- makeCluster(detectCores())
+    cl <- makeCluster(detectCores()-2)
     registerDoParallel(cl)
   }
   n <- length(names(predictors))
@@ -94,10 +98,6 @@ ffs <- function (predictors,
     ### compare the model with the currently best model
     actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
     if(withinSD){
-      #sd:
-      #actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
-      #  which(model$results[,names(model$results)==metric]==actmodelperf)]
-      #se:
       actmodelperfSD <- Rsenal::se(
         sapply(unique(model$resample$Resample),
                FUN=function(x){mean(model$resample[model$resample$Resample==x,
@@ -125,6 +125,15 @@ ffs <- function (predictors,
   }
   #### increase the number of predictors by one (try all combinations) 
   #and test if model performance increases
+  selectedvars <- names(bestmodel$trainingData)[-which(
+    names(bestmodel$trainingData)==".outcome")]
+  if (maximize){
+  selectedvars_perf <- max(bestmodel$results[,metric])
+  } else{
+    selectedvars_perf <- min(bestmodel$results[,metric])
+  }
+  print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
+               " with ",metric," ",round(selectedvars_perf,3)))
   for (k in 1:(length(names(predictors))-2)){
     startvars <- names(bestmodel$trainingData)[-which(
       names(bestmodel$trainingData)==".outcome")]
@@ -133,6 +142,8 @@ ffs <- function (predictors,
     if (length(startvars)<(k+1)){
       message(paste0("Note: No increase in performance found using more than ",
                      length(startvars), " variables"))
+      bestmodel$selectedvars <- selectedvars
+      bestmodel$selectedvars_perf <- selectedvars_perf
       return(bestmodel)
       break()
     }
@@ -146,14 +157,10 @@ ffs <- function (predictors,
                      tuneGrid = tuneGrid)
       actmodelperf <- evalfunc(model$results[,names(model$results)==metric])
       if(withinSD){
-        #actmodelperfSD <- model$results[,names(model$results)==paste0(metric,"SD")][
-        #  which(model$results[,names(model$results)==metric]==actmodelperf)]
-      
         actmodelperfSD <- Rsenal::se(
           sapply(unique(model$resample$Resample),
                  FUN=function(x){mean(model$resample[model$resample$Resample==x,
                                                      metric])}))
-        
         }
       if(isBetter(actmodelperf,bestmodelperf,bestmodelperfSD,
                   maximization=maximize,withinSE=withinSD)){
@@ -162,14 +169,30 @@ ffs <- function (predictors,
           bestmodelperfSD <- actmodelperfSD
         }
         bestmodel <- model
-      }
+        if (maximize){
+          selectedvars_perf <- c(selectedvars_perf,max(bestmodel$results[,metric]))
+          print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
+                       " with ", metric," ",round(max(bestmodel$results[,metric]),3)))
+        }
+        if (!maximize){
+          selectedvars_perf <- c(selectedvars_perf,min(bestmodel$results[,metric]))
+          print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
+                       " with ",metric," ",round(min(bestmodel$results[,metric]),3)))
+        }
+
+        }
       acc <- acc+1
       print(paste0("maxmimum number of models that still need to be trained: ",
                    (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
+      selectedvars <- c(selectedvars,names(bestmodel$trainingData)[-which(
+        names(bestmodel$trainingData)%in%c(".outcome",selectedvars))])
+
     }
   }
   if(runParallel){
     stopCluster(cl)
   }
+  bestmodel$selectedvars <- selectedvars
+  bestmodel$selectedvars_perf <- selectedvars_perf
   return(bestmodel)
 }
