@@ -78,10 +78,10 @@ ffs <- function (predictors,
                         withinSE=FALSE){
     if(withinSE){
       result <- ifelse (!maximization, actmodelperf < bestmodelperf-bestmodelperfSD,
-              actmodelperf > bestmodelperf+bestmodelperfSD)
+                        actmodelperf > bestmodelperf+bestmodelperfSD)
     }else{
       result <- ifelse (!maximization, actmodelperf < bestmodelperf,
-              actmodelperf > bestmodelperf)
+                        actmodelperf > bestmodelperf)
     }
     return(result)
   }
@@ -128,7 +128,7 @@ ffs <- function (predictors,
   selectedvars <- names(bestmodel$trainingData)[-which(
     names(bestmodel$trainingData)==".outcome")]
   if (maximize){
-  selectedvars_perf <- max(bestmodel$results[,metric])
+    selectedvars_perf <- max(bestmodel$results[,metric])
   } else{
     selectedvars_perf <- min(bestmodel$results[,metric])
   }
@@ -143,7 +143,7 @@ ffs <- function (predictors,
       message(paste0("Note: No increase in performance found using more than ",
                      length(startvars), " variables"))
       bestmodel$selectedvars <- selectedvars
-      bestmodel$selectedvars_perf <- selectedvars_perf
+      bestmodel$selectedvars_perf <- selectedvars_perf[-which(x==length(selectedvars_perf))]
       return(bestmodel)
       break()
     }
@@ -161,7 +161,7 @@ ffs <- function (predictors,
           sapply(unique(model$resample$Resample),
                  FUN=function(x){mean(model$resample[model$resample$Resample==x,
                                                      metric])}))
-        }
+      }
       if(isBetter(actmodelperf,bestmodelperf,bestmodelperfSD,
                   maximization=maximize,withinSE=withinSD)){
         bestmodelperf <- actmodelperf 
@@ -169,24 +169,24 @@ ffs <- function (predictors,
           bestmodelperfSD <- actmodelperfSD
         }
         bestmodel <- model
-        if (maximize){
-          selectedvars_perf <- c(selectedvars_perf,max(bestmodel$results[,metric]))
-          print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
-                       " with ", metric," ",round(max(bestmodel$results[,metric]),3)))
-        }
-        if (!maximize){
-          selectedvars_perf <- c(selectedvars_perf,min(bestmodel$results[,metric]))
-          print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
-                       " with ",metric," ",round(min(bestmodel$results[,metric]),3)))
-        }
-
-        }
+        
+        
+      }
       acc <- acc+1
       print(paste0("maxmimum number of models that still need to be trained: ",
                    (((n-1)^2)+n-1)/2 + (((n-2)^2)+n-2)/2 - acc))
-      selectedvars <- c(selectedvars,names(bestmodel$trainingData)[-which(
-        names(bestmodel$trainingData)%in%c(".outcome",selectedvars))])
-
+    }
+    selectedvars <- c(selectedvars,names(bestmodel$trainingData)[-which(
+      names(bestmodel$trainingData)%in%c(".outcome",selectedvars))])
+    if (maximize){
+      selectedvars_perf <- c(selectedvars_perf,max(bestmodel$results[,metric]))
+      print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
+                   " with ", metric," ",round(max(bestmodel$results[,metric]),3)))
+    }
+    if (!maximize){
+      selectedvars_perf <- c(selectedvars_perf,min(bestmodel$results[,metric]))
+      print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
+                   " with ",metric," ",round(min(bestmodel$results[,metric]),3)))
     }
   }
   if(runParallel){
