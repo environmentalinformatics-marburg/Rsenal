@@ -5,7 +5,7 @@
 \title{Retrieve a Bing (or Google) Maps Aerial Image}
 \usage{
 kiliAerial(upperLeft, lowerRight, template = NULL,
-  projection = "+init=epsg:4326", type = c("bing", "google"), ...)
+  projection = "+init=epsg:4326", type = "bing", ...)
 }
 \arguments{
 \item{upperLeft, lowerRight}{\code{numeric}. Bounding box coordinates in the 
@@ -20,11 +20,12 @@ be extracted, see \code{\link[raster]{crop}}.}
 (\url{http://spatialreference.org/ref/epsg/wgs-84/}). Desired coordinate 
 reference system of the retrieved image.}
 
-\item{type}{\code{character}. Tile server from which to download data. 
-Currently available options are \code{"bing"} (default; only valid if 
-\strong{OpenStreetMap} is available) and \code{google}.}
+\item{type}{\code{character}. Tile server from which to download data, 
+defaults to "bing" (only valid if package \strong{OpenStreetMap} is 
+available). See \code{\link{openmap}} and \code{\link{gmap}} for currently 
+available options.}
 
-\item{...}{Additional arguments passed to \code{OpenStreetMap::openmap}.}
+\item{...}{Additional arguments passed to the underlying download functions.}
 }
 \value{
 A 3-layered RGB \code{RasterStack}.
@@ -33,7 +34,7 @@ A 3-layered RGB \code{RasterStack}.
 Retrieve a Bing Maps aerial image centered on the Kilimanjaro region, 
 Tanzania, by default. This image is aligned with the 1/12-degree AVHRR GIMMS 
 NDVI grid covering the region. As an alternative, image retrieval is also 
-available through Google Maps which is also switched on automatically if the 
+available through Google Maps which is switched on automatically if the 
 \strong{OpenStreetMap} package is not available.
 }
 \examples{

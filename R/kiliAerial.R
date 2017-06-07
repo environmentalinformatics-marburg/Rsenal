@@ -4,7 +4,7 @@
 #' Retrieve a Bing Maps aerial image centered on the Kilimanjaro region, 
 #' Tanzania, by default. This image is aligned with the 1/12-degree AVHRR GIMMS 
 #' NDVI grid covering the region. As an alternative, image retrieval is also 
-#' available through Google Maps which is also switched on automatically if the 
+#' available through Google Maps which is switched on automatically if the 
 #' \strong{OpenStreetMap} package is not available. 
 #' 
 #' @param upperLeft,lowerRight \code{numeric}. Bounding box coordinates in the 
@@ -16,10 +16,11 @@
 #' @param projection \code{character}, defaults to \code{"+init=epsg:4326"} 
 #' (\url{http://spatialreference.org/ref/epsg/wgs-84/}). Desired coordinate 
 #' reference system of the retrieved image.
-#' @param type \code{character}. Tile server from which to download data. 
-#' Currently available options are \code{"bing"} (default; only valid if 
-#' \strong{OpenStreetMap} is available) and \code{google}. 
-#' @param ... Additional arguments passed to \code{OpenStreetMap::openmap}. 
+#' @param type \code{character}. Tile server from which to download data, 
+#' defaults to "bing" (only valid if package \strong{OpenStreetMap} is 
+#' available). See \code{\link{openmap}} and \code{\link{gmap}} for currently 
+#' available options.
+#' @param ... Additional arguments passed to the underlying download functions. 
 #' 
 #' @return
 #' A 3-layered RGB \code{RasterStack}.
@@ -47,7 +48,7 @@
 #' @name kiliAerial
 kiliAerial <- function(upperLeft, lowerRight, template = NULL, 
                        projection = "+init=epsg:4326", 
-                       type = c("bing", "google"),
+                       type = "bing",
                        ...) {
  
   ## reference extent based on regular 8-km gimms grid
@@ -56,7 +57,7 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
                                                    package = "Rsenal")))
   
   ## data retrieval via openstreetmap (if available)
-  if (type[1] == "bing" & 
+  if (!(type[1] %in% c('roadmap', 'satellite', 'hybrid', 'terrain')) & 
       requireNamespace("OpenStreetMap", quietly = TRUE)) {
     if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
     if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
@@ -65,7 +66,7 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
       OpenStreetMap::openproj(
         OpenStreetMap::openmap(upperLeft = upperLeft, 
                                lowerRight = lowerRight, 
-                               type = "bing", ...), 
+                               type = type, ...), 
         projection = projection)
   
     # rasterization
@@ -81,11 +82,10 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
       template <- raster::extent(upperLeft[2], lowerRight[2], 
                                  lowerRight[1], upperLeft[1])
     
-    kili.map <- dismo::gmap(x = template, type = "satellite", scale = 2, 
-                            rgb = TRUE)
+    kili.map <- dismo::gmap(x = template, type = type, ...)
     
     kili.map <- raster::projectRaster(kili.map, crs = projection, 
-                                      method = "bilinear")
+                                      method = "ngb")
   }  
 
   return(kili.map)
