@@ -67,7 +67,7 @@ rgb2spLayout <- function(x,
     mat[, i] <- z
   }
 
-  cols <- grDevices::rgb(mat[, ], alpha = 1)
+  cols <- grDevices::rgb(mat[, ], alpha = alpha)
 
   map.cols <- matrix(cols,
                      nrow = raster::nrow(colim.recl),
