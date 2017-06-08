@@ -143,7 +143,7 @@ ffs <- function (predictors,
       message(paste0("Note: No increase in performance found using more than ",
                      length(startvars), " variables"))
       bestmodel$selectedvars <- selectedvars
-      bestmodel$selectedvars_perf <- selectedvars_perf[-which(x==length(selectedvars_perf))]
+      bestmodel$selectedvars_perf <- selectedvars_perf[-length(selectedvars_perf)]
       return(bestmodel)
       break()
     }
