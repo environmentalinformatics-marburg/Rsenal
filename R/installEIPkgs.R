@@ -51,7 +51,8 @@ installEIPkgs <- function(cran.pkgs = NULL,
                    "ncdf4", "OpenStreetMap", "party", "randomForest", "MODIS",
                    "rasterVis", "RColorBrewer", "Rcpp", "remote", "rgl", 
                    "spacetime", "spatial.tools", "stargazer", "stringr", 
-                   "TSA", "vcd", "xts", "zoo", "bfast", "httpuv", "shiny") 
+                   "TSA", "vcd", "xts", "zoo", "bfast", "httpuv", "shiny", 
+                   "plotrix", "RStoolbox") 
   }
   
   ## install cran packages (if required)
