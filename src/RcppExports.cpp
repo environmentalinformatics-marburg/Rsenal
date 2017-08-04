@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // findudC
 NumericVector findudC(NumericVector v);
-RcppExport SEXP Rsenal_findudC(SEXP vSEXP) {
+RcppExport SEXP _Rsenal_findudC(SEXP vSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // ioaC
 double ioaC(NumericVector x, NumericVector y);
-RcppExport SEXP Rsenal_ioaC(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _Rsenal_ioaC(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -27,4 +27,15 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(ioaC(x, y));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_Rsenal_findudC", (DL_FUNC) &_Rsenal_findudC, 1},
+    {"_Rsenal_ioaC", (DL_FUNC) &_Rsenal_ioaC, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_Rsenal(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

@@ -139,6 +139,4 @@ importFrom(utils,installed.packages)
 importFrom(utils,modifyList)
 importFrom(utils,read.csv)
 importFrom(utils,update.packages)
-useDynLib(Rsenal)
 useDynLib(Rsenal, .registration = TRUE)
-

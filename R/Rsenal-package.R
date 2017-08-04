@@ -47,8 +47,6 @@
 #'
 #' @rawNamespace if (.Platform$OS.type=="windows") importFrom(grDevices,windowsFonts)
 #' @rawNamespace useDynLib(Rsenal, .registration = TRUE)
-#'
-#' @useDynLib Rsenal
 NULL
 #' 
 #' @docType data 
