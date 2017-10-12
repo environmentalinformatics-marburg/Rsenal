@@ -3,59 +3,48 @@
 \name{stextGrob}
 \alias{stextGrob}
 \alias{grid.stext}
-\title{stextGrob}
+\title{Draw Shadow Text}
 \usage{
-stextGrob(label, r = 0.1, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-  just = "centre", hjust = NULL, vjust = NULL, rot = 0,
-  check.overlap = FALSE, default.units = "npc", name = NULL,
-  gp = gpar(), vp = NULL)
+stextGrob(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+  col = "white", fill = "black", r = 0.1, gp = gpar(), vp = NULL,
+  name = NULL, ...)
 }
 \arguments{
-\item{label}{see textGrob}
+\item{label}{A \code{character} or \code{\link{expression}} vector, see 
+\code{\link{textGrob}}.}
 
-\item{r}{blur radius}
+\item{x, y}{Horizontal and vertical text position as \code{\link{unit}} 
+objects passed to \code{\link{grid.text}}.}
 
-\item{x}{see textGrob}
+\item{col, fill}{Framing and fill color passed to \code{\link{gpar}}.}
 
-\item{y}{see textGrob}
+\item{r}{Blur radius of colored framing as \code{numeric}.}
 
-\item{just}{see textGrob}
+\item{name, gp, vp}{Graphical parameters passed to \code{\link{gTree}}.}
 
-\item{hjust}{see textGrob}
-
-\item{vjust}{see textGrob}
-
-\item{rot}{see textGrob}
-
-\item{check.overlap}{see textGrob}
-
-\item{default.units}{see textGrob}
-
-\item{name}{see textGrob}
-
-\item{gp}{see textGrob}
-
-\item{vp}{see textGrob}
+\item{...}{Additional arguments passed to \code{\link{grid.text}}.}
 }
 \value{
-gTree
+A text grob created by \code{\link{gTree}}.
 }
 \description{
-shadow text
-}
-\details{
-adds a blurred white version of a label below the text
+Create and draw shadow text by wrapping a textual expression into a colored 
+framing.
 }
 \examples{
 library(grid)
 grid.newpage()
-grid.rect(gp=gpar(fill="grey"))
+grid.rect(gp = gpar(fill = "grey"))
 grid.stext("test")
+
 }
-\seealso{
+\references{
 \url{https://github.com/baptiste/gridextra/blob/2c935bf9ec6d6d2a77cb0de2180b5e085d26ef39/R/stextGrob.r} 
 (accessed on January 28, 2016).
 }
+\seealso{
+\code{\link{grid.text}}.
+}
 \author{
-Baptiste Auguie
+Baptiste Auguie, Florian Detsch
 }
