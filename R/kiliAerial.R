@@ -18,7 +18,7 @@
 #' reference system of the retrieved image.
 #' @param type \code{character}. Tile server from which to download data, 
 #' defaults to "bing" (only valid if package \strong{OpenStreetMap} is 
-#' available). See \code{\link{openmap}} and \code{\link{gmap}} for currently 
+#' available). See \code{openmap} and \code{\link{gmap}} for currently 
 #' available options.
 #' @param ... Additional arguments passed to the underlying download functions. 
 #' 
