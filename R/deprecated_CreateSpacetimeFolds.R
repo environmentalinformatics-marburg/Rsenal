@@ -8,6 +8,7 @@
 #' @param k numeric. Number of folds. If spacevar or timevar is NA and a 
 #' leave one location out or leave one time step out cv should be performed,
 #' set k to the number of unique spatial or temporal units. 
+#' @param seed See \code{\link{set.seed}}.
 
 #' @return A list that contains a list for model training and a list for 
 #' model validation that can directly be used as "index" and "indexOut" in

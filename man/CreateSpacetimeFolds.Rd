@@ -19,6 +19,8 @@ temporal units (e.g. the day of the year)}
 \item{k}{numeric. Number of folds. If spacevar or timevar is NA and a 
 leave one location out or leave one time step out cv should be performed,
 set k to the number of unique spatial or temporal units.}
+
+\item{seed}{See \code{\link{set.seed}}.}
 }
 \value{
 A list that contains a list for model training and a list for 

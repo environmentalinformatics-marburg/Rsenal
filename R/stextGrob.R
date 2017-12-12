@@ -17,8 +17,8 @@
 #' 
 #' @seealso \code{\link{grid.text}}.
 #' 
-#' @references \url{https://github.com/baptiste/gridextra/blob/2c935bf9ec6d6d2a77cb0de2180b5e085d26ef39/R/stextGrob.r} 
-#' (accessed on January 28, 2016).
+#' @references \url{https://github.com/baptiste/gridplot/blob/master/R/tmatrix.r} 
+#' (accessed on 12 December 2017).
 #' @author Baptiste Auguie, Florian Detsch
 #' @family grob userlevel
 #' 
