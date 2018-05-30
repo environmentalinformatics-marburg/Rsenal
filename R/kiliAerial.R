@@ -20,7 +20,8 @@
 #' defaults to "bing" (only valid if package \strong{OpenStreetMap} is 
 #' available). See \code{openmap} and \code{\link{gmap}} for currently 
 #' available options.
-#' @param ... Additional arguments passed to the underlying download functions. 
+#' @param ... Additional arguments passed to the underlying download functions, 
+#' except for 'rgb' in \code{\link[dismo]{gmap}} which is set \code{TRUE}. 
 #' 
 #' @return
 #' A 3-layered RGB \code{RasterStack}.
@@ -57,8 +58,9 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
                                                    package = "Rsenal")))
   
   ## data retrieval via openstreetmap (if available)
-  if (!(type[1] %in% c('roadmap', 'satellite', 'hybrid', 'terrain')) & 
-      requireNamespace("OpenStreetMap", quietly = TRUE)) {
+  tps = try(formals(OpenStreetMap::openmap)$type, silent = TRUE)
+  
+  if (!inherits(tps, "try-error") & type %in% eval(tps)) {
     if (missing("upperLeft")) upperLeft <- c(ymax(template), xmin(template))
     if (missing("lowerRight")) lowerRight <- c(ymin(template), xmax(template))
     
@@ -67,7 +69,7 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
         OpenStreetMap::openmap(upperLeft = upperLeft, 
                                lowerRight = lowerRight, 
                                type = type, ...), 
-        projection = projection)
+        projection = projection, method = "ngb")
   
     # rasterization
     kili.map <- raster::raster(kili.map)
@@ -75,14 +77,16 @@ kiliAerial <- function(upperLeft, lowerRight, template = NULL,
   ## data retrieval via google
   } else {
     
-    if (!requireNamespace("OpenStreetMap", quietly = TRUE))
+    if (inherits(tps, "try-error")) {
       warning("Package 'OpenStreetMap' is not available. Retrieving image from Google Maps...\n")
+      type = ifelse(type == "bing", "satellite", "terrain")
+    }
     
     if (!(missing("upperLeft") & missing("lowerRight")))
       template <- raster::extent(upperLeft[2], lowerRight[2], 
                                  lowerRight[1], upperLeft[1])
     
-    kili.map <- dismo::gmap(x = template, type = type, ...)
+    kili.map <- dismo::gmap(x = template, type = type, rgb = TRUE, ...)
     
     kili.map <- raster::projectRaster(kili.map, crs = projection, 
                                       method = "ngb")

@@ -25,7 +25,8 @@ defaults to "bing" (only valid if package \strong{OpenStreetMap} is
 available). See \code{openmap} and \code{\link{gmap}} for currently 
 available options.}
 
-\item{...}{Additional arguments passed to the underlying download functions.}
+\item{...}{Additional arguments passed to the underlying download functions, 
+except for 'rgb' in \code{\link[dismo]{gmap}} which is set \code{TRUE}.}
 }
 \value{
 A 3-layered RGB \code{RasterStack}.
