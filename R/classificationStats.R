@@ -50,8 +50,7 @@ classificationStats <- function(prd, obs, prob=NULL, plot=FALSE) {
   HSS <- (TP*TN-FP*FN)/(((TP+FN)*(FN+TN)+(TP+FP)*(FP+TN))/2)
   HKD <- (TP/(TP+FN))-(FP/(FP+TN))
   if (!is.null(prob)){
-    require(pROC)
-    AUC <- as.numeric(roc(obs,prob)$auc)
+    AUC <- as.numeric(pROC::roc(obs,prob)$auc)
     df_all <- data.frame(bias,PFD,FAR,POD,CSI,ETS,HSS,HKD,AUC)
     names(df_all) <- c("Bias","PFD","FAR","POD","CSI","ETS","HSS","HKD","AUC")
   }else{
@@ -101,8 +100,8 @@ classificationStats <- function(prd, obs, prob=NULL, plot=FALSE) {
                        par.settings = envinmr.theme(),
                        cex = 1.2, as.table = TRUE)
     
-    out_plt <- resizePanels(latticeCombineGrid(list(rsq_plt, err_plt),
-                                               layout = c(1, 2)), 
+    out_plt <- resizePanels(Orcs::latticeCombineGrid(list(rsq_plt, err_plt),
+                                                     layout = c(1, 2)), 
                             h = c(1/4, 3/4))
     
     out_plt <- update(out_plt, panel = panel.fun)

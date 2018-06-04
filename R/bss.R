@@ -44,11 +44,10 @@ bss <- function (predictors,
                  tuneGrid = NULL,
                  seed = 100,
                  runParallel = FALSE){
-  require(caret)
   if(runParallel){
-    require(doParallel)
-    cl <- makeCluster(detectCores())
-    registerDoParallel(cl)
+    cl <- parallel::makeCluster(parallel::detectCores())
+    doParallel::registerDoParallel(cl)
+    on.exit(parallel::stopCluster(cl))
   }
   n <- length(names(predictors))
   if(maximize) evalfunc <- function(x){max(x,na.rm=T)}
@@ -79,9 +78,6 @@ bss <- function (predictors,
     acc <- acc+1
     print(paste0("models that still need to be trained: ",
                  2^n-(n+1) - acc))
-  }
-  if(runParallel){
-    stopCluster(cl)
   }
   return(bestmodel)
 }

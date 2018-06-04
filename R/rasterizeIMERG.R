@@ -19,13 +19,11 @@
 #' @aliases rasterizeIMERG
 
 rasterizeIMERG <- function (x, layer="precipitationCal"){
-  require(rgdal)
-  require(raster)
-  result <- raster(readGDAL(paste0("HDF5:",x,"://Grid/",layer)))
-  proj4string(result)<-"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-  result <- t(result)
-  extent(result) <- c(-180,180,-90,90)
+  result <- raster::raster(rgdal::readGDAL(paste0("HDF5:",x,"://Grid/",layer)))
+  raster::projection(result)<-"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+  result <- raster::t(result)
+  raster::extent(result) <- c(-180,180,-90,90)
   result[result<0] <- NA
-  result <- flip(result,2)
+  result <- raster::flip(result,2)
   return(result)
 }

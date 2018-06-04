@@ -6,8 +6,7 @@
 #' There is no specific focus of interest in this collection, some 
 #' functions are very task specific (e.g. \code{\link{roc}} which let's
 #' you create roc curves for land-use classifications), yet others are
-#' very general and widely applicable (e.g. \code{\link{latticeCombineGrid}}
-#' which produces a panel plot based on a list of lattice plot objects).
+#' very general and widely applicable.
 #' 
 #' @name Rsenal-package
 #' @aliases Rsenal
@@ -22,7 +21,7 @@
 #' 
 #' @import methods raster sp rgdal 
 #' @import RColorBrewer lattice latticeExtra grid gridBase gridExtra
-#' @import caret hflights party satellite
+#' @import caret hflights Orcs party satellite
 #' @import parallel doParallel foreach
 #' @importFrom devtools build
 #' @importFrom dismo gmap
@@ -35,6 +34,7 @@
 #' @importFrom maps map
 #' @importFrom plotrix thigmophobe
 #' @importFrom plyr round_any
+#' @importFrom pROC roc
 #' @importFrom Rcpp sourceCpp
 #' @importFrom reshape2 melt
 #' @importFrom rgeos gCentroid
