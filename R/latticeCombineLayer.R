@@ -16,34 +16,20 @@
 #' @author
 #' Tim Appelhans
 #' 
-#' @seealso
-#' \code{\link{as.layer}}
-#' 
-#' @examples
-#' library(latticeExtra)
-#' dat <- list(1:10,
-#'             10:1,
-#'             3:7,
-#'             7:3)
-#' 
-#' plist <- lapply(seq(dat), function(i) {
-#'  tmp <- xyplot(dat[[i]] ~ seq(dat[[i]]),
-#'                type = "l", col = i)
-#' })
-#' 
-#' p <- latticeCombineLayer(plist)
-#' 
-#' print(p)
-#' 
-#' @export latticeCombineLayer
-#' @aliases latticeCombineLayer
+#' @name latticeCombineLayer-deprecated
+#' @usage latticeCombineLayer(trellis.list, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
 
+#' @rdname Rsenal-deprecated
+#' @section \code{latticeCombineLayer}:
+#' For \code{latticeCombineLayer}, use \code{\link[Orcs]{latticeCombineLayer}} 
+#' instead.
+#' 
+#' @export 
 latticeCombineLayer <- function(trellis.list, ...) {
   
-  outLayer <- function(x, y, ...) {
-    x + as.layer(y, ...)
-  }
-  
-  out <- Reduce(outLayer, trellis.list, ...)
-  return(out)
+  .Deprecated("Orcs::latticeCombineLayer", "Rsenal")
+  Orcs::latticeCombineLayer(trellis.list, ...)
 }

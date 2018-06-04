@@ -19,59 +19,24 @@
 #' @author
 #' Tim Appelhans
 #' 
-#' @seealso
-#' \code{\link{c.trellis}}
-#' 
-#' @examples
-#' #load data
-#' #Use a probability map assuming high potential for city expansion is just 
-#' #resulting from proximity to current urban area:
-#' pred <- raster(system.file("probability.rst", package = "Rsenal"))
-#' 
-#' #observed city growth between 1990 and 2006
-#' obs <- raster(system.file("citygrowth.tif", package = "Rsenal"))
-#' 
-#' #masking current urban area since these pixels have no potential for change
-#' mask <- raster(system.file("citymask.tif", package = "Rsenal"))
-#' 
-#' #create data list
-#' dat <- list(pred, obs, mask)
-#' 
-#' #create list of lattice plots
-#' plist <- lapply(seq(dat), function(i) {
-#'   tmp <- spplot(dat[[i]], scales = list(draw = TRUE))
-#' })
-#' 
-#' #draw individually
-#' plist[[1]]
-#' plist[[2]]
-#' plist[[3]]
-#' 
-#' #combine to grid
-#' p <- latticeCombineGrid(plist)
-#' print(p)
-#' 
-#' #change layout
-#' p2 <- latticeCombineGrid(plist, layout = c(1, 3))
-#' print(p2)
-#' 
-#' @export latticeCombineGrid
-#' @aliases latticeCombineGrid
+#' @name latticeCombineGrid-deprecated
+#' @usage latticeCombineGrid(trellis.list, between = list(y = 0.3, x = 0.3)
+#' , as.table = TRUE, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
 
+#' @rdname Rsenal-deprecated
+#' @section \code{latticeCombineGrid}:
+#' For \code{latticeCombineGrid}, use \code{\link[Orcs]{latticeCombineGrid}} 
+#' instead.
+#' 
+#' @export 
 latticeCombineGrid <- function(trellis.list,
                                between = list(y = 0.3, x = 0.3),
                                as.table = TRUE,
                                ...) {
   
-  stopifnot(
-    requireNamespace("lattice"),
-    requireNamespace("latticeExtra")
-  )
-  
-  outLayout <- function(x, y, ...) {
-    update(c(x, y, ...), between = between, as.table = as.table)
-  }
-  
-  out <- Reduce(outLayout, trellis.list)
-  return(out)
+  .Deprecated("Orcs::latticeCombineGrid", "Rsenal")
+  Orcs::latticeCombineGrid(trellis.list, between, as.table, ...)
 }

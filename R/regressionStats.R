@@ -121,15 +121,15 @@ regressionStats <- function(prd, obs, adj.rsq = TRUE, plot = FALSE,
                    rng[2] + 0.2 * rng[2]))
     
     err_plt <- dotplot(nms ~ upr + lwr,
-                       data = df_plt, , 
+                       data = df_plt,
                        xlab = "Value", ylab = "",
                        col = "grey20",
                        pch = "|",
                        par.settings = envinmr.theme(),
                        cex = 1.2, as.table = TRUE)
     
-    out_plt <- resizePanels(latticeCombineGrid(list(rsq_plt, err_plt),
-                                               layout = c(1, 2)), 
+    out_plt <- resizePanels(Orcs::latticeCombineGrid(list(rsq_plt, err_plt),
+                                                     layout = c(1, 2)), 
                             h = c(1/4, 3/4))
     out_plt$y.limits[[2]] <- nms[c(2, 1, 3)]
     

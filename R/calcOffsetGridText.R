@@ -19,7 +19,6 @@
 #' @param ylim Numeric. Y-axis limits (ymin, ymax) of the current plot. If not
 #' supplied, limits are automatically calculated from supplied x and y
 #' coordinates.
-#' @param ... Further arguments. Currently not in use. 
 #' 
 #' @return
 #' A numeric matrix containing offset coordinates.
@@ -27,10 +26,8 @@
 #' @author
 #' Florian Detsch
 #' 
-#' @seealso
-#' \code{\link{grid.text}}, \code{\link{text}}, \code{\link{thigmophobe}}
-#' 
 #' @examples
+#' \dontrun{
 #' # required packages
 #' library(grid)
 #' library(plotrix)
@@ -61,51 +58,28 @@
 #' for (i in 1:nrow(df))
 #'   grid.text(label = df$id[i], x = loc_lbl[i, 1], y = loc_lbl[i, 2],
 #'             just = pos2just(thigmophobe(coordinates(df)))[i])
-#'               
-#' @export calcOffsetGridText
-#' @aliases calcOffsetGridText
-calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL, 
-                               xlim = NULL, ylim = NULL, ...) {
-  
-  if (is.matrix(x)) {
-    y <- x[, 2]
-    x <- x[, 1]
-  }
-  
-  # relative ("npc") pointcoordinates
-  num_xmin <- if (is.null(xlim)) min(x) - .04 * (max(x) - min(x)) else xlim[1]
-  num_xmax <- if (is.null(xlim)) max(x) + .04 * (max(x) - min(x)) else xlim[2]
-  num_xrng <- num_xmax - num_xmin
-  num_x_rel <- (x-num_xmin) / num_xrng
-  
-  num_ymin <- if (is.null(ylim)) min(y) - .04 * (max(y) - min(y)) else ylim[1]
-  num_ymax <- if (is.null(ylim)) max(y) + .04 * (max(y) - min(y)) else ylim[2]
-  num_yrng <- num_ymax - num_ymin
-  num_y_rel <- (y-num_ymin) / num_yrng
-    
-  # best label locations (if 'pos' is not supplied)
-  int_loc_lbl <- if (is.null(pos)) plotrix::thigmophobe(num_x_rel, num_y_rel) else pos
-  ch_loc_lbl <- pos2just(int_loc_lbl)
-  
-  # apply offset to point coordinates
-  ls_off <- lapply(1:length(num_x_rel), function(tmp_cnt) {
+#' }
+#'             
+#' @name calcOffsetGridText-deprecated
+#' @usage calcOffsetGridText(x, y = NULL, offset = 0.02, pos = NULL
+#' , xlim = NULL, ylim = NULL)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
 
-    tmp_x <- num_x_rel[tmp_cnt]
-    tmp_y <- num_y_rel[tmp_cnt]
-    
-    ch_jst <- ch_loc_lbl[tmp_cnt]
-    
-    if (ch_jst %in% c("left", "right")) {
-      if (ch_jst == "left") {tmp_x <- tmp_x+offset} else {tmp_x <- tmp_x-offset}
-    } else {
-      if (ch_jst == "top") {tmp_y <- tmp_y-offset} else {tmp_y <- tmp_y+offset*1.5}
-    }
-    
-    tmp_mat <- matrix(c(tmp_x, tmp_y), byrow = TRUE, ncol = 2)
-
-    return(tmp_mat)
-  })
-
-  mat_off <- do.call("rbind", ls_off)
-  return(mat_off)
+#' @rdname Rsenal-deprecated
+#' @section \code{calcOffsetGridText}:
+#' For \code{calcOffsetGridText}, use \code{\link[Orcs]{offsetGridText}} and 
+#' non-exported \code{Orcs:::calcOffsetGridText} instead.
+#' 
+#' @export
+calcOffsetGridText <- function(x, y = NULL, offset = 0.02, pos = NULL
+                               , xlim = NULL, ylim = NULL) {
+  
+  stopifnot(
+    requireNamespace("Orcs")
+  )
+  
+  .Deprecated("Orcs::offsetGridText", "Rsenal")
+  Orcs:::calcOffsetGridText(x, y, offset, pos, xlim, ylim)
 }

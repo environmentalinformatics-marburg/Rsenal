@@ -16,31 +16,19 @@
 #' @author
 #' Florian Detsch
 #' 
-#' @seealso
-#' \code{\link{text}}, \code{\link{grid.text}}
+#' @name pos2just-deprecated
+#' @usage pos2just(pos, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
+
+#' @rdname Rsenal-deprecated
+#' @section \code{pos2just}:
+#' For \code{pos2just}, use \code{Orcs:::pos2just} instead.
 #' 
-#' @examples  
-#' set.seed(100)
-#' pos <- sample(1:4, 5, replace = TRUE)
-#' 
-#' pos2just(pos)
-#'               
-#' @export pos2just
-#' @aliases pos2just
+#' @export 
 pos2just <- function(pos, ...) {
   
-  sapply(pos, function(x) {
-    if (x == 1) {
-      return("top")
-    } else if (x == 2) {
-      return("right")
-    } else if (x == 3) {
-      return("bottom")
-    } else if (x == 4) {
-      return("left")
-    } else {
-      stop("Invalid position specifier supplied: ", x)
-    }
-  })
-  
+  .Deprecated("Orcs::offsetGridText", "Rsenal")
+  Orcs:::pos2just(pos, ...)
 }

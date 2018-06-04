@@ -30,10 +30,6 @@
 #' @author
 #' Florian Detsch
 #' 
-#' @seealso
-#' \code{\link{grid.text}}, \code{\link{grid.stext}}, \code{\link{thigmophobe}}, 
-#' \code{\link{calcOffsetGridText}}.
-#' 
 #' @examples
 #' \dontrun{
 #' #' bing satellite image of mt. kilimanjaro
@@ -73,38 +69,22 @@
 #'                xlim = xlim_kili, ylim = ylim_kili, stext = TRUE, offset = .02,
 #'                gp = gpar(fontsize = 20, fontfamily = "Bookman Old Style"))
 #' }
-#'                                
-#' @export offsetGridText
-#' @aliases offsetGridText
+#'   
+#' @name offsetGridText-deprecated
+#' @usage offsetGridText(x, y = NULL, labels, xlim = NULL, ylim = NULL, 
+#' pos = NULL, stext = FALSE, offset = 0.02, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
+
+#' @rdname Rsenal-deprecated
+#' @section \code{offsetGridText}:
+#' For \code{offsetGridText}, use \code{\link[Orcs]{offsetGridText}} instead.
+#' 
+#' @export 
 offsetGridText <- function(x, y = NULL, labels, xlim = NULL, ylim = NULL, 
                            pos = NULL, stext = FALSE, offset = .02, ...) {
 
-  if (is.matrix(x)) {
-    y <- x[, 2]
-    x <- x[, 1]
-  }
-  
-  # best label locations (if 'pos' is not supplied)
-  int_loc_lbl <- if (is.null(pos)) plotrix::thigmophobe(x, y) else pos
-  ch_loc_lbl <- pos2just(int_loc_lbl)
-  
-  # calculate offset point coordinates
-  mat_crd_rel_off <- calcOffsetGridText(x = x, y = y, xlim = xlim, ylim = ylim, 
-                                        pos = pos, offset = offset)
-  
-  for (tmp_cnt in 1:nrow(mat_crd_rel_off)) {
-    if (stext) {
-      grid.stext(labels[tmp_cnt], 
-                 x = unit(mat_crd_rel_off[tmp_cnt, 1], "npc"), 
-                 y = unit(mat_crd_rel_off[tmp_cnt, 2], "npc"), 
-                 just = ch_loc_lbl[tmp_cnt], ...)
-    } else {
-      grid.text(labels[tmp_cnt], 
-                x = unit(mat_crd_rel_off[tmp_cnt, 1], "npc"), 
-                y = unit(mat_crd_rel_off[tmp_cnt, 2], "npc"),
-                just = ch_loc_lbl[tmp_cnt], ...)
-    }
-  }
-
-  return(invisible())
+  .Deprecated("Orcs::offsetGridText", "Rsenal")
+  Orcs::offsetGridText(x, y, labels, xlim, ylim, pos, stext, offset, ...)
 }

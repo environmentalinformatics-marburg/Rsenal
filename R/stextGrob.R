@@ -15,41 +15,29 @@
 #' 
 #' @return A text grob created by \code{\link{gTree}}.
 #' 
-#' @seealso \code{\link{grid.text}}.
-#' 
-#' @references \url{https://github.com/baptiste/gridplot/blob/master/R/tmatrix.r} 
-#' (accessed on 12 December 2017).
+#' @references \url{https://rdrr.io/github/baptiste/gridplot/src/R/tmatrix.r} 
+#' (accessed on 04 June 2018).
 #' @author Baptiste Auguie, Florian Detsch
 #' @family grob userlevel
 #' 
-#' @examples
-#' library(grid)
-#' grid.newpage()
-#' grid.rect(gp = gpar(fill = "grey"))
-#' grid.stext("test")
+#' @name stextGrob-deprecated
+#' @aliases stextGrob grid.stext
+#' @usage stextGrob(label, x = unit(0.5, "npc"), y = unit(0.5, "npc")
+#' , col = "white", fill = "black", r = 0.1, gp = gpar(), vp = NULL
+#' , name = NULL, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
+
+#' @rdname Rsenal-deprecated
+#' @section \code{stextGrob}:
+#' For \code{stextGrob}, use \code{\link[Orcs]{stextGrob}} instead.
 #' 
-#' @export
-#' @aliases stextGrob grid.stext 
+#' @export 
 stextGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc")
                       , col = "white", fill = "black", r = 0.1 
                       , gp = gpar(), vp = NULL, name = NULL, ...) {
   
-  let <- textGrob("a")
-  
-  tg <- textGrob(label, x, y, gp = gpar(col = fill), ...)
-  
-  tgl <- c(lapply(seq(0, 2 * pi, length = 18), function(theta) {
-    textGrob(label, x + cos(theta) * r * grobWidth(let),
-             y + sin(theta) * r * grobHeight(let), gp = gpar(col = col), ...)
-  }), list(tg))
-  
-  
-  gTree(children = do.call(gList, tgl), vp = vp, name = name, gp = gp)
-}
-
-#' @export
-grid.stext <- function(...){
-  g <- stextGrob(...)
-  grid.draw(g)
-  invisible(g)
+  .Deprecated("Orcs::stextGrob", "Rsenal")
+  return(Orcs::stextGrob(label, x, y, col, fill, r, gp, vp, name, ...))
 }

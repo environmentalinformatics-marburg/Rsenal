@@ -11,7 +11,6 @@
 #' Tim Appelhans
 #'
 #' @examples
-#' \dontrun{
 #' library(colorspace)
 #' library(viridisLite)
 #' 
@@ -28,8 +27,7 @@
 #'   viewPalette(clrs[[i]], name = names(clrs)[i])
 #' })
 #' 
-#' latticeCombineGrid(out)
-#' }
+#' Orcs::latticeCombineGrid(out)
 #'
 #' @export viewPalette
 #' @aliases viewPalette

@@ -46,10 +46,10 @@ p2
 ## change the colors as you like
 p3 <- envinmrRasterPlot(p2, 
                         col.regions = 
-                         colorRampPalette(brewer.pal(9, "YlGnBu"))(100))
+                        colorRampPalette(brewer.pal(9, "YlGnBu"))(100))
 p3
 
-latticeCombineGrid(list(p2, p1, p3))
+Orcs::latticeCombineGrid(list(p2, p1, p3))
 
 }
 \seealso{

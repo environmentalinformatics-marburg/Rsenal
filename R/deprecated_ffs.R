@@ -47,9 +47,21 @@
 #' ffsmodel$selectedvars
 #' ffsmodel$selectedvars_perf 
 #' }
-#' @export ffs
-#' @aliases ffs
+#' @name ffs-deprecated
+#' @usage ffs(predictors, response, method = "rf"
+#' , metric = ifelse(is.factor(response), "Accuracy", "RMSE")
+#' , maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = FALSE
+#' , trControl = trainControl(), tuneLength = 3, tuneGrid = NULL
+#' , seed = sample(1:1000, 1), runParallel = FALSE, ...)     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
 
+#' @rdname Rsenal-deprecated
+#' @section \code{ffs}:
+#' \code{ffs} is deprecated (no further details available).
+#' 
+#' @export 
 ffs <- function (predictors, 
                  response, 
                  method = "rf",
@@ -62,11 +74,10 @@ ffs <- function (predictors,
                  seed = sample(1:1000, 1),
                  runParallel = FALSE,
                  ...){
-  require(caret)
   if(runParallel){
-    require(doParallel)
-    cl <- makeCluster(detectCores()-2)
-    registerDoParallel(cl)
+    cl <- parallel::makeCluster(parallel::detectCores()-2)
+    doParallel::registerDoParallel(cl)
+    on.exit(parallel::stopCluster(cl))
   }
   n <- length(names(predictors))
   acc <- 0
@@ -188,9 +199,6 @@ ffs <- function (predictors,
       print(paste0(paste0("vars selected: ",paste(selectedvars, collapse = ',')), 
                    " with ",metric," ",round(min(bestmodel$results[,metric]),3)))
     }
-  }
-  if(runParallel){
-    stopCluster(cl)
   }
   bestmodel$selectedvars <- selectedvars
   bestmodel$selectedvars_perf <- selectedvars_perf

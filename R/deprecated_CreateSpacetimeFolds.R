@@ -24,12 +24,20 @@
 #' indices <- CreateSpacetimeFolds(cookfarm$readings,spacevar="SOURCEID",
 #' k=length(unique(cookfarm$readings$SOURCEID)))
 #' }
-#' @export CreateSpacetimeFolds
-#' @aliases CreateSpacetimeFolds
+#' @name CreateSpacetimeFolds-deprecated
+#' @usage CreateSpacetimeFolds(x, spacevar = NA, timevar = NA, k = 10
+#' , seed = sample(1:1000, 1))     
+#' @seealso \code{\link{Rsenal-deprecated}}  
+#' @keywords internal
+NULL
 
+#' @rdname Rsenal-deprecated
+#' @section \code{CreateSpacetimeFolds}:
+#' \code{CreateSpacetimeFolds} is deprecated (no further details available).
+#' 
+#' @export 
 CreateSpacetimeFolds <- function(x,spacevar=NA,timevar=NA,
                                  k=10,seed=sample(1:1000, 1)){
-  require(caret)
   #split space into k folds
   if(!is.na(spacevar)){
     set.seed(seed)
