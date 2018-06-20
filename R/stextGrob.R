@@ -21,7 +21,6 @@
 #' @family grob userlevel
 #' 
 #' @name stextGrob-deprecated
-#' @aliases stextGrob grid.stext
 #' @usage stextGrob(label, x = unit(0.5, "npc"), y = unit(0.5, "npc")
 #' , col = "white", fill = "black", r = 0.1, gp = gpar(), vp = NULL
 #' , name = NULL, ...)     

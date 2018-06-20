@@ -2,8 +2,6 @@
 % Please edit documentation in R/stextGrob.R
 \name{stextGrob-deprecated}
 \alias{stextGrob-deprecated}
-\alias{stextGrob}
-\alias{grid.stext}
 \title{Draw Shadow Text}
 \usage{
 stextGrob(label, x = unit(0.5, "npc"), y = unit(0.5, "npc")
