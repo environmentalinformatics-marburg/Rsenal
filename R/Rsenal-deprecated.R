@@ -9,6 +9,7 @@
 #' \itemize{
 #'   \item \code{\link[Rsenal]{bumpVersion-deprecated}}
 #'   \item \code{\link[Rsenal]{calcOffsetGridText-deprecated}}
+#'   \item \code{\link[Rsenal]{compareDistributions-deprecated}}
 #'   \item \code{\link[Rsenal]{CreateSpacetimeFolds-deprecated}}
 #'   \item \code{\link[Rsenal]{ffs-deprecated}}
 #'   \item \code{\link[Rsenal]{latticeCombineGrid-deprecated}}
