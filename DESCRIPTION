@@ -1,10 +1,10 @@
 Package: Rsenal
 Type: Package
 Title: Magic R Functions for Things Various
-Version: 0.6.8
-Date: 2018-06-20
-Author: Tim Appelhans, Florian Detsch, Insa Otte, Meike Kuehnlein, Hanna Meyer,
-    Spaska Forteva, Thomas Nauss
+Version: 0.6.9
+Date: 2018-09-20
+Author: Tim Appelhans, Insa Otte, Meike Kuehnlein, Hanna Meyer,
+    Spaska Forteva, Thomas Nauss, Florian Detsch
 Maintainer: Florian Detsch <fdetsch@web.de>
 Description: A compilation of R functions which we find useful for our day-to-
     day business. Note that you are dealing with work in progress here, so we assume
@@ -59,4 +59,5 @@ Suggests:
     viridisLite
 LinkingTo: Rcpp
 RoxygenNote: 6.1.0
+Encoding: UTF-8
 SystemRequirements: GNU make

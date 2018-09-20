@@ -19,15 +19,15 @@
 \alias{stextGrob}
 \title{Deprecated functions in \pkg{Rsenal}}
 \usage{
-bumpVersion(element = "patch", pkg.repo = ".", news = file.path(pkg.repo,
-  "NEWS.md"), plain_news = TRUE)
+bumpVersion(element = "patch", pkg.repo = ".",
+  news = file.path(pkg.repo, "NEWS.md"), plain_news = TRUE)
 
-calcOffsetGridText(x, y = NULL, offset = 0.02, pos = NULL, xlim = NULL,
-  ylim = NULL)
+calcOffsetGridText(x, y = NULL, offset = 0.02, pos = NULL,
+  xlim = NULL, ylim = NULL)
 
-compareDistributions(left, right, add.spread = TRUE, print.stats = TRUE,
-  xlim = NULL, ylim = NULL, clrs = c("purple", "lightblue"),
-  xlab = "density", ylab = "value", ...)
+compareDistributions(left, right, add.spread = TRUE,
+  print.stats = TRUE, xlim = NULL, ylim = NULL, clrs = c("purple",
+  "lightblue"), xlab = "density", ylab = "value", ...)
 
 CreateSpacetimeFolds(x, spacevar = NA, timevar = NA, k = 10,
   seed = sample(1:1000, 1))

@@ -4,8 +4,8 @@
 \alias{vectorHarmonics}
 \title{Fit harmonic trend model to time-series values}
 \usage{
-vectorHarmonics(x, frq = 12L, st = c(1982, 1), nd = c(1986, 12), m = 2L,
-  fun = median)
+vectorHarmonics(x, frq = 12L, st = c(1982, 1), nd = c(1986, 12),
+  m = 2L, fun = median)
 }
 \arguments{
 \item{x}{Numeric. A vector containing time-series values.}

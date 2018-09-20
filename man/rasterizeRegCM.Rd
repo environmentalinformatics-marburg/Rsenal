@@ -4,8 +4,8 @@
 \alias{rasterizeRegCM}
 \title{Rasterize RegCM outout}
 \usage{
-rasterizeRegCM(x, lat, lon, res = NULL, transpose = TRUE, rotate = c("x",
-  "y"), targetcrs = "+init=epsg:3031")
+rasterizeRegCM(x, lat, lon, res = NULL, transpose = TRUE,
+  rotate = c("x", "y"), targetcrs = "+init=epsg:3031")
 }
 \arguments{
 \item{x}{A Raster layer or raster stack containing the values}
