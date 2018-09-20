@@ -66,7 +66,7 @@ This validation is particulary suitable for
 leave-one-station-out cross validations where variable selection
 MUST be based on the performance of the model on the hold out station.
 A computational time expesnsive alternative is the best subset
-selection (\code{\link{bss}}).
+selection (\code{bss}).
 }
 \examples{
  \dontrun{
@@ -77,7 +77,7 @@ ffsmodel$selectedvars_perf
 }
 }
 \seealso{
-\code{\link{train}},  \code{\link{bss}}, 
+\code{\link{train}},  \code{bss}, 
 \code{\link{trainControl}},\code{\link{rfe}}
 
 \code{\link{Rsenal-deprecated}}
