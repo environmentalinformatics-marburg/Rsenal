@@ -21,7 +21,7 @@
 #' 
 #' @import methods raster sp rgdal 
 #' @import RColorBrewer lattice latticeExtra grid gridBase gridExtra
-#' @import caret hflights Orcs party satellite
+#' @import caret hflights party satellite
 #' @import parallel doParallel foreach
 #' @importFrom devtools build
 #' @importFrom dismo gmap
@@ -32,6 +32,7 @@
 #' @importFrom grDevices cm.colors colorRampPalette hcl
 #' @importFrom landsat histmatch
 #' @importFrom maps map
+#' @importFrom Orcs bumpVersion compareDistributions latticeCombineGrid latticeCombineLayer offsetGridText rgb2spLayout stextGrob
 #' @importFrom plotrix thigmophobe
 #' @importFrom plyr round_any
 #' @importFrom pROC roc
