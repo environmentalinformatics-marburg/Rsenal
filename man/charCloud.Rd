@@ -4,10 +4,19 @@
 \alias{charCloud}
 \title{create a word cloud from a character string}
 \usage{
-charCloud(txt, exclude = NULL, nwords = 180, min.char.length = 5,
-  max.char.length = 30, clrs = c("#8c510a", "#bf812d", "#35978f",
-  "#01665e", "#7fbc41", "#4d9221"), seed = 123, wmin = NULL,
-  stat = FALSE, sortby = c("freq, names"), ...)
+charCloud(
+  txt,
+  exclude = NULL,
+  nwords = 180,
+  min.char.length = 5,
+  max.char.length = 30,
+  clrs = c("#8c510a", "#bf812d", "#35978f", "#01665e", "#7fbc41", "#4d9221"),
+  seed = 123,
+  wmin = NULL,
+  stat = FALSE,
+  sortby = c("freq, names"),
+  ...
+)
 }
 \arguments{
 \item{txt}{character string from which the cloud will be computed}

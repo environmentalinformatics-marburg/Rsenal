@@ -4,8 +4,12 @@
 \alias{varsRfeCV}
 \title{extract cross-validated important variables}
 \usage{
-varsRfeCV(rfe.model, metric = rfe.model$metric, maximize = FALSE,
-  sderror = TRUE)
+varsRfeCV(
+  rfe.model,
+  metric = rfe.model$metric,
+  maximize = FALSE,
+  sderror = TRUE
+)
 }
 \arguments{
 \item{rfe.model}{a rfe model. See \code{\link[caret]{rfe}}}

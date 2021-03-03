@@ -4,8 +4,13 @@
 \alias{installEIPkgs}
 \title{Download and install packages for envin-umr}
 \usage{
-installEIPkgs(cran.pkgs = NULL, git.pkgs = NULL, check = TRUE,
-  update = FALSE, ...)
+installEIPkgs(
+  cran.pkgs = NULL,
+  git.pkgs = NULL,
+  check = TRUE,
+  update = FALSE,
+  ...
+)
 }
 \arguments{
 \item{cran.pkgs}{\code{character} vector of packages to be installed from 

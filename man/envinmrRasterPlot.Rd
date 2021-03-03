@@ -4,8 +4,15 @@
 \alias{envinmrRasterPlot}
 \title{modify spplot objects}
 \usage{
-envinmrRasterPlot(spplot.obj, rot = 90, col, key.cex = 1, width = 1,
-  height = 0.75, ...)
+envinmrRasterPlot(
+  spplot.obj,
+  rot = 90,
+  col,
+  key.cex = 1,
+  width = 1,
+  height = 0.75,
+  ...
+)
 }
 \arguments{
 \item{spplot.obj}{the \code{\link{spplot}} object to be modified}

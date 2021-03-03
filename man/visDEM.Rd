@@ -4,9 +4,15 @@
 \alias{visDEM}
 \title{Display Contour Lines}
 \usage{
-visDEM(dem, zlevs.conts = seq(1000, 5500, 500), labels = c(1000, "",
-  2000, "", 3000, "", 4000, "", 5000, ""), cex = 1.8, col = "grey50",
-  labcex = 1, ...)
+visDEM(
+  dem,
+  zlevs.conts = seq(1000, 5500, 500),
+  labels = c(1000, "", 2000, "", 3000, "", 4000, "", 5000, ""),
+  cex = 1.8,
+  col = "grey50",
+  labcex = 1,
+  ...
+)
 }
 \arguments{
 \item{dem}{DEM as \code{RasterLayer} or \code{character} file path.}

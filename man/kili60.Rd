@@ -4,10 +4,12 @@
 \name{kili60}
 \alias{kili60}
 \title{KiLi FOR1246 PlotIDs}
-\format{a data frame with the following columns\cr
+\format{
+a data frame with the following columns\cr
 \cr
 PlotID    : factor with levels ordered according to their mean elevation\cr
-Elevation  : numeric\cr}
+Elevation  : numeric\cr
+}
 \description{
 data frame of KiLi FOR1246 PlotIDs and respective elevations
 }

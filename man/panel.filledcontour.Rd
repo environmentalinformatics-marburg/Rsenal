@@ -4,10 +4,23 @@
 \alias{panel.filledcontour}
 \title{create smooth contour fills for lattice levelplots}
 \usage{
-panel.filledcontour(x, y, z, subscripts, fill.contours = TRUE, at,
-  contours = TRUE, at.contours = NULL, col.regions = cm.colors,
-  col = col.regions(length(at) - 1), col.contours = "black",
-  lty.contours = 1, lwd.contours = 1, draw.labels = TRUE, ...)
+panel.filledcontour(
+  x,
+  y,
+  z,
+  subscripts,
+  fill.contours = TRUE,
+  at,
+  contours = TRUE,
+  at.contours = NULL,
+  col.regions = cm.colors,
+  col = col.regions(length(at) - 1),
+  col.contours = "black",
+  lty.contours = 1,
+  lwd.contours = 1,
+  draw.labels = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{vector}

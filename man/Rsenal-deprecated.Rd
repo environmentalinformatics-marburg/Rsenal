@@ -19,40 +19,95 @@
 \alias{stextGrob}
 \title{Deprecated functions in \pkg{Rsenal}}
 \usage{
-bumpVersion(element = "patch", pkg.repo = ".",
-  news = file.path(pkg.repo, "NEWS.md"), plain_news = TRUE)
+bumpVersion(
+  element = "patch",
+  pkg.repo = ".",
+  news = file.path(pkg.repo, "NEWS.md"),
+  plain_news = TRUE
+)
 
-calcOffsetGridText(x, y = NULL, offset = 0.02, pos = NULL,
-  xlim = NULL, ylim = NULL)
+calcOffsetGridText(
+  x,
+  y = NULL,
+  offset = 0.02,
+  pos = NULL,
+  xlim = NULL,
+  ylim = NULL
+)
 
-compareDistributions(left, right, add.spread = TRUE,
-  print.stats = TRUE, xlim = NULL, ylim = NULL, clrs = c("purple",
-  "lightblue"), xlab = "density", ylab = "value", ...)
+compareDistributions(
+  left,
+  right,
+  add.spread = TRUE,
+  print.stats = TRUE,
+  xlim = NULL,
+  ylim = NULL,
+  clrs = c("purple", "lightblue"),
+  xlab = "density",
+  ylab = "value",
+  ...
+)
 
-CreateSpacetimeFolds(x, spacevar = NA, timevar = NA, k = 10,
-  seed = sample(1:1000, 1))
+CreateSpacetimeFolds(
+  x,
+  spacevar = NA,
+  timevar = NA,
+  k = 10,
+  seed = sample(1:1000, 1)
+)
 
-ffs(predictors, response, method = "rf",
+ffs(
+  predictors,
+  response,
+  method = "rf",
   metric = ifelse(is.factor(response), "Accuracy", "RMSE"),
-  maximize = ifelse(metric == "RMSE", FALSE, TRUE), withinSD = FALSE,
-  trControl = trainControl(), tuneLength = 3, tuneGrid = NULL,
-  seed = sample(1:1000, 1), runParallel = FALSE, ...)
+  maximize = ifelse(metric == "RMSE", FALSE, TRUE),
+  withinSD = FALSE,
+  trControl = trainControl(),
+  tuneLength = 3,
+  tuneGrid = NULL,
+  seed = sample(1:1000, 1),
+  runParallel = FALSE,
+  ...
+)
 
-latticeCombineGrid(trellis.list, between = list(y = 0.3, x = 0.3),
-  as.table = TRUE, ...)
+latticeCombineGrid(
+  trellis.list,
+  between = list(y = 0.3, x = 0.3),
+  as.table = TRUE,
+  ...
+)
 
 latticeCombineLayer(trellis.list, ...)
 
-offsetGridText(x, y = NULL, labels, xlim = NULL, ylim = NULL,
-  pos = NULL, stext = FALSE, offset = 0.02, ...)
+offsetGridText(
+  x,
+  y = NULL,
+  labels,
+  xlim = NULL,
+  ylim = NULL,
+  pos = NULL,
+  stext = FALSE,
+  offset = 0.02,
+  ...
+)
 
 pos2just(pos, ...)
 
 rgb2spLayout(x, quantiles = c(0.02, 0.98), alpha = 1)
 
-stextGrob(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
-  col = "white", fill = "black", r = 0.1, gp = gpar(), vp = NULL,
-  name = NULL, ...)
+stextGrob(
+  label,
+  x = unit(0.5, "npc"),
+  y = unit(0.5, "npc"),
+  col = "white",
+  fill = "black",
+  r = 0.1,
+  gp = gpar(),
+  vp = NULL,
+  name = NULL,
+  ...
+)
 }
 \description{
 The functions listed below are deprecated and will be defunct in

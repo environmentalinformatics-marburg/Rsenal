@@ -4,7 +4,9 @@
 \name{gmap_hel}
 \alias{gmap_hel}
 \title{Google Maps aerial image of HEL1}
-\format{\code{raster::RasterBrick}}
+\format{
+\code{raster::RasterBrick}
+}
 \description{
 This aerial image was downloaded from Google Maps and covers the 
 research plot HEL1 declared within the framework of the research unit 

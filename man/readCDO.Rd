@@ -4,8 +4,7 @@
 \alias{readCDO}
 \title{Read climate station data from "Climate Data Online"}
 \usage{
-readCDO(file = "", data = "HourlyGlobal", advanced = TRUE,
-  sep = ",")
+readCDO(file = "", data = "HourlyGlobal", advanced = TRUE, sep = ",")
 }
 \arguments{
 \item{file}{The name of the file the data are to be read from.}

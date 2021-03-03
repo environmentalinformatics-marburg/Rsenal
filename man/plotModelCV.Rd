@@ -4,8 +4,15 @@
 \alias{plotModelCV}
 \title{plot cross-validated variable importance}
 \usage{
-plotModelCV(model, metric = model$metric, tuningValue = "Variables",
-  xlim = "minmax", ylim = "minmax", sderror = FALSE, grid = TRUE)
+plotModelCV(
+  model,
+  metric = model$metric,
+  tuningValue = "Variables",
+  xlim = "minmax",
+  ylim = "minmax",
+  sderror = FALSE,
+  grid = TRUE
+)
 }
 \arguments{
 \item{model}{A rfe or train object. See \code{\link[caret]{rfe}} and \code{\link[caret]{train}}}

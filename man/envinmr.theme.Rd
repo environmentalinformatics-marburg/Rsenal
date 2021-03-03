@@ -4,8 +4,7 @@
 \alias{envinmr.theme}
 \title{Environmental Informatics Marburg lattice plotting theme}
 \usage{
-envinmr.theme(win.fontfamily = NULL, with.bg = FALSE, box = "black",
-  ...)
+envinmr.theme(win.fontfamily = NULL, with.bg = FALSE, box = "black", ...)
 }
 \arguments{
 \item{win.fontfamily}{character font family.}

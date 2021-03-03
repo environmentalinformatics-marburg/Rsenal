@@ -4,10 +4,12 @@
 \name{kili12}
 \alias{kili12}
 \title{KiLi FOR1246 Habitats}
-\format{a data frame with the following columns\cr
+\format{
+a data frame with the following columns\cr
 \cr
 Habitat    : factor with levels ordered according to their mean elevation\cr
-Elevation  : numeric\cr}
+Elevation  : numeric\cr
+}
 \description{
 data frame of KiLi FOR1246 Habitats and respective elevations
 }

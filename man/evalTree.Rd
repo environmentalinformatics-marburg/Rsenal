@@ -4,8 +4,16 @@
 \alias{evalTree}
 \title{Evaluate performance of a conditional inference tree}
 \usage{
-evalTree(independ = NULL, depend, data, seed = 10L, size = 1000L,
-  minbucket = 100L, n.cores = 1L, ...)
+evalTree(
+  independ = NULL,
+  depend,
+  data,
+  seed = 10L,
+  size = 1000L,
+  minbucket = 100L,
+  n.cores = 1L,
+  ...
+)
 }
 \arguments{
 \item{independ}{numeric. Column index(es) of independent variable(s).}

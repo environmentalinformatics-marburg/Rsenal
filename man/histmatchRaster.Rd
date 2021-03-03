@@ -4,8 +4,15 @@
 \alias{histmatchRaster}
 \title{histogram matching for RasterLayers}
 \usage{
-histmatchRaster(x, y, ttab = FALSE, minval = NULL, maxval = NULL,
-  by = NULL, ...)
+histmatchRaster(
+  x,
+  y,
+  ttab = FALSE,
+  minval = NULL,
+  maxval = NULL,
+  by = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{RasterLayer to be adjusted}

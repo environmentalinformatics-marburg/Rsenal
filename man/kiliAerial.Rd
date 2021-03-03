@@ -4,8 +4,14 @@
 \alias{kiliAerial}
 \title{Retrieve a Bing (or Google) Maps Aerial Image}
 \usage{
-kiliAerial(upperLeft, lowerRight, template = NULL,
-  projection = "+init=epsg:4326", type = "bing", ...)
+kiliAerial(
+  upperLeft,
+  lowerRight,
+  template = NULL,
+  projection = "+init=epsg:4326",
+  type = "bing",
+  ...
+)
 }
 \arguments{
 \item{upperLeft, lowerRight}{\code{numeric}. Bounding box coordinates in the 

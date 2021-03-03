@@ -22,7 +22,7 @@ based on its sensitivity, the assumed prevalence of the effect and the
 specificity of the test.
 }
 \examples{
-## reproducing Figure 1 from \\url{http://rsos.royalsocietypublishing.org/content/1/3/140216}
+## reproducing Figure 1 from \url{http://rsos.royalsocietypublishing.org/content/1/3/140216}
 n <- 10000
 prev <- 0.01
 sens <- 0.8
