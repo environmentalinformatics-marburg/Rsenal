@@ -19,7 +19,7 @@
 #' 
 #' @keywords package
 #' 
-#' @import methods raster sp rgdal 
+#' @import methods raster sp rgdal stars
 #' @import RColorBrewer lattice latticeExtra grid gridBase gridExtra
 #' @import caret hflights party satellite
 #' @import parallel doParallel foreach

@@ -2,22 +2,24 @@
 % Please edit documentation in R/vvi.R
 \name{vvi}
 \alias{vvi}
+\alias{vvi,missing-method}
+\alias{vvi,Raster-method}
+\alias{vvi,stars-method}
 \title{Visible vegetation index}
 \usage{
-vvi(rgb, r = 1, g = 2, b = 3)
+\S4method{vvi}{missing}(r = 1, g = 2, b = 3)
+
+\S4method{vvi}{Raster}(x, r = 1, g = 2, b = 3)
+
+\S4method{vvi}{stars}(x, r = 1, g = 2, b = 3)
 }
 \arguments{
-\item{rgb}{A \code{RasterStack} or \code{RasterBrick} object. 3
-bands are mandatory (usually red, green and blue).}
+\item{r, g, b}{Band numbers as \code{integer}.}
 
-\item{r}{Integer, defaults to '1'. Index of the red channel.}
-
-\item{g}{Integer, defaults to '2'. Index of the green channel.}
-
-\item{b}{Integer, defaults to '3'. Index of the blue channel.}
+\item{x}{A \code{Raster} or \code{stars} object.}
 }
 \value{
-A VVI \code{RasterLayer}.
+A VVI \code{RasterLayer} or \code{stars} object.
 }
 \description{
 This function calculates a visible vegetation index (VVI) from a RGB 
@@ -29,12 +31,13 @@ library(RColorBrewer)
 data(gmap_hel)
 plotRGB(gmap_hel)
 
-gmap_hel_veg <- vvi(gmap_hel)
+gmap_hel_veg = vvi(gmap_hel)
 plot(gmap_hel_veg, col = brewer.pal(5, "BrBG"), alpha = .5, add = TRUE)
 
 }
 \references{
-Planetary Habitability Laboratory (2015): Visible Vegetation Index (VVI). Available online via \url{http://phl.upr.edu/projects/visible-vegetation-index-vvi}.
+Planetary Habitability Laboratory (2015): Visible Vegetation Index (VVI). 
+Available online: \url{http://phl.upr.edu/projects/visible-vegetation-index-vvi}.
 }
 \author{
 Florian Detsch, Tim Appelhans
