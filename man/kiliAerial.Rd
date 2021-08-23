@@ -55,8 +55,8 @@ plotRGB(img)
 \references{
 Detsch F, Otte I, Appelhans T, Hemp A, Nauss T (2016) Seasonal and long-term 
 vegetation dynamics from 1-km GIMMS-based NDVI time series at Mt. 
-Kilimanjaro, Tanzania. Remote Sensing of Environment 178: 70-83. Available 
-online at \url{http://dx.doi.org/10.1016/j.rse.2016.03.007}.
+Kilimanjaro, Tanzania. Remote Sensing of Environment 178: 70-83, 
+\doi{10.1016/j.rse.2016.03.007}.
 }
 \seealso{
 \code{openmap} and \code{openproj} in \strong{OpenStreetMap}, 
