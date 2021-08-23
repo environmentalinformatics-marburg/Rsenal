@@ -3,9 +3,8 @@ Rsenal
 
 magic R functions for things various
 
-Currently you have to install this packages from the cran archive.
+Currently you have to install these packages from the CRAN archive:
 
 ```
-devtools::install_url('https://cran.r-project.org/src/contrib/Archive/SDMTools/SDMTools_1.1-221.2.tar.gz')
-devtools::install_url('https://cran.r-project.org/src/contrib/Archive/TSA/TSA_1.2.1.tar.gz')
+remotes::install_version("SDMTools", version = "1.1-221.2")
 ```
