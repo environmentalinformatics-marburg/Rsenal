@@ -14,6 +14,15 @@ remotes::install_version(
 )
 ```
 
+In addition, issues with **gdalUtils** might occur ("ERROR: dependency ‘gdalUtils’ is not available for package ‘Rsenal’"). These can be resolved with:
+
+```r
+remotes::install_version(
+    "gdalUtils"
+    , version = "2.0.1.7"
+)
+```
+
 Then, install **Rsenal** as follows:
 
 ```r
